@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Projeto Tutor 360
 
-## Getting Started
+<p align="center">
+  <img src="https://example.com/seu-logo.png" alt="Logo do projeto" width="200"/>
+</p>
 
-First, run the development server:
+## Sobre o Projeto
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Transformando aprendizado em ação e sonhos em conquistas.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Na Tutor 360, capacitamos jovens para desenvolverem habilidades práticas e adquirirem conhecimentos essenciais que os preparem para transformar desafios em oportunidades. Nosso trabalho vai além do ensino teórico: buscamos inspirar, empoderar e preparar nossos alunos para aplicarem o que aprendem no dia a dia, conquistando objetivos pessoais e profissionais.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Funcionalidades Chave
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Mais de 40 cursos:** Conteúdo abrangente em empreendedorismo, finanças, vendas e soft skills.
+- **Aprendizado Prático e Dinâmico:** Uso de atividades reais e projetos interativos.
+- **Mentorias Personalizadas:** Acompanhamento individualizado para potencializar o desenvolvimento.
+- **Tecnologia de Ponta:** Uma plataforma intuitiva, acessível e envolvente.
+- **Rede de Networking:** Conexão com outros jovens, mentores e profissionais experientes.
 
-## Learn More
+## Como Executar o Projeto Localmente
 
-To learn more about Next.js, take a look at the following resources:
+Siga os passos abaixo para rodar o projeto em sua máquina.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Pré-requisitos
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Node.js (versão 18.x ou superior)
+- Yarn ou npm
 
-## Deploy on Vercel
+### Instalação
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Clone este repositório:
+   ```bash
+   git clone [https://www.youtube.com/shorts/apr341idq8U](https://www.youtube.com/shorts/apr341idq8U)
