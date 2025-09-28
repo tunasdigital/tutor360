@@ -1,31 +1,392 @@
+/* =======================================================================
+   IMPORTS
+   ======================================================================= */
 @import '~bootstrap/scss/bootstrap';
 @import 'swiper/css/bundle';
 @import "slick-carousel/slick/slick.css";
-@import '../../public/assets/scss/main.scss'; // Estilo principal
+@import '../../public/assets/scss/main.scss'; // Estilos base do tema
 
-/* --- SOBRESCRITA DE ESTILOS TUTOR 360 (FINAL) --- */
 
-/* 1. CORREÇÃO DA VISIBILIDADE E ALINHAMENTO DO MENU PRINCIPAL */
-.main-menu ul li a {
-    color: var(--tp-heading-primary, #1A1A1A) !important; /* Cor do texto do menu: Preto */
+/* =======================================================================
+   VARIÁVEIS (CSS Custom Properties)
+   ======================================================================= */
+:root{
+  /* Alturas do header */
+  --t360-hdr-desktop: 72px;     /* ≥ 1200px */
+  --t360-hdr-tablet: 66px;      /* 992–1199 */
+  --t360-hdr-mobile: 60px;      /* ≤ 991 */
+
+  /* Altura de links/botões do topo e logo */
+  --t360-link-height: 44px;
+  --t360-logo-height: 36px;
+
+  /* Pill de Categoria */
+  --t360-cat-pill-bg: #eef4ff;
+  --t360-cat-pill-text: #1d4ed8;
+  --t360-cat-pill-icon: #1d4ed8;
+
+  /* Ícones do topo */
+  --t360-icon: #111827;          /* preto */
+  --t360-icon-hover-bg: #1d4ed8; /* azul (hover) */
+
+  /* Texto padrão de links do menu/dropdown */
+  --t360-menu-text: #1A1A1A;
 }
 
-/* 2. ESTILOS DO BOTÃO CATEGORIA */
-.tp-header-category .tp-category-btn {
-    background-color: var(--tp-theme-primary, #0055FF) !important; /* Fundo: Azul Principal */
-    border-color: var(--tp-theme-primary, #0055FF) !important; 
-    color: #fff !important; /* Texto do botão: Branco */
-    border-radius: 8px !important; /* Bordas arredondadas */
-    padding: 8px 18px; 
+
+/* =======================================================================
+   HEADER – BASE / ALTURA / ALINHAMENTO
+   ======================================================================= */
+.header-area{
+  background: #fff !important;
+  box-shadow: 0 1px 0 rgba(16,24,40,.06);
+  z-index: 999 !important;
 }
 
-/* Garante que o ícone do botão Categoria seja branco */
-.tp-header-category .tp-category-btn i {
-    color: #fff !important;
-    margin-right: 8px; 
+.header-area .tp-header-menu-area{
+  height: var(--t360-hdr-desktop) !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  display: flex;
+  align-items: center;
 }
 
-/* 3. CORREÇÃO DE ESPAÇAMENTO */
-.header-area {
-    padding-top: 15px; /* Adiciona um espaço no topo */
+.header-area .tp-header-menu-area > .container,
+.header-area .tp-header-menu-area > .container > .row{
+  height: 100% !important;
+  align-items: center !important;
+}
+
+.header-area .tp-header-menu-area [class*="col-"]{
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.header-area .tp-header-menu-area [class*="col-"] > *{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* remove espaçadores que alguns demos inserem */
+.header-space,
+.tp-header-space,
+.tp-header-gap{
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* primeira dobra sem “vão” extra */
+main > section:first-of-type{ margin-top: 0 !important; }
+
+/* sticky mantém a mesma altura */
+.is-sticky .tp-header-menu-area,
+.tp-header-sticky .tp-header-menu-area{
+  height: var(--t360-hdr-desktop) !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+
+/* =======================================================================
+   LOGO – troca normal/sticky (logo-1 ↔ logo-2)
+   ======================================================================= */
+.tp-header-logo a{
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+}
+.tp-header-logo img,
+.tp-header-logo-1 img,
+.tp-header-logo .logo-1,
+.tp-header-logo .logo-2{
+  display: block;
+  max-height: var(--t360-logo-height);
+  width: auto;
+  height: auto;
+}
+.tp-header-logo .logo-1{ display: block; }
+.tp-header-logo .logo-2{ display: none;  }
+.is-sticky .tp-header-logo .logo-1{ display: none; }
+.is-sticky .tp-header-logo .logo-2{ display: block; }
+
+
+/* =======================================================================
+   CENTRO DO HEADER (Categoria + Menu) SEM QUEBRA
+   ======================================================================= */
+@media (min-width: 1200px){
+  .tp-header-center{
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px;                 /* espaço entre o pill e o menu */
+    flex-wrap: nowrap !important;
+    min-width: 0;
+  }
+
+  .tp-header-center .tp-header-category{
+    margin: 0 !important;
+    padding: 0 !important;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .tp-header-center .main-menu{
+    flex: 1 1 auto;
+    display: flex !important;
+    align-items: center !important;
+    min-width: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .tp-header-center .main-menu > ul{
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 8px;
+  }
+}
+
+
+/* =======================================================================
+   MENU – LINKS + CARET PRETO
+   ======================================================================= */
+.main-menu > ul > li > a{
+  display: inline-flex !important;
+  align-items: center !important;
+  height: var(--t360-link-height) !important;
+  line-height: 1 !important;
+  padding: 0 16px !important;        /* reduza p/ 12px se faltar espaço */
+  color: var(--t360-menu-text) !important;
+}
+
+/* caret ↓ */
+.main-menu ul li.has-dropdown > a::after,
+.main-menu ul li.menu-item-has-children > a::after{
+  content: "\f107";                   /* Font Awesome */
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  margin-left: 5px;
+  font-size: 14px;
+  display: inline-block;
+  color: #000 !important;             /* PRETO */
+  line-height: 1;
+}
+
+
+/* =======================================================================
+   DROPDOWNS – cores dos links
+   ======================================================================= */
+/* container do dropdown */
+.header-area .main-menu ul ul,
+.header-area .main-menu .tp-submenu,
+.header-area .main-menu .submenu,
+.header-area .main-menu .sub-menu,
+.header-area .main-menu .tp-mega-menu{
+  background: #fff !important;
+  border: 1px solid #eef2f7 !important;
+  box-shadow: 0 10px 24px rgba(2,6,23,.08) !important;
+}
+
+/* links de qualquer submenu/mega */
+.header-area .main-menu ul ul li > a,
+.header-area .main-menu ul .submenu li > a,
+.header-area .main-menu ul .sub-menu li > a,
+.header-area .main-menu ul .tp-submenu li > a,
+.header-area .main-menu ul .tp-mega-menu a,
+.header-area .main-menu ul li .dropdown-menu a{
+  color: var(--t360-menu-text) !important;   /* PRETO */
+  font-weight: 500;
+  padding: 10px 16px !important;
+  line-height: 1.3;
+}
+
+/* hover/focus nos itens do dropdown */
+.header-area .main-menu ul ul li > a:hover,
+.header-area .main-menu ul .submenu li > a:hover,
+.header-area .main-menu ul .sub-menu li > a:hover,
+.header-area .main-menu ul .tp-submenu li > a:hover,
+.header-area .main-menu ul .tp-mega-menu a:hover,
+.header-area .main-menu ul li .dropdown-menu a:hover{
+  color: #1d4ed8 !important;          /* AZUL */
+  background: rgba(29,78,216,.06) !important;
+  border-radius: 8px;
+  outline: none;
+}
+
+/* fallback bruto: pinta qualquer texto dentro do dropdown se algo escapar */
+.header-area .main-menu ul ul *{ color: var(--t360-menu-text) !important; }
+
+
+/* =======================================================================
+   BOTÃO “CATEGORIA” (pill estilo Acadia)
+   ======================================================================= */
+.tp-header-category{ margin-right: 8px; }
+
+.tp-header-category .tp-category-btn{
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px;
+  height: var(--t360-link-height) !important;
+  padding: 0 16px !important;
+  border-radius: 9999px !important;
+  background: var(--t360-cat-pill-bg) !important;
+  color: var(--t360-cat-pill-text) !important;
+  font-weight: 600;
+  border: 1px solid rgba(29,78,216,.12) !important;
+  text-decoration: none;
+  line-height: 1;
+}
+
+/* o seu ícone pode ser <i>, <svg> ou <span class="icon"> */
+.tp-header-category .tp-category-btn i{
+  color: var(--t360-cat-pill-icon) !important;
+}
+.tp-header-category .tp-category-btn .icon{
+  display: inline-flex; width: 18px; height: 18px;
+}
+.tp-header-category .tp-category-btn .icon svg,
+.tp-header-category .tp-category-btn .icon svg *,
+.tp-header-category .tp-category-btn .icon path{
+  fill: var(--t360-cat-pill-icon) !important;
+  stroke: none !important;
+}
+
+
+/* =======================================================================
+   COLUNA DIREITA (ícones)
+   ======================================================================= */
+.tp-header-contact{ gap: 14px; }
+
+/* Ícones — estado NORMAL: fundo branco + ícone preto */
+.header-area .tp-header-contact .tp-header-bar .offcanvas-open-btn,
+.header-area .tp-header-contact .tp-header-serach .tp-search-btn{
+  background: #fff !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.header-area .tp-header-contact .tp-header-bar .offcanvas-open-btn i,
+.header-area .tp-header-contact .tp-header-serach .tp-search-btn i{
+  color: var(--t360-icon) !important; /* PRETO */
+}
+
+/* cobre casos de SVG para a lupa */
+.header-area .tp-header-contact .tp-header-serach .tp-search-btn svg,
+.header-area .tp-header-contact .tp-header-serach .tp-search-btn svg *{
+  stroke: var(--t360-icon) !important;
+  fill: var(--t360-icon) !important;  /* se o seu SVG usa fill */
+}
+
+/* HOVER/FOCUS: fundo azul + ícone branco */
+.header-area .tp-header-contact .tp-header-bar .offcanvas-open-btn:hover,
+.header-area .tp-header-contact .tp-header-bar .offcanvas-open-btn:focus-visible,
+.header-area .tp-header-contact .tp-header-serach .tp-search-btn:hover,
+.header-area .tp-header-contact .tp-header-serach .tp-search-btn:focus-visible{
+  background: var(--t360-icon-hover-bg) !important;
+  border-color: var(--t360-icon-hover-bg) !important;
+  outline: none;
+}
+
+.header-area .tp-header-contact .tp-header-bar .offcanvas-open-btn:hover i,
+.header-area .tp-header-contact .tp-header-bar .offcanvas-open-btn:focus-visible i,
+.header-area .tp-header-contact .tp-header-serach .tp-search-btn:hover i,
+.header-area .tp-header-contact .tp-header-serach .tp-search-btn:focus-visible i{
+  color: #fff !important;
+}
+
+.header-area .tp-header-contact .tp-header-serach .tp-search-btn:hover svg,
+.header-area .tp-header-contact .tp-header-serach .tp-search-btn:hover svg *,
+.header-area .tp-header-contact .tp-header-serach .tp-search-btn:focus-visible svg,
+.header-area .tp-header-contact .tp-header-serach .tp-search-btn:focus-visible svg *{
+  stroke: #fff !important;
+  fill: #fff !important;
+}
+
+
+/* =======================================================================
+   (Opcional) Estilos básicos do overlay de busca / offcanvas
+   – mantenho aqui caso use os componentes SearchButton/OffcanvasArea
+   ======================================================================= */
+/* Busca */
+.tp-search-overlay{
+  position: fixed; inset: 0;
+  background: rgba(2,6,23,.5);
+  z-index: 1000;
+  display: none;
+  align-items: center; justify-content: center;
+}
+.tp-search-overlay.is-open{ display: flex; }
+
+.tp-search-box{
+  position: relative;
+  background: #fff; padding: 16px; border-radius: 14px;
+  width: min(680px, 92vw);
+  box-shadow: 0 10px 30px rgba(0,0,0,.10);
+}
+.tp-search-box input{
+  width: 100%; height: 48px;
+  border: 1px solid #e5e7eb; border-radius: 10px;
+  padding: 0 14px; font-size: 16px; outline: none;
+}
+.tp-search-close{
+  position: absolute; right: 12px; top: 12px;
+  width: 36px; height: 36px; border: 0; border-radius: 10px;
+  background: #1d4ed8; color: #fff;
+}
+
+/* Offcanvas */
+.tp-offcanvas-overlay{
+  position: fixed; inset: 0;
+  background: rgba(2,6,23,.5);
+  z-index: 1000;
+  display: none;
+  justify-content: flex-end;
+}
+.tp-offcanvas-overlay.is-open{ display: flex; }
+
+.tp-offcanvas{
+  width: min(420px, 92vw); height: 100%;
+  background: #fff;
+  box-shadow: -2px 0 24px rgba(0,0,0,.08);
+  display: flex; flex-direction: column;
+  animation: t360SlideIn .2s ease;
+}
+@keyframes t360SlideIn{
+  from{ transform: translateX(20px); opacity: .6; }
+  to  { transform: none;             opacity: 1;  }
+}
+.tp-offcanvas-head{
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px; border-bottom: 1px solid #eef2f7;
+}
+.tp-offcanvas-close{
+  background: #1d4ed8; color: #fff; border: 0; border-radius: 10px;
+  width: 40px; height: 40px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.tp-offcanvas-body{ padding: 20px; overflow: auto; }
+.tp-offcanvas-title{ margin: 12px 0 8px; font-weight: 700; }
+.tp-offcanvas-text{ color: #475569; }
+.tp-offcanvas-links{
+  display: flex; flex-wrap: wrap; gap: 8px 12px; margin: 16px 0;
+}
+.tp-offcanvas-links a{
+  padding: 8px 12px;
+  border: 1px solid #e5e7eb; border-radius: 10px;
+  text-decoration: none; color: #111827;
+}
+
+
+/* =======================================================================
+   RESPONSIVO (alturas)
+   ======================================================================= */
+@media (max-width: 1199.98px){
+  .header-area .tp-header-menu-area{ height: var(--t360-hdr-tablet) !important; }
+}
+@media (max-width: 991.98px){
+  .header-area .tp-header-menu-area{ height: var(--t360-hdr-mobile) !important; }
 }

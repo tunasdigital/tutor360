@@ -1,106 +1,79 @@
+'use client';
+
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import logo from '@/assets/img/logo/logo-black.png';
-import { BehanceSvg, CloseThreeSvg, DribbleSvg, InstagramSvg, YoutubeTwoSvg } from "@/components/svg";
-import OffcanvasMenu from "./offcanvas-menu";
-import OffcanvasMenuTwo from "./offcanvas-menu-2";
+import logo from "@/assets/img/logo/logo-black-1.png";
 
+type Props = {
+  openOffCanvas: boolean;
+  onHandleOffCanvas: () => void;
+  offcanvas_cls?: string;
+  offcanvas_menu_2?: boolean;
+};
 
-const galleryData = [
-   { link: "https://www.instagram.com/", src: "/assets/img/menu/offcanvas/offcanvas-1.jpg" },
-   { link: "https://www.instagram.com/", src: "/assets/img/menu/offcanvas/offcanvas-2.jpg" },
-   { link: "https://www.instagram.com/", src: "/assets/img/menu/offcanvas/offcanvas-3.jpg" },
-   { link: "https://www.instagram.com/", src: "/assets/img/menu/offcanvas/offcanvas-4.jpg" },
-];
+export default function OffcanvasArea({
+  openOffCanvas,
+  onHandleOffCanvas,
+  offcanvas_cls = "",
+}: Props) {
+  // trava o scroll do body quando aberto
+  useEffect(() => {
+    if (openOffCanvas) {
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "";
+    }
+    return () => {
+      document.documentElement.style.overflow = "";
+    };
+  }, [openOffCanvas]);
 
-type IProps = {
-   openOffCanvas: boolean;
-   onHandleOffCanvas: () => void;
-   offcanvas_cls?: string;
-   offcanvas_menu_2?: boolean;
-}
-export default function OffcanvasArea({openOffCanvas,onHandleOffCanvas,offcanvas_cls,offcanvas_menu_2}:IProps) {
-   return (
-      <>
-         <div className={`offcanvas__area ${offcanvas_cls} ${openOffCanvas ? 'offcanvas-opened' : ''}`}>
-            <div className="offcanvas__wrapper">
-               <div className="offcanvas__close">
-                  <button onClick={onHandleOffCanvas} className="offcanvas__close-btn offcanvas-close-btn">
-                     <CloseThreeSvg />
-                  </button>
-               </div>
-               <div className="offcanvas__content">
-                  <div className="offcanvas__top mb-90 d-flex justify-content-between align-items-center">
-                     <div className="offcanvas__logo tp-header-logo">
-                        <Link href="/">
-                           <Image src={logo} alt="logo" style={{ height: 'auto' }} />
-                        </Link>
-                     </div>
-                  </div>
-                  <div className="offcanvas-main">
-                     <div className="offcanvas-content">
-                        <h3 className="offcanvas-title">Hello There!</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur <br /> adipiscing elit, </p>
-                     </div>
-                     
-                     {/* mobile menu */}
-                     {offcanvas_menu_2 ? <OffcanvasMenuTwo /> : <OffcanvasMenu />}
-                     {/* mobile menu */}
+  if (!openOffCanvas) return null;
 
-                     <div className="offcanvas-gallery">
-                        <div className="row gx-2">
-                           {galleryData.map((item, index) => (
-                              <div className="col-md-3 col-3" key={index}>
-                                 <div className="offcanvas-gallery-img fix">
-                                    <a href={item.link} target="_blank">
-                                       <Image src={item.src} alt={`gallery-${index}`} width={87} height={87} />
-                                    </a>
-                                 </div>
-                              </div>
-                           ))}
-                        </div>
-                     </div>
-                     <div className="offcanvas-contact">
-                        <h3 className="offcanvas-title sm">Information</h3>
-                        <ul>
-                           <li><a href="tel:1245654">+ 4 20 7700 1007</a></li>
-                           <li><a href="mailto:hello@acadia.com">hello@acadia.com</a></li>
-                           <li><a href="#">Avenue de Roma 158b, Lisboa</a></li>
-                        </ul>
-                     </div>
-                     <div className="offcanvas-social">
-                        <h3 className="offcanvas-title sm">Follow Us</h3>
-                        <ul>
-                           <li>
-                              <a href="#">
-                                 <InstagramSvg />
-                              </a>
-                           </li>
-                           <li>
-                              <a href="#">
-                                 <DribbleSvg />
-                              </a>
-                           </li>
-                           <li>
-                              <a href="#">
-                                 <BehanceSvg />
-                              </a>
-                           </li>
-                           <li>
-                              <a href="#">
-                                 <YoutubeTwoSvg />
-                              </a>
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
+  return (
+    <div className={`tp-offcanvas-overlay ${openOffCanvas ? "opened" : ""}`} onClick={onHandleOffCanvas} aria-hidden>
+      <aside
+        className={`tp-offcanvas ${offcanvas_cls}`}
+        role="dialog"
+        aria-modal="true"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Cabeçalho */}
+        <div className="tp-offcanvas-head">
+          <Link href="/" aria-label="Página inicial" className="tp-offcanvas-logo" onClick={onHandleOffCanvas}>
+            <Image src={logo} alt="Tutor360" height={28} />
+          </Link>
+          <button className="tp-offcanvas-close" aria-label="Fechar" onClick={onHandleOffCanvas}>
+            <i className="fa-solid fa-xmark"></i>
+          </button>
+        </div>
 
-         {/* Body Overlay */}
-         <div onClick={onHandleOffCanvas} className={`body-overlay ${openOffCanvas ? 'opened' : ''}`}/>
-         {/* Body Overlay */}
-      </>
-   )
+        {/* Corpo (conteúdo parecido com o demo da Acadia) */}
+        <div className="tp-offcanvas-body">
+          <h4 className="tp-offcanvas-title">Hello There!</h4>
+          <p className="tp-offcanvas-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. A few quick links and contact details live here.
+          </p>
+
+          <nav className="tp-offcanvas-links">
+            <Link href="/university-about" onClick={onHandleOffCanvas}>About</Link>
+            <Link href="/course" onClick={onHandleOffCanvas}>Courses</Link>
+            <Link href="/admissions" onClick={onHandleOffCanvas}>Admissions</Link>
+            <Link href="/blog" onClick={onHandleOffCanvas}>Blog</Link>
+            <Link href="/contact" onClick={onHandleOffCanvas}>Contact</Link>
+          </nav>
+
+          <div className="tp-offcanvas-info">
+            <h5>INFORMATION</h5>
+            <ul>
+              <li>+ 402 763 282 46</li>
+              <li>hello@tutor360.com</li>
+              <li>Avenue de Roma 158b, Lisboa</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  );
 }

@@ -4,6 +4,9 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
+      // botão do header
+      "category_button": "Category",
+
       "hero": {
         "subtitle": "Transforming learning into action and dreams into achievements.",
         "title1": "Best",
@@ -34,34 +37,37 @@ const resources = {
       },
       "services": {
         "flexible_classes": {
-            "title": "Aulas <br/> Flexíveis",
-            "text": "Você escolhe seu cronograma. Estude no seu ritmo, quando for melhor para você."
+          "title": "Flexible <br/> Classes",
+          "text": "You choose your schedule. Study at your own pace, whenever it suits you."
         },
         "offline_mode": {
-            "title": "Modo <br/> Offline",
-            "text": "Baixe as aulas e estude em qualquer lugar, mesmo sem acesso à internet."
+          "title": "Offline <br/> Mode",
+          "text": "Download classes and study anywhere, even without internet access."
         },
         "online_courses": {
-            "title": "Mais de 40 <br/> Cursos Online",
-            "text": "Explore novas tendências e conhecimentos essenciais em finanças, vendas e soft skills."
+          "title": "Over 40 <br/> Online Courses",
+          "text": "Explore new trends and essential knowledge in finance, sales, and soft skills."
         },
         "educator_help": {
-            "title": "Ajuda do <br/> Educador 24h",
-            "text": "Nosso Tutor 360 está sempre pronto para tirar suas dúvidas e te dar o suporte necessário."
+          "title": "24/7 <br/> Educator Help",
+          "text": "Our Tutor 360 is always ready to answer your questions and support you."
         },
-        "trusted_by_text": "Apoiado pelos jovens empreendedores do mundo.",
-        "trusted_by_link": "Nossos Resultados"
+        "trusted_by_text": "Trusted by young entrepreneurs worldwide.",
+        "trusted_by_link": "Our Results"
       }
     }
   },
   pt: {
     translation: {
+      // botão do header
+      "category_button": "Categoria",
+
       "hero": {
-        "subtitle": "Transformando aprendizado em ação e sonhos em conquistas.",
-        "title1": "Melhores",
-        "title2": "Cursos Digitais",
-        "title3": "Online",
-        "description": "Capacitamos jovens para desenvolverem habilidades práticas e adquirirem conhecimentos essenciais que os preparem para transformar desafios em oportunidades.",
+        "subtitle": "Transformando sonhos em conquistas.",
+        "title1": "Cursos Digitais",
+        "title2": "Online",
+        "title3": "",
+        "description": "Desenvolva habilidades e prepare-se para o sucesso profissional.",
         "button": "Encontre Cursos"
       },
       "categories": {
@@ -86,20 +92,20 @@ const resources = {
       },
       "services": {
         "flexible_classes": {
-            "title": "Aulas <br/> Flexíveis",
-            "text": "Você escolhe seu cronograma. Estude no seu ritmo, quando for melhor para você."
+          "title": "Aulas <br/> Flexíveis",
+          "text": "Você escolhe seu cronograma. Estude no seu ritmo, quando for melhor para você."
         },
         "offline_mode": {
-            "title": "Modo <br/> Offline",
-            "text": "Baixe as aulas e estude em qualquer lugar, mesmo sem acesso à internet."
+          "title": "Modo <br/> Offline",
+          "text": "Baixe as aulas e estude em qualquer lugar, mesmo sem acesso à internet."
         },
         "online_courses": {
-            "title": "Mais de 40 <br/> Cursos Online",
-            "text": "Explore novas tendências e conhecimentos essenciais em finanças, vendas e soft skills."
+          "title": "Mais de 40 <br/> Cursos Online",
+          "text": "Explore novas tendências e conhecimentos essenciais em finanças, vendas e soft skills."
         },
         "educator_help": {
-            "title": "Ajuda do <br/> Educador 24h",
-            "text": "Nosso Tutor 360 está sempre pronto para tirar suas dúvidas e te dar o suporte necessário."
+          "title": "Ajuda do <br/> Educador 24h",
+          "text": "Nosso Tutor 360 está sempre pronto para tirar suas dúvidas e te dar o suporte necessário."
         },
         "trusted_by_text": "Apoiado pelos jovens empreendedores do mundo.",
         "trusted_by_link": "Nossos Resultados"
@@ -113,9 +119,7 @@ i18n
   .init({
     lng: "pt",
     fallbackLng: "en",
-    interpolation: {
-      escapeValue: false,
-    },
+    interpolation: { escapeValue: false },
     resources,
   });
 
