@@ -1,4 +1,31 @@
 @import '~bootstrap/scss/bootstrap';
 @import 'swiper/css/bundle';
 @import "slick-carousel/slick/slick.css";
-@import '../../public/assets/scss/main.scss';
+@import '../../public/assets/scss/main.scss'; // Estilo principal
+
+/* --- SOBRESCRITA DE ESTILOS TUTOR 360 (FINAL) --- */
+
+/* 1. CORREÇÃO DA VISIBILIDADE E ALINHAMENTO DO MENU PRINCIPAL */
+.main-menu ul li a {
+    color: var(--tp-heading-primary, #1A1A1A) !important; /* Cor do texto do menu: Preto */
+}
+
+/* 2. ESTILOS DO BOTÃO CATEGORIA */
+.tp-header-category .tp-category-btn {
+    background-color: var(--tp-theme-primary, #0055FF) !important; /* Fundo: Azul Principal */
+    border-color: var(--tp-theme-primary, #0055FF) !important; 
+    color: #fff !important; /* Texto do botão: Branco */
+    border-radius: 8px !important; /* Bordas arredondadas */
+    padding: 8px 18px; 
+}
+
+/* Garante que o ícone do botão Categoria seja branco */
+.tp-header-category .tp-category-btn i {
+    color: #fff !important;
+    margin-right: 8px; 
+}
+
+/* 3. CORREÇÃO DE ESPAÇAMENTO */
+.header-area {
+    padding-top: 15px; /* Adiciona um espaço no topo */
+}

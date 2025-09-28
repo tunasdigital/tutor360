@@ -1,3 +1,5 @@
+'use client';
+
 import Link from "next/link";
 import Image from "next/image";
 import CourseItem from "../course/single/course-item";
@@ -7,9 +9,12 @@ import hero_thumb from "@/assets/img/hero/hero-2-thumb-1.png";
 import hero_shape_1 from '@/assets/img/hero/hero-2-shape-2.png';
 import hero_shape_2 from '@/assets/img/hero/hero-2-shape-3.png';
 import hero_shape_3 from '@/assets/img/hero/hero-2-shape-4.png';
-import {online_courses_data} from "@/data/course-data";
+import { online_courses_data } from "@/data/course-data";
+import { useTranslation } from "react-i18next";
 
 export default function HeroAreaTwo() {
+  const { t } = useTranslation();
+
   return (
     <div className="tp-hero-area lightblue-bg tp-hero-2-bg">
       <div className="container custom-container">
@@ -21,15 +26,15 @@ export default function HeroAreaTwo() {
                   className="tp-hero-2-subtitle wow fadeInUp"
                   data-wow-delay=".3s"
                 >
-                  Keep Learning
+                  {t('hero.subtitle')}
                 </span>
                 <h2
                   className="tp-hero-2-title wow fadeInUp"
                   data-wow-delay=".5s"
                 >
-                  Best digital {" "}
+                  {t('hero.title1')}{" "}
                   <span>
-                    Online{" "}
+                    {t('hero.title2')}{" "}
                     <Image
                       className="wow bounceIn"
                       data-wow-duration="1.5s"
@@ -38,18 +43,17 @@ export default function HeroAreaTwo() {
                       alt="svg-underline"
                     />
                   </span>
-                  Courses
+                  {t('hero.title3')}
                 </h2>
                 <p className=" wow fadeInUp" data-wow-delay=".7s">
-                  Acquire global knowledge and build your <br /> professional
-                  skills
+                  {t('hero.description')}
                 </p>
                 <div
                   className="tp-hero-2-btn wow fadeInUp"
                   data-wow-delay=".9s"
                 >
                   <Link className="tp-btn-border" href="/course-with-filter">
-                    Find Courses
+                    {t('hero.button')}
                     <span>
                       <RightArrowFour />
                     </span>
@@ -67,7 +71,7 @@ export default function HeroAreaTwo() {
             </div>
           </div>
           <div className="tp-hero-2-thumb">
-            <Image src={hero_thumb} alt="hero-thumbnail" style={{height:'auto'}} />
+            <Image src={hero_thumb} alt="hero-thumbnail" style={{ height: 'auto' }} />
           </div>
         </div>
       </div>

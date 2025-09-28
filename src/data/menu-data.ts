@@ -16,20 +16,7 @@ const menu_data:IMenu[] = [
 			{ id: 8, title: "Coming Soon", link: "#", img: "/assets/img/menu/coming-soon-2.jpg" },
         ]
      },
-	 {
-		id:2,
-		title:'Academics',
-		link:'#',
-		sm_mega_menus:[
-			{ id: 1, title: "Overview", link: "/university-admission-overview" },
-			{ id: 2, title: "Undergraduate", link: "/university-program" },
-			{ id: 3, title: "Graduate Program", link: "/university-program" },
-			{ id: 4, title: "Schools", link: "/university-program" },
-			{ id: 5, title: "Online Education", link: "/course-with-filter" },
-			{ id: 6, title: "Off-campus learning", link: "/course-with-filter" },
-			{ id: 7, title: "Faculty", link: "/university-leadership" },
-		]
-	 },
+	
 	 {
 		id:3,
 		title:'Admissions',

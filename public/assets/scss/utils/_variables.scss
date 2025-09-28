@@ -1,4 +1,30 @@
-
-
+/* --- DEFINIÇÕES DE PREFIXO --- */
 $theme-prifix : 'tp';
 $dashboard-prifix : 'tpd';
+
+/* --- PALETA DE CORES DO TUTOR 360 --- */
+
+// Cor Principal do Tema: Azul (#0055FF)
+$tp-theme-color: #0055FF;
+$tp-theme-primary: #0055FF;
+$tp-blue-main: #0055FF; 
+
+// Cor de Destaque / Secundária: Amarelo (#FFB600)
+$tp-yellow: #FFB600;
+$tp-orange: #FFB600;
+
+// Cores Comuns (Mantendo cores neutras ou essenciais que o template usa)
+$tp-heading-primary: #1A1A1A;
+$tp-text-body: #606060;
+$tp-text-p: #606060;
+$tp-common-black: #000000;
+$tp-common-white: #ffffff;
+$tp-light-blue: #EBF3FF; // Fundo do hero (pode ser ajustado)
+$tp-red: #D9534F; // Mantido para avisos de erro
+
+
+/* --- VARIÁVEIS DE TIPOGRAFIA (Apenas para referência) --- */
+
+// Definidas no layout.tsx:
+// var(--tp-ff-heading) -> Montserrat
+// var(--tp-ff-primary) -> Jost
