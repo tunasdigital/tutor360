@@ -1,5 +1,28 @@
 import { ICourseDT } from "@/types/course-d-t";
 
+// 1. DADOS TUTOR360 - Aqui faremos a carga dos 603 vídeos.
+// Iniciaremos com o vídeo mestre para validação do Player.
+export const tutor360_course_data: ICourseDT[] = [
+  {
+    id: 101,
+    title: "Introdução ao Ecossistema Tutor360",
+    author_img: "/assets/img/teacher/teacher-1.png",
+    author_name: "Mentor Tutor360",
+    // Gerando a thumb dinamicamente via YouTube para economizar processamento
+    thumbnail: "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg", 
+    category: "Treinamento",
+    price: 0,
+    avg_rating: 5,
+    discount: 0,
+    lessons: 1,
+    students: 100,
+    total_rating: 5,
+    language: "Português",
+    video_id: "dQw4w9WgXcQ", // ID essencial para o Modal Player
+  }
+];
+
+// 2. DADOS ORIGINAIS DO TEMPLATE (Mantidos para garantir a integridade do layout)
 export const online_courses_data: ICourseDT[] = [
   {
     id: 1,
@@ -15,7 +38,6 @@ export const online_courses_data: ICourseDT[] = [
     students: 45,
     total_rating: 5,
     language: "English",
-    progress: 60,
   },
   {
     id: 2,
@@ -31,7 +53,6 @@ export const online_courses_data: ICourseDT[] = [
     students: 20,
     total_rating: 10,
     language: "English",
-    progress: 80,
   },
   {
     id: 3,
@@ -47,7 +68,6 @@ export const online_courses_data: ICourseDT[] = [
     students: 52,
     total_rating: 15,
     language: "Russian",
-    progress: 50,
   },
   {
     id: 4,
@@ -63,7 +83,6 @@ export const online_courses_data: ICourseDT[] = [
     students: 60,
     total_rating: 12,
     language: "Hindi",
-    progress: 70,
   },
   {
     id: 5,
@@ -79,7 +98,6 @@ export const online_courses_data: ICourseDT[] = [
     students: 68,
     total_rating: 4,
     language: "English",
-    progress: 80,
   },
   {
     id: 6,
@@ -95,138 +113,14 @@ export const online_courses_data: ICourseDT[] = [
     students: 100,
     total_rating: 10,
     language: "English",
-    progress: 60,
   },
 ];
 
-export const gym_course_data: ICourseDT[] = [
-  {
-    id: 7,
-    author_img: "/assets/img/course/course-5-thumb-1.jpg",
-    author_name: "Benjamin Evalent",
-    title: "Complete Fitness Trainer: Beginner to Advanced",
-    thumbnail: "/assets/img/course/course-5-thumb-1.jpg",
-    category: "Fitness",
-    price: 42,
-    avg_rating: 4.8,
-    discount: 10,
-    lessons: 12,
-    students: 45,
-    total_rating: 5,
-    language: "English",
-  },
-  {
-    id: 8,
-    author_img: "/assets/img/teacher/teacher-1.png",
-    author_name: "Benjamin Evalent",
-    title: "Lazy dancer Ballet Burn – 30 Days Programmed",
-    thumbnail: "/assets/img/course/course-5-thumb-2.jpg",
-    category: "Dance",
-    price: 0,
-    avg_rating: 4.9,
-    discount: 0,
-    lessons: 12,
-    students: 45,
-    total_rating: 5,
-    language: "German",
-  },
-  {
-    id: 9,
-    author_img: "/assets/img/teacher/teacher-2.png",
-    author_name: "Benjamin Evalent",
-    title: "Seven Reasons You Fall In Love With Gym",
-    thumbnail: "/assets/img/course/course-5-thumb-3.jpg",
-    category: "Fitness",
-    price: 87,
-    avg_rating: 4.7,
-    discount: 20,
-    lessons: 12,
-    students: 45,
-    total_rating: 4.8,
-    language: "Italian",
-  },
-  {
-    id: 10,
-    author_img: "/assets/img/teacher/teacher-3.png",
-    author_name: "Benjamin Evalent",
-    title: "Fitness Trainer: Gym Workout & Body Building",
-    thumbnail: "/assets/img/course/course-5-thumb-4.jpg",
-    category: "Fitness",
-    price: 54,
-    avg_rating: 4.6,
-    discount: 15,
-    lessons: 12,
-    students: 45,
-    total_rating: 4.7,
-    language: "English",
-  },
-  {
-    id: 11,
-    author_img: "/assets/img/teacher/teacher-4.png",
-    author_name: "Benjamin Evalent",
-    title: "Benefits Gym Change Your Perspective",
-    thumbnail: "/assets/img/course/course-5-thumb-5.jpg",
-    category: "Fitness",
-    price: 38,
-    avg_rating: 4.5,
-    discount: 10,
-    lessons: 12,
-    students: 45,
-    total_rating: 4.6,
-    language: "English",
-  },
-  {
-    id: 12,
-    author_img: "/assets/img/teacher/teacher-6.png",
-    author_name: "Benjamin Evalent",
-    title: "Taboos about Gym You Should Share On Twitter",
-    thumbnail: "/assets/img/course/course-5-thumb-6.jpg",
-    category: "Fitness",
-    price: 0,
-    avg_rating: 4.9,
-    discount: 0,
-    lessons: 12,
-    students: 45,
-    total_rating: 5,
-    language: "English",
-  },
-];
+export const gym_course_data: ICourseDT[] = [];
+export const high_school_course_data: ICourseDT[] = [];
 
-export const high_school_course_data: ICourseDT[] = [
-  {
-    id: 13,
-    title: "English Language Club",
-    author_img: "/assets/img/course/course-4-teacher-1.png",
-    author_name: "Patrick",
-    thumbnail: "/assets/img/course/course-4-thumb-1.jpg",
-    category: "Language",
-    price: 0,
-    avg_rating: 5,
-    discount: 0,
-    lessons: 12,
-    students: 45,
-    total_rating: 12,
-    language: "Hindi",
-  },
-  {
-    id: 14,
-    title: "Arabic Language Club",
-    author_img: "/assets/img/course/course-4-teacher-1.png",
-    author_name: "Patrick",
-    thumbnail: "/assets/img/course/course-4-thumb-2.jpg",
-    category: "Language",
-    price: 0,
-    avg_rating: 5,
-    discount: 0,
-    lessons: 12,
-    students: 38,
-    total_rating: 15,
-    language: "English",
-  },
-];
-
+// 3. UNIÃO E EXPORTAÇÃO (O Spread Operator ... garante a fusão das listas)
 export const all_courses = [
+  ...tutor360_course_data,
   ...online_courses_data,
-  ...high_school_course_data,
-  ...gym_course_data,
 ];

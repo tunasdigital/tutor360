@@ -1,31 +1,33 @@
 'use client';
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { CourseContext } from "@/context/course-context";
 import { ICourseDT } from "@/types/course-d-t";
-import { online_courses_data } from "@/data/course-data";
+import { all_courses } from "@/data/course-data";
 
 type IPropType = {
   children: React.ReactNode;
 };
 
 export default function CourseProvider({ children }: IPropType) {
-  const [activeTab, setActiveTab] = React.useState<string>("All Courses");
-  const [filterCourse, setFilterCourse] = React.useState<ICourseDT[]>([...online_courses_data]);
+  const [activeTab, setActiveTab] = useState<string>("All Courses");
+  
+  // Iniciamos com um array vazio e preenchemos no useEffect para evitar erro de hidratação (SSR)
+  const [filterCourse, setFilterCourse] = useState<ICourseDT[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    // Verificação de segurança: se all_courses não existir, não quebra o site
+    if (!all_courses) return;
+
     if (activeTab === "All Courses") {
-      setFilterCourse([...online_courses_data]);
-    } else if (activeTab === "Trending") {
-      setFilterCourse(online_courses_data.slice(2, 4));
-    } else if (activeTab === "Popularity") {
-      setFilterCourse(online_courses_data.slice(4, 6));
-    } else if (activeTab === "Featured") {
-      setFilterCourse(online_courses_data.slice(0, 2));
+      setFilterCourse(all_courses);
+    } else {
+      const filtered = all_courses.filter(course => course.category === activeTab);
+      setFilterCourse(filtered.length > 0 ? filtered : all_courses);
     }
   }, [activeTab]);
 
   return (
-    <CourseContext.Provider value={{ activeTab, setActiveTab,filterCourse }}>
+    <CourseContext.Provider value={{ activeTab, setActiveTab, filterCourse }}>
       {children}
     </CourseContext.Provider>
   );

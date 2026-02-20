@@ -16,11 +16,11 @@ export default function CourseArea() {
           <div className="row align-items-end">
             <div className="col-xxl-5 col-xl-6 col-lg-7">
               <div className="tp-section mb-40">
-                <h5 className="tp-section-3-subtitle">Our Courses</h5>
+                <h5 className="tp-section-3-subtitle">TUTOR 360 CHECK</h5>
                 <h3 className="tp-section-3-title">
-                  Most Popular
+                  TESTE DE CONEXÃO
                   <span>
-                    Courses
+                    ATIVA
                     <Image
                       className="tp-underline-shape-6 wow bounceIn"
                       data-wow-duration="1.5s"
