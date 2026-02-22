@@ -1,3 +1,5 @@
+'use client';
+
 import Link from "next/link";
 import Image from "next/image";
 import shape_underline from "@/assets/img/unlerline/live-2-svg-1.svg";
@@ -14,56 +16,79 @@ export default function CourseLiveArea() {
         <div className="row justify-content-center">
           <div className="col-xl-8 col-lg-10">
             <div className="tp-section text-center mb-65">
-              <h5 className="tp-section-3-subtitle">Live Courses</h5>
-              <h3 className="tp-section-3-title">
-                Todays top free
-                <span>
-                  live
+              <span 
+                className="tp-section-3-subtitle" 
+                style={{ color: '#0055FF', fontWeight: '600', marginBottom: '10px', display: 'block' }}
+              >
+                Aulas em Tempo Real
+              </span>
+              <h3 
+                className="tp-section-3-title"
+                style={{ 
+                  fontSize: '42px', 
+                  fontWeight: '700', 
+                  lineHeight: '1.2', 
+                  maxWidth: '520px', // Trava de elegância Tutor 360
+                  margin: '0 auto',
+                  color: '#1A1A1A',
+                  textTransform: 'none'
+                }}
+              >
+                Os melhores conteúdos {" "}
+                <span style={{ position: 'relative', display: 'inline-block' }}>
+                  ao vivo
                   <Image
                     className="tp-underline-shape-7 wow bounceIn"
                     data-wow-duration="1.5s"
                     data-wow-delay=".4s"
                     src={shape_underline}
                     alt="shape-unerline"
+                    style={{
+                      position: 'absolute',
+                      bottom: '-5px',
+                      left: '0',
+                      width: '100%',
+                      height: 'auto'
+                    }}
                   />
                 </span>
-                Courses
+                {" "} de hoje
               </h3>
             </div>
           </div>
         </div>
         <div className="row justify-content-center">
           <div className="col-xl-10">
-            <div className="tp-live-bg wow fadeInUp" data-wow-delay=".2s">
+            <div className="tp-live-bg wow fadeInUp" data-wow-delay=".2s" style={{ borderRadius: '24px', overflow: 'hidden' }}>
               <div className="row align-items-center">
                 <div className="col-lg-6 col-md-4">
                   <div className="tp-live-thumb p-relative">
-                    <Image src={live_thumb} alt="live-thumb" style={{height:'auto'}} />
+                    <Image src={live_thumb} alt="live-thumb" style={{height:'auto', objectFit: 'cover'}} />
                     <div className="tp-live-thumb-video">
                       <Image src={video_icon} alt="video-icon" />
                     </div>
                     <div className="tp-live-thumb-text">
                       <span>
-                        <ClockSvgTwo /> 100min
+                        <ClockSvgTwo /> 100 min
                       </span>
                     </div>
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-8">
                   <div className="tp-live-content">
-                    <span className="tp-live-tag">Art & Design</span>
+                    <span className="tp-live-tag" style={{ backgroundColor: '#0055FF', color: '#fff' }}>Arte & Design</span>
                     <div className="tp-live-teacher">
                       <div className="tp-live-teacher-info d-flex align-items-center">
                         <div className="tp-live-teacher-thumb">
                           <Image
                             src={teacher}
-                            alt="teacher"
+                            alt="instrutor"
                           />
                         </div>
                         <div className="tp-live-teacher-text">
-                          <span>Teacher</span>
+                          <span style={{ fontSize: '13px' }}>Instrutor</span>
                           <h4 className="tp-live-teacher-title">
-                            Demo Instructor
+                            Especialista Tutor 360
                           </h4>
                         </div>
                       </div>
@@ -81,25 +106,25 @@ export default function CourseLiveArea() {
                       </div>
                     </div>
                     <h4 className="tp-live-title">
-                      <Link href="/course-details-2/1">
-                        The complete digital Marketing <br /> Course - 12
-                        Courses in 5
+                      <Link href="/course-details">
+                        Curso Completo de Marketing Digital <br /> 
+                        Estratégias de Elite para 2026
                       </Link>
                     </h4>
                     <div className="tp-live-total">
                       <div className="tp-live-total-student">
-                        <span>Live Student</span>
+                        <span style={{ fontWeight: '500' }}>Alunos Online</span>
                         <Image
                           src={teacher_2}
-                          alt="teacher"
+                          alt="alunos"
                         />
                       </div>
                       <div className="tp-live-join">
-                        <Link className="tp-btn-border" href="/contact">
+                        <Link className="tp-btn-border" href="/contact" style={{ borderRadius: '50px' }}>
                           <span>
                             <JoinSvg />
                           </span>
-                          Join Now
+                          Participar Agora
                           <i>
                             <RightArrowFour />
                           </i>

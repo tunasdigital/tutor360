@@ -49,13 +49,14 @@ export default function TestimonialTwo() {
   const [slider2, setSlider2] = useState<Slider | null>(null);
   const sliderRef = useRef<Slider | null>(null);
 
-    const sliderPrev = () => {
-      sliderRef.current?.slickPrev();
-    };
+  const sliderPrev = () => {
+    sliderRef.current?.slickPrev();
+  };
 
-    const sliderNext = () => {
-      sliderRef.current?.slickNext();
-    };
+  const sliderNext = () => {
+    sliderRef.current?.slickNext();
+  };
+
   return (
     <section className="testimonial-area lightblue-bg pb-85">
       <div className="container">
@@ -63,20 +64,43 @@ export default function TestimonialTwo() {
           <div className="col-xxl-6 col-lg-8">
             <div className="tp-testimonial-section">
               <div className="tp-section text-center mb-40">
-                <h5 className="tp-section-3-subtitle">Live Courses</h5>
-                <h3 className="tp-section-3-title">
-                  Student{" "}
-                  <span>
-                    Say
+                <span 
+                  className="tp-section-3-subtitle"
+                  style={{ color: '#0055FF', fontWeight: '600', marginBottom: '10px', display: 'block' }}
+                >
+                  Depoimentos
+                </span>
+                <h3 
+                  className="tp-section-3-title"
+                  style={{ 
+                    fontSize: '42px', 
+                    fontWeight: '700', 
+                    lineHeight: '1.2', 
+                    maxWidth: '500px', 
+                    margin: '0 auto',
+                    color: '#1A1A1A',
+                    textTransform: 'none'
+                  }}
+                >
+                  O que nossos {" "}
+                  <span style={{ position: 'relative', display: 'inline-block' }}>
+                    Alunos
                     <Image
                       className="tp-underline-shape-8 wow bounceIn"
                       data-wow-duration="1.5s"
                       data-wow-delay=".4s"
                       src={shape_underline}
                       alt="shape-underline"
+                      style={{
+                        position: 'absolute',
+                        bottom: '-5px',
+                        left: '0',
+                        width: '100%',
+                        height: 'auto'
+                      }}
                     />
                   </span>
-                  About Acadia
+                  {" "} dizem sobre a Tutor 360
                 </h3>
               </div>
             </div>
@@ -123,10 +147,10 @@ export default function TestimonialTwo() {
                   className="tp-testimonial-2-item text-center"
                 >
                   <div className="tp-testimonial-2-avatar-info">
-                    <h4 className="tp-testimonial-2-avatar-title">
+                    <h4 className="tp-testimonial-2-avatar-title" style={{ fontSize: '22px', fontWeight: '700' }}>
                       {item.name}
                     </h4>
-                    <span>{item.position}</span>
+                    <span style={{ color: '#0055FF', fontWeight: '500' }}>{item.position}</span>
                     <div className="tp-testimonial-2-avatar-rating">
                       <i className="fa-solid fa-star"></i>
                       <i className="fa-solid fa-star"></i>
@@ -136,7 +160,9 @@ export default function TestimonialTwo() {
                     </div>
                   </div>
                   <div className="tp-testimonial-2-content p-relative">
-                    <p>{item.testimonial}</p>
+                    <p style={{ fontSize: '18px', lineHeight: '1.6', fontStyle: 'italic', color: '#4A4A4A' }}>
+                      "{item.testimonial}"
+                    </p>
                     <div className="tp-testimonial-2-shape">
                       <div className="shape-1">
                         <Image

@@ -1,4 +1,6 @@
+"use client";
 import Image from "next/image";
+import React from "react";
 import { Shape } from "../svg";
 import VideoOne from "../video/video-provider";
 import TestimonialSliderOne from "./testimonial-slider-1";
@@ -37,11 +39,13 @@ export default function TestimonialOne() {
                         d="M0 1.83167C0 1.0405 0.875246 0.562658 1.54076 0.990487L14.6915 9.44454C15.3038 9.83817 15.3038 10.7333 14.6915 11.1269L1.54076 19.5809C0.875246 20.0088 0 19.5309 0 18.7398V1.83167Z"
                         fill="currentColor"
                       />
-                   </svg>
-                </span>
+                    </svg>
+                  </span>
                 </VideoOne>
                 {/* Video area */}
-                <p>Video Tour in logo</p>
+                <p style={{ color: '#fff', fontWeight: '500', marginTop: '15px' }}>
+                  Tour em Vídeo
+                </p>
               </div>
             </div>
           </div>
@@ -51,8 +55,12 @@ export default function TestimonialOne() {
               data-wow-delay=".3s"
             >
               <div className="tp-section mb-40">
-                <h5 className="tp-section-subtitle">Testimonial</h5>
-                <h3 className="tp-section-title">What Students Says</h3>
+                <span className="tp-section-subtitle" style={{ color: '#0055FF', fontWeight: '600' }}>
+                  Depoimentos
+                </span>
+                <h3 className="tp-section-title" style={{ textTransform: 'none' }}>
+                  O que nossos alunos dizem
+                </h3>
               </div>
               <div className="tp-testimonial-shape">
                 <div className="tp-testimonial-shape-1">

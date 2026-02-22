@@ -4,17 +4,17 @@ export const testimonial_one_data = [
     id: 1,
     img: "/assets/img/testimonial/testimonial-avatar-1.png",
     content:
-      "“Sollicitudin venenatis risus dolor in dictumst faucibus egestas. Justo at nibh odio lectus malesuada. Enim cras vitae libero nibh tincidunt justo scelerisque. In adipiscing quis eros.”",
-    name: "William Smith",
-    position: "Alumnus",
+      "“A Tutor 360 transformou minha maneira de aprender. Os conteúdos são práticos, direto ao ponto e os instrutores realmente dominam os assuntos. Recomendo para todos que buscam evolução real.”",
+    name: "Guilherme Santos",
+    position: "Aluno de Especialização",
   },
   {
     id: 2,
     img: "/assets/img/testimonial/test-2-avatar-4.png",
     content:
-      "“Sollicitudin venenatis risus dolor in dictumst faucibus egestas. Justo at nibh odio lectus malesuada. Enim cras vitae libero nibh tincidunt justo scelerisque. In adipiscing quis eros.”",
-    name: "Sakil Khan",
-    position: "Alumnus",
+      "“Excelente suporte e materiais de alta qualidade. Consegui aplicar o que aprendi no meu trabalho logo na primeira semana. É, sem dúvida, o melhor investimento para minha carreira este ano.”",
+    name: "Ricardo Mendes",
+    position: "Aluno de Tecnologia",
   },
 ];
 
@@ -22,50 +22,50 @@ export const testimonial_one_data = [
 export const testimonial_two_data = [
   {
     id: 1,
-    name: "Hilary Oise",
-    position: "Lecturer, Oxford University",
+    name: "Juliana Silva",
+    position: "Especialista em Marketing",
     rating: 5,
     testimonial:
-      "I need to get a certification for English proficiency and Acadia is my best choice. Their tutors are smart and professional when dealing with students. I wanted to place a review since! Thanks and 5 stars!",
+      "Eu precisava de uma plataforma que unisse teoria e prática de forma profissional, e a Tutor 360 foi minha melhor escolha. Os tutores são extremamente atenciosos e inteligentes. Nota 5 estrelas com certeza!",
   },
   {
     id: 2,
-    name: "Annette",
-    position: "Lecturer, Oxford University",
+    name: "Annete Oliveira",
+    position: "Designer de Produto",
     rating: 5,
     testimonial:
-      "I need to get a certification for English proficiency and Acadia is my best choice. Their tutors are smart and professional when dealing with students. I wanted to place a review since! Thanks and 5 stars!",
+      "A didática dos cursos ao vivo é impressionante. Você se sente dentro de uma sala de aula real, mas com o conforto de casa e a qualidade de especialistas do mercado brasileiro.",
   },
   {
     id: 3,
-    name: "Hollace",
-    position: "Lecturer, Oxford University",
+    name: "Carlos Eduardo",
+    position: "Gestor de Projetos",
     rating: 5,
     testimonial:
-      "I need to get a certification for English proficiency and Acadia is my best choice. Their tutors are smart and professional when dealing with students. I wanted to place a review since! Thanks and 5 stars!",
+      "Plataforma intuitiva e muito organizada. A Tutor 360 entende as necessidades do aluno moderno. Os certificados têm peso e o aprendizado é garantido.",
   },
   {
     id: 4,
-    name: "Leslie",
-    position: "Lecturer, Oxford University",
+    name: "Letícia Rodrigues",
+    position: "Empreendedora",
     rating: 5,
     testimonial:
-      "I need to get a certification for English proficiency and Acadia is my best choice. Their tutors are smart and professional when dealing with students. I wanted to place a review since! Thanks and 5 stars!",
+      "O que mais me chamou atenção foi o cuidado com os detalhes. Tudo funciona perfeitamente e os cursos são atualizados constantemente. Ótima experiência!",
   },
   {
     id: 5,
-    name: "Oisely",
-    position: "Lecturer, Oxford University",
+    name: "Otávio Augusto",
+    position: "Desenvolvedor Mobile",
     rating: 5,
     testimonial:
-      "I need to get a certification for English proficiency and Acadia is my best choice. Their tutors are smart and professional when dealing with students. I wanted to place a review since! Thanks and 5 stars!",
+      "Encontrei na Tutor 360 a parceria que faltava para minha transição de carreira. Os instrutores são mentores de verdade. Obrigado por tudo!",
   },
   {
     id: 6,
-    name: "Alex Avi",
-    position: "Lecturer, Oxford University",
+    name: "Alex Souza",
+    position: "Consultor de TI",
     rating: 5,
     testimonial:
-      "I need to get a certification for English proficiency and Acadia is my best choice. Their tutors are smart and professional when dealing with students. I wanted to place a review since! Thanks and 5 stars!",
+      "Dificilmente você encontra uma plataforma tão completa no Brasil. A Tutor 360 está de parabéns pela curadoria dos cursos e pela qualidade do ensino.",
   },
 ];
