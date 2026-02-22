@@ -45,10 +45,19 @@ export default function HeaderOne() {
                       </Link>
                     </div>
 
-                    <div className="tp-header-category ml-30 d-none d-xxl-block">
+                    <div className="tp-header-category ml-30 d-none d-xl-block">
                       <Link href="/course-with-filter" className="tp-btn tp-category-btn" 
-                        style={{ border: '1px solid rgba(0, 85, 255, 0.2)' }}>
-                        <i className="fa-solid fa-grid"></i>
+                        style={{ 
+                          border: '1px solid rgba(0, 85, 255, 0.2)',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          backgroundColor: 'transparent',
+                          color: '#1A1A1A',
+                          fontSize: '15px',
+                          fontWeight: '600'
+                        }}>
+                        {/* Trocado para fa-light ou fa-regular para ser fino/chique */}
+                        <i className="fa-light fa-grid-2 mr-10" style={{ fontSize: '18px', color: '#0055FF' }}></i>
                         Categorias
                       </Link>
                     </div>
@@ -59,22 +68,24 @@ export default function HeaderOne() {
                     <NavMenus />
                   </div>
 
-                  {/* DIREITA: ÁREA DO ALUNO (ESTILO FINAL) */}
+                  {/* DIREITA: ÁREA DO ALUNO */}
                   <div className="tp-header-right d-flex align-items-center">
-                    <div className="tp-header-login d-none d-xxl-block mr-20">
+                    
+                    <div className="tp-header-login d-none d-lg-block mr-20">
                        <Link href="/dashboard/student-dashboard" className="tp-btn tp-category-btn"
                         style={{
                           backgroundColor: 'rgba(0, 85, 255, 0.06)', 
                           color: '#0055FF', 
                           borderRadius: '50px', 
                           padding: '10px 25px',
-                          border: '1px solid rgba(0, 85, 255, 0.2)', // A linha de contorno solicitada
+                          border: '1px solid rgba(0, 85, 255, 0.2)',
                           display: 'inline-flex',
                           alignItems: 'center',
                           fontWeight: '600',
                           transition: 'all 0.3s ease'
                         }}>
-                          <i className="fa-solid fa-user-circle mr-10"></i>
+                          {/* Ícone da Área do Aluno também ajustado para harmonia */}
+                          <i className="fa-light fa-user-circle mr-10" style={{ fontSize: '20px' }}></i>
                           Área do Aluno
                        </Link>
                     </div>
@@ -85,7 +96,7 @@ export default function HeaderOne() {
                       </Link>
                     </div>
 
-                    <div className="tp-header-serach ml-15"> 
+                    <div className="tp-header-search ml-15"> 
                       <SearchButton />
                     </div>
                   </div>

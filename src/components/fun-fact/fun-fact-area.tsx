@@ -7,28 +7,28 @@ import icon_4 from "@/assets/img/icon/funfact/funfact-2-icon-4.svg";
 const funFacts = [
   {
     id: 1,
-    title: "Flexible classes",
-    description: "You pick schedule.",
+    title: "Aulas Flexíveis",
+    description: "Você faz seu horário.",
     icon: icon_1,
   },
   {
     id: 2,
-    title: "Offline mode",
-    description: "Download classes.",
+    title: "Modo Offline",
+    description: "Baixe e estude onde quiser.",
     icon: icon_2,
     cls: "tp-funfact-item-2",
   },
   {
     id: 3,
-    title: "10k online courses",
-    description: "Explore fresh topics.",
+    title: "+200 Cursos Online",
+    description: "Explore novos horizontes.",
     icon: icon_3,
     cls: "tp-funfact-item-3",
   },
   {
     id: 4,
-    title: "Educator help",
-    description: "Always get answers.",
+    title: "Suporte Especializado",
+    description: "Respostas em tempo real.",
     icon: icon_4,
   },
 ];

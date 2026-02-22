@@ -1,4 +1,4 @@
-'use client';
+'use client'; 
 
 import Link from "next/link";
 import Image from "next/image";
@@ -10,11 +10,8 @@ import hero_shape_1 from '@/assets/img/hero/hero-2-shape-2.png';
 import hero_shape_2 from '@/assets/img/hero/hero-2-shape-3.png';
 import hero_shape_3 from '@/assets/img/hero/hero-2-shape-4.png';
 import { online_courses_data } from "@/data/course-data";
-import { useTranslation } from "react-i18next";
 
 export default function HeroAreaTwo() {
-  const { t } = useTranslation();
-
   return (
     <div className="tp-hero-area lightblue-bg tp-hero-2-bg">
       <div className="container custom-container">
@@ -25,35 +22,76 @@ export default function HeroAreaTwo() {
                 <span
                   className="tp-hero-2-subtitle wow fadeInUp"
                   data-wow-delay=".3s"
+                  style={{ 
+                    color: '#0055FF', 
+                    fontWeight: '600', 
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase',
+                    fontSize: '14px',
+                    display: 'block',
+                    marginBottom: '15px'
+                  }}
                 >
-                  {t('hero.subtitle')}
+                  Estude no seu ritmo
                 </span>
                 <h2
                   className="tp-hero-2-title wow fadeInUp"
                   data-wow-delay=".5s"
+                  style={{ 
+                    fontSize: '52px', 
+                    fontWeight: '700', 
+                    lineHeight: '1.1', 
+                    maxWidth: '510px', // Trava de elegância conforme o modelo
+                    marginBottom: '25px',
+                    color: '#1A1A1A'
+                  }}
                 >
-                  {t('hero.title1')}{" "}
-                  <span>
-                    {t('hero.title2')}{" "}
+                 Garanta o seu futuro com {" "}
+                  <span style={{ position: 'relative', display: 'inline-block' }}>
+                    Educação
                     <Image
                       className="wow bounceIn"
                       data-wow-duration="1.5s"
                       data-wow-delay=".4s"
                       src={svg_underline}
                       alt="svg-underline"
+                      style={{
+                        position: 'absolute',
+                        bottom: '-5px',
+                        left: '0',
+                        width: '100%',
+                        height: 'auto'
+                      }}
                     />
                   </span>
-                  {t('hero.title3')}
+                  {" "} Digital de Elite.
                 </h2>
-                <p className=" wow fadeInUp" data-wow-delay=".7s">
-                  {t('hero.description')}
+                <p 
+                  className="wow fadeInUp" 
+                  data-wow-delay=".7s"
+                  style={{ 
+                    fontSize: '18px', 
+                    maxWidth: '450px', 
+                    color: '#4A4A4A',
+                    lineHeight: '1.6',
+                    marginBottom: '35px'
+                  }}
+                >
+                  Explore cursos ministrados por especialistas e alcance seus objetivos profissionais com a Tutor 360.
                 </p>
                 <div
                   className="tp-hero-2-btn wow fadeInUp"
                   data-wow-delay=".9s"
                 >
-                  <Link className="tp-btn-border" href="/course-with-filter">
-                    {t('hero.button')}
+                  <Link className="tp-btn-border" href="/course-with-filter" 
+                    style={{ 
+                      borderRadius: '50px', 
+                      padding: '12px 30px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '10px'
+                    }}>
+                    Ver Todos os Cursos
                     <span>
                       <RightArrowFour />
                     </span>
@@ -71,7 +109,7 @@ export default function HeroAreaTwo() {
             </div>
           </div>
           <div className="tp-hero-2-thumb">
-            <Image src={hero_thumb} alt="hero-thumbnail" style={{ height: 'auto' }} />
+            <Image src={hero_thumb} alt="hero-thumbnail" priority style={{ height: 'auto' }} />
           </div>
         </div>
       </div>

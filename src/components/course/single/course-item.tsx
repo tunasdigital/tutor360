@@ -37,7 +37,6 @@ export default function CourseItem({ course, removeTag }: IProps) {
     ? `https://www.youtube.com/watch?v=${video_id}` 
     : `/course-details/${id}`;
 
-  // Verifica se a imagem é externa (YouTube) para evitar crash do Next/Image
   const isExternalImage = thumbnail.startsWith('http');
 
   return (
@@ -57,10 +56,6 @@ export default function CourseItem({ course, removeTag }: IProps) {
       <div className="tp-course-thumb p-relative">
         <Link href={courseLink} target={video_id ? "_blank" : "_self"}>
           {isExternalImage ? (
-            /* ESTRATÉGIA DE SEGURANÇA: 
-               Usamos <img> comum para domínios externos (YouTube) 
-               evitando o erro de configuração do next.config.js
-            */
             <img
               src={thumbnail}
               alt={title}
@@ -113,11 +108,11 @@ export default function CourseItem({ course, removeTag }: IProps) {
         <div className="tp-course-meta">
           <span>
             <span><LessonsSvg /></span>
-            {" "}{lessons} Lessons
+            {" "}{lessons} {lessons === 1 ? 'Aula' : 'Aulas'}
           </span>
           <span>
             <span><UserSvgTwo /></span>
-            {" "}{students} Student
+            {" "}{students} {students === 1 ? 'Aluno' : 'Alunos'}
           </span>
         </div>
         <h4 className="tp-course-title">
@@ -147,7 +142,7 @@ export default function CourseItem({ course, removeTag }: IProps) {
       </div>
       <div className="tp-course-btn home-2">
         <Link href={courseLink} target={video_id ? "_blank" : "_self"}>
-          {video_id ? "Assistir no YouTube" : "Preview this Course"}
+          {video_id ? "Assistir no YouTube" : "Ver Detalhes do Curso"}
         </Link>
       </div>
     </div>
