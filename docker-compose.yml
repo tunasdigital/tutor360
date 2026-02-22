@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: tutor360_db
+    restart: always
+    environment:
+      - POSTGRES_USER=tunas_admin
+      - POSTGRES_PASSWORD=tutor_secret_password
+      - POSTGRES_DB=tutor360_platform
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
