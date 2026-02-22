@@ -4,27 +4,29 @@ $dashboard-prifix : 'tpd';
 
 /* --- PALETA DE CORES DO TUTOR 360 --- */
 
-// Cor Principal do Tema: Azul (#0055FF)
-$tp-theme-color: #0055FF;
+// Cor Principal do Tema: Azul Tutor 360 (Autoridade)
 $tp-theme-primary: #0055FF;
+$tp-theme-color: #0055FF;
 $tp-blue-main: #0055FF; 
 
-// Cor de Destaque / Secundária: Amarelo (#FFB600)
+// Cor de Destaque: Amarelo (Atenção e CTA)
 $tp-yellow: #FFB600;
 $tp-orange: #FFB600;
 
-// Cores Comuns (Mantendo cores neutras ou essenciais que o template usa)
+// Cores de Texto e Fundo
 $tp-heading-primary: #1A1A1A;
-$tp-text-body: #606060;
-$tp-text-p: #606060;
 $tp-common-black: #000000;
 $tp-common-white: #ffffff;
-$tp-light-blue: #EBF3FF; // Fundo do hero (pode ser ajustado)
-$tp-red: #D9534F; // Mantido para avisos de erro
+$tp-text-body: #606060;
+$tp-text-p: #606060;
 
+// Cores de Apoio (Inspiradas no azul principal)
+$tp-light-blue: #EBF3FF; 
+$tp-red: #D9534F;
 
-/* --- VARIÁVEIS DE TIPOGRAFIA (Apenas para referência) --- */
+/* --- FONTES (Vinculadas ao que configuramos no Layout) --- */
+$tp-ff-heading: 'var(--tp-ff-heading)';
+$tp-ff-body: 'var(--tp-ff-primary)';
 
-// Definidas no layout.tsx:
-// var(--tp-ff-heading) -> Montserrat
-// var(--tp-ff-primary) -> Jost
+/* --- TRANSIÇÕES PADRÃO --- */
+$tp-transition: .3s;
