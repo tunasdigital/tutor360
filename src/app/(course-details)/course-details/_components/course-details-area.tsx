@@ -7,12 +7,14 @@ import CourseDetailsRatingReviews from "@/components/course/details/course-detai
 import CourseDetailsFeaturedReviews from "@/components/course/details/course-details-featured-reviews";
 import CourseDetailsReviewForm from "@/components/course/details/course-details-review-form";
 import CourseDetailsNav from "@/components/course/details/course-details-nav";
+import { Lesson } from "@prisma/client";
 
 type IProps = {
    course: ICourseDT;
+   lessons: Lesson[];
 };
 
-export default function CourseDetailsArea({ course }: IProps) {
+export default function CourseDetailsArea({ course, lessons }: IProps) {
 
    return (
       <section className="tp-course-details-2-area pt-50 pb-80">
@@ -31,7 +33,8 @@ export default function CourseDetailsArea({ course }: IProps) {
 
                         <div id="curriculum" className="pt-70">
                            <h4 className="tp-course-details-2-main-title">Course Curriculum</h4>
-                           <CourseDetailsCurriculum />
+                           {/* Repassando as aulas reais para o componente de currículo */}
+                           <CourseDetailsCurriculum lessons={lessons} />
                         </div>
 
                         <div id="instructors" className="pt-100">
@@ -56,9 +59,7 @@ export default function CourseDetailsArea({ course }: IProps) {
                   </div>
                </div>
                <div className="col-lg-4">
-                  {/* right sidebar box */}
                   <CourseDetailsRightSide course={course} />
-                  {/* right sidebar box */}
                </div>
             </div>
          </div>
