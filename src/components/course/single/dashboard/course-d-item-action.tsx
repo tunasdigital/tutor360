@@ -1,6 +1,6 @@
 'use client';
 import { useState } from "react";
-import { DeleteSvg, DotsTwoSvg, DraftSvg, DuplicateSvg } from "@/components/svg";
+import { CloseEyeTwo, DeleteSvg, DotsTwoSvg, DraftSvg, DuplicateSvg } from "@/components/svg";
 import useClickOutside from "@/hooks/use-click-outside";
 
 
@@ -9,7 +9,6 @@ export default function CourseDashboardItemAction({courseId}:{courseId:number}) 
     const actionButtonRef = useClickOutside(setOpenActionId);
 
     function toggleAction(id: number) {
-        setOpenActionId(null);
         if (openActionId === id) {
            setOpenActionId(null);
         } else {
@@ -27,19 +26,19 @@ export default function CourseDashboardItemAction({courseId}:{courseId:number}) 
                     <span>
                         <DuplicateSvg />
                     </span>
-                    Duplicate
+                    Duplicar
                 </button>
                 <button>
                     <span>
                         <DraftSvg />
                     </span>
-                    Move to Draft
+                    Mover para Rascunho
                 </button>
                 <button>
                     <span>
                         <DeleteSvg />
                     </span>
-                    Delete
+                    Excluir
                 </button>
             </div>
         </div>

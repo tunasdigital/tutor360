@@ -5,21 +5,24 @@ import usePagination from "@/hooks/use-pagination";
 import DashboardCourseItemTwo from "@/components/course/single/dashboard/dashboard-course-item-2";
 
 export default function InstructorWishlistArea() {
+    // Organização da paginação para exibir 6 cursos por vez
     const { currentItems, handlePageClick, pageCount } = usePagination([...online_courses_data], 6);
+    
     return (
         <>
-            {/* course area start */}
+            {/* Início da área de listagem de desejos */}
             <div className="course-area">
                 <div className="row">
                     <div className="col-lg-6">
                         <div className="tp-dashboard-section">
-                            <h2 className="tp-dashboard-title">Wishlist</h2>
+                            {/* NACIONALIZADO: Título da seção conforme padrão Tutor360 */}
+                            <h2 className="tp-dashboard-title">Lista de Desejos</h2>
                         </div>
                     </div>
                 </div>
 
                 <div className="row">
-                    {/* Render courses based on enrollCoursesRef.current */}
+                    {/* Renderização dinâmica dos cursos favoritados */}
                     {currentItems.map((course, index) => (
                         <div className="col-xl-4 col-md-6" key={index}>
                             <DashboardCourseItemTwo course={course} />
@@ -27,15 +30,15 @@ export default function InstructorWishlistArea() {
                     ))}
                 </div>
             </div>
-            {/* course area end */}
+            {/* Fim da área de cursos */}
 
-            {/* pagination area start */}
+            {/* Início da área de paginação nacionalizada */}
             <div className="tp-dashboard-pagination pt-20">
                 <div className="tp-pagination">
                     <Pagination handlePageClick={handlePageClick} pageCount={pageCount} isCenter={true} />
                 </div>
             </div>
-            {/* pagination area end */}
+            {/* Fim da área de paginação */}
         </>
     )
 }

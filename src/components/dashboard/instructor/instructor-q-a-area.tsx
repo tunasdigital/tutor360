@@ -5,17 +5,17 @@ import { CheckTwoSvg, DeleteSvg, DotsTwoSvg, EmailFour } from "@/components/svg"
 import NiceSelect from "@/components/ui/nice-select";
 import useClickOutside from "@/hooks/use-click-outside";
 
-// student q-a data
+// Dados de Perguntas de Alunos (Traduzidos para 2026)
 const studentQaData = [
    {
       id: 1,
       student: {
          name: "Hanson Deck",
-         date: "June 11, 2021 at 6:01 am",
+         date: "11 de Junho, 2026 às 06:01",
          profileImg: "/assets/img/dashboard/profile/reviews-profile-1.png"
       },
-      question: "Hello! Could you explain the last lesson?",
-      course: "New Course",
+      question: "Olá! Você poderia explicar a última aula?",
+      course: "Novo Curso",
       replies: 2,
       status: "pending",
    },
@@ -23,26 +23,26 @@ const studentQaData = [
       id: 2,
       student: {
          name: "Indigo Violet",
-         date: "June 12, 2021 at 2:15 pm",
+         date: "12 de Junho, 2026 às 14:15",
          profileImg: "/assets/img/dashboard/profile/reviews-profile-2.png"
       },
-      question: "I'm struggling with the assignment.",
-      course: "Advanced Math",
+      question: "Estou com dificuldades na tarefa.",
+      course: "Matemática Avançada",
       replies: 3,
       status: "complete",
    },
 ];
-// instructor q-a data
+// Dados de Perguntas do Instrutor (Traduzidos para 2026)
 const instructorQaData = [
    {
       id: 1,
       student: {
          name: "Hanson Deck",
-         date: "June 11, 2021 at 6:01 am",
+         date: "11 de Junho, 2026 às 06:01",
          profileImg: "/assets/img/dashboard/profile/reviews-profile-1.png"
       },
-      question: "Hello! Could you explain the last lesson?",
-      course: "New Course",
+      question: "Olá! Você poderia explicar a última aula?",
+      course: "Novo Curso",
       replies: 2,
       status: "pending",
    },
@@ -50,11 +50,11 @@ const instructorQaData = [
       id: 2,
       student: {
          name: "Indigo Violet",
-         date: "June 12, 2021 at 2:15 pm",
+         date: "12 de Junho, 2026 às 14:15",
          profileImg: "/assets/img/dashboard/profile/reviews-profile-2.png"
       },
-      question: "I'm struggling with the assignment.",
-      course: "Advanced Math",
+      question: "Estou com dificuldades na tarefa.",
+      course: "Matemática Avançada",
       replies: 3,
       status: "complete",
    },
@@ -62,11 +62,11 @@ const instructorQaData = [
       id: 3,
       student: {
          name: "Benjamin Evalent",
-         date: "June 13, 2021 at 9:45 am",
+         date: "13 de Junho, 2026 às 09:45",
          profileImg: "/assets/img/dashboard/profile/reviews-profile-3.png"
       },
-      question: "Can you clarify the project requirements?",
-      course: "Physics 101",
+      question: "Pode esclarecer os requisitos do projeto?",
+      course: "Física 101",
       replies: 1,
       status: "pending",
    },
@@ -74,11 +74,11 @@ const instructorQaData = [
       id: 4,
       student: {
          name: "Jennifer Lang",
-         date: "June 14, 2021 at 8:30 am",
+         date: "14 de Junho, 2026 às 08:30",
          profileImg: "/assets/img/dashboard/profile/reviews-profile-4.png"
       },
-      question: "What is the due date for the final project?",
-      course: "Art History",
+      question: "Qual é a data de entrega do projeto final?",
+      course: "História da Arte",
       replies: 5,
       status: "complete",
    },
@@ -86,11 +86,11 @@ const instructorQaData = [
       id: 5,
       student: {
          name: "Michael Lee",
-         date: "June 15, 2021 at 3:20 pm",
+         date: "15 de Junho, 2026 às 15:20",
          profileImg: "/assets/img/dashboard/profile/reviews-profile-2.png"
       },
-      question: "Is there any extra credit available?",
-      course: "Chemistry Basics",
+      question: "Existe alguma pontuação extra disponível?",
+      course: "Fundamentos de Química",
       replies: 0,
       status: "pending",
    },
@@ -98,11 +98,11 @@ const instructorQaData = [
       id: 6,
       student: {
          name: "Sophia Blake",
-         date: "June 16, 2021 at 5:00 pm",
+         date: "16 de Junho, 2026 às 17:00",
          profileImg: "/assets/img/dashboard/profile/reviews-profile-1.png"
       },
-      question: "Can you review my essay before submission?",
-      course: "English Literature",
+      question: "Pode revisar minha redação antes do envio?",
+      course: "Literatura Inglesa",
       replies: 4,
       status: "complete",
    },
@@ -110,11 +110,11 @@ const instructorQaData = [
       id: 7,
       student: {
          name: "David Kim",
-         date: "June 17, 2021 at 12:00 pm",
+         date: "17 de Junho, 2026 às 12:00",
          profileImg: "/assets/img/dashboard/profile/reviews-profile-4.png"
       },
-      question: "I have trouble understanding the last chapter.",
-      course: "Economics",
+      question: "Estou com problemas para entender o último capítulo.",
+      course: "Economia",
       replies: 2,
       status: "pending",
    },
@@ -122,21 +122,21 @@ const instructorQaData = [
       id: 8,
       student: {
          name: "Rachel Green",
-         date: "June 18, 2021 at 10:15 am",
+         date: "18 de Junho, 2026 às 10:15",
          profileImg: "/assets/img/dashboard/profile/reviews-profile-3.png"
       },
-      question: "What resources do you recommend for exam preparation?",
-      course: "Business Administration",
+      question: "Quais materiais você recomenda para a prova?",
+      course: "Administração de Empresas",
       replies: 3,
       status: "complete",
    }
 ];
-// tabs
-const tabs = ["Student", "Instructor"];
+// Tradução das Abas
+const tabs = ["Aluno", "Instrutor"];
 
 export default function InstructorQuestionAnswerArea() {
    const [activeTab, setActiveTab] = useState(tabs[0]);
-   const question_answer_data = activeTab === "Student" ? studentQaData : instructorQaData;
+   const question_answer_data = activeTab === "Aluno" ? studentQaData : instructorQaData;
 
 
    function handleFilter(item: { value: string, label: string }) {
@@ -150,7 +150,8 @@ export default function InstructorQuestionAnswerArea() {
             <div className="row">
                <div className="col-lg-6">
                   <div className="tp-dashboard-section">
-                     <h2 className="tp-dashboard-title">Question & Answer</h2>
+                     {/* Tradução do Título da Seção */}
+                     <h2 className="tp-dashboard-title">Perguntas & Respostas</h2>
                   </div>
                </div>
                <div className="col-lg-12">
@@ -159,7 +160,7 @@ export default function InstructorQuestionAnswerArea() {
                         <div className="tpd-dashboard-qa-tab mb-30">
                            <div className="nav nav-tabs tpd-dashboard-qa-tab-bg" id="myTab" role="tablist">
                               {tabs.map((tab) => (
-                                 <button onClick={() => setActiveTab(tab)} key={tab} className={`nav-link ${activeTab === tab ? 'active' : ''} ${tab === 'Student' ? 'monthly' : 'yearly'}`}>{tab}</button>
+                                 <button onClick={() => setActiveTab(tab)} key={tab} className={`nav-link ${activeTab === tab ? 'active' : ''} ${tab === 'Aluno' ? 'monthly' : 'yearly'}`}>{tab}</button>
                               ))}
                               <div className="test"></div>
                            </div>
@@ -168,11 +169,12 @@ export default function InstructorQuestionAnswerArea() {
                      <div className="col-lg-6">
                         <div className="tpd-dashboard-qa-select mb-30">
                            <div className="tp-course-filter-select">
+                              {/* Tradução do Filtro Select */}
                               <NiceSelect
-                                 options={[{ value: '1', label: 'Free' }, { value: '2', label: 'Newest' }, { value: '3', label: 'Oldest' }]}
+                                 options={[{ value: '1', label: 'Gratuito' }, { value: '2', label: 'Mais Recentes' }, { value: '3', label: 'Mais Antigos' }]}
                                  defaultCurrent={0}
                                  cls="wide"
-                                 placeholder="Default"
+                                 placeholder="Padrão"
                                  onChange={handleFilter}
                                  name="filter"
                               />
@@ -190,14 +192,15 @@ export default function InstructorQuestionAnswerArea() {
                         <ul>
                            <li className="tpd-table-head">
                               <div className="tpd-table-row">
+                                 {/* Tradução dos Cabeçalhos da Tabela */}
                                  <div className="tpd-instructor-qa-student">
-                                    <h4 className="tpd-table-title">Student</h4>
+                                    <h4 className="tpd-table-title">Aluno</h4>
                                  </div>
                                  <div className="tpd-instructor-qa-question">
-                                    <h4 className="tpd-table-title">Question</h4>
+                                    <h4 className="tpd-table-title">Pergunta</h4>
                                  </div>
                                  <div className="tpd-instructor-qa-reply">
-                                    <h4 className="tpd-table-title">Reply</h4>
+                                    <h4 className="tpd-table-title">Respostas</h4>
                                  </div>
                                  <div className="tpd-instructor-qa-status">
                                     <h4 className="tpd-table-title">Status</h4>
@@ -264,7 +267,8 @@ export function QuestionAnswerItem({ item }: Props) {
             <div className="tpd-instructor-qa-question">
                <h4 className="tpd-common-text">{item.question}</h4>
                <div className="tpd-course-wrap">
-                  <span className="tpd-course-name">Course:</span>
+                  {/* Tradução da Label de Curso */}
+                  <span className="tpd-course-name">Curso:</span>
                   <span className="tpd-course-title">{item.course}</span>
                </div>
             </div>
@@ -277,7 +281,8 @@ export function QuestionAnswerItem({ item }: Props) {
                </div>
             </div>
             <div className="tpd-instructor-qa-btn">
-               <a className="tpd-border-btn" href="#">Details</a>
+               {/* Tradução do Botão Detalhes */}
+               <a className="tpd-border-btn" href="#">Detalhes</a>
             </div>
             <div className="tpd-instructor-qa-action" ref={actionButtonRef}>
                <div className={`tpd-action-inexact-btn ${openActionId === item.id ? 'active' : ''}`}>
@@ -285,17 +290,18 @@ export function QuestionAnswerItem({ item }: Props) {
                      <DotsTwoSvg />
                   </button>
                   <div className="tpd-action-click-tooltip">
+                     {/* Tradução do Tooltip de Ação */}
                      <button>
                         <span>
                            <EmailFour />
                         </span>
-                        Mark as Unread
+                        Marcar como Não Lida
                      </button>
                      <button>
                         <span>
                            <DeleteSvg />
                         </span>
-                        Delete
+                        Excluir
                      </button>
                   </div>
                </div>

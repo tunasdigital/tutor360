@@ -1,3 +1,4 @@
+'use client';
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,7 +12,8 @@ type IProps = {
 };
 
 export default function DashboardCourseItemTwo({ course }: IProps) {
-    const {id, author_name, author_img, title, discount, thumbnail, total_rating, lessons, students,price } = course || {};
+    const {id, author_name, author_img, title, discount, thumbnail, total_rating, lessons, students, price } = course || {};
+    
     return (
         <div className="tp-dashboard-course tp-dashboard-course-2 mb-25">
             <div className="tp-course-teacher mb-15">
@@ -27,7 +29,7 @@ export default function DashboardCourseItemTwo({ course }: IProps) {
             </div>
             <div className="tp-dashboard-course-thumb">
                 <Link href={`/course-details/${id}`}>
-                    <Image src={thumbnail} alt="thumbnail" width={262} height={160} />
+                    <Image src={thumbnail} alt="Capa do curso" width={262} height={160} />
                 </Link>
             </div>
             <div className="tp-dashboard-course-content">
@@ -37,7 +39,7 @@ export default function DashboardCourseItemTwo({ course }: IProps) {
                     <i className="fa-solid fa-star"></i>
                     <i className="fa-solid fa-star"></i>
                     <i className="fa-solid fa-star"></i>
-                    <span>({total_rating} Reviews)</span>
+                    <span>({total_rating} Avaliações)</span>
                 </div>
                 <h4 className="tp-dashboard-course-title">
                     <Link href={`/course-details/${id}`}>{removeTagInText(title)}</Link>
@@ -47,13 +49,13 @@ export default function DashboardCourseItemTwo({ course }: IProps) {
                         <span>
                             <LessonsSvg />
                         </span>
-                        {" "}{lessons} Lessons
+                        {" "}{lessons} Aulas
                     </span>
                     <span>
                         <span>
                             <UserSvgTwo />
                         </span>
-                        {" "}{students} Student
+                        {" "}{students} Alunos
                     </span>
                 </div>
                 <div className="tp-dashboard-btn d-flex align-items-center justify-content-between">
@@ -61,10 +63,10 @@ export default function DashboardCourseItemTwo({ course }: IProps) {
                         <span>
                             <CartThree />
                         </span>
-                        Add to cart
+                        Adicionar ao carrinho
                     </Link>
                     <div className="tp-dashboard-course-free">
-                        <span>{price === 0 ? "Free" : formatPrice(price)}</span>
+                        <span>{price === 0 ? "Grátis" : formatPrice(price)}</span>
                     </div>
                 </div>
             </div>

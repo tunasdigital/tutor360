@@ -7,7 +7,7 @@ import { CalenderThreeSvg } from "@/components/svg";
 type IProps = {
     title?: string;
 }
-export default function SectionArea({title='Quiz Attempts'}: IProps) {
+export default function SectionArea({title='Tentativas de Quiz'}: IProps) {
     const [date, setDate] = useState(new Date());
     function handleCourseFilter(item: { value: string, label: string }) {
         console.log(item);
@@ -18,6 +18,7 @@ export default function SectionArea({title='Quiz Attempts'}: IProps) {
     return (
         <div className="section-area">
             <div className="tp-dashboard-section">
+                {/* Título dinâmico nacionalizado por padrão */}
                 <h2 className="tp-dashboard-title">{title}</h2>
             </div>
             <div className="row">
@@ -26,12 +27,12 @@ export default function SectionArea({title='Quiz Attempts'}: IProps) {
                         <div className="tp-course-filter-select">
                             <NiceSelect
                                 options={[
-                                    { value: "", label: "All Courses" },
-                                    { value: "latest", label: "New Courses 2024" },
-                                    { value: "web-d", label: "Web Design System in Figma" },
-                                    { value: "interior", label: "Interior design concepts Masterclass" },
-                                    { value: "graphic", label: "Graphic Design Masterclass" },
-                                    { value: "bootstrap", label: "Bootstrap 5 From Scratch" },
+                                    { value: "", label: "Todos os Cursos" },
+                                    { value: "latest", label: "Novos Cursos 2026" },
+                                    { value: "web-d", label: "Sistema de Web Design no Figma" },
+                                    { value: "interior", label: "Masterclass de Design de Interiores" },
+                                    { value: "graphic", label: "Masterclass de Design Gráfico" },
+                                    { value: "bootstrap", label: "Bootstrap 5 do Zero" },
                                 ]}
                                 defaultCurrent={0}
                                 cls="wide"
@@ -44,12 +45,12 @@ export default function SectionArea({title='Quiz Attempts'}: IProps) {
                 <div className="col-lg-6">
                     <div className="tpd-dashboard-select-calender d-flex align-items-center justify-content-lg-end">
                         <div className="tpd-order-short-list mb-30">
-                            <div className="tp-course-filter-select">
+                           <div className="tp-course-filter-select">
                                 <NiceSelect
                                     options={[
-                                        { value: "desc", label: "DESC" },
-                                        { value: "asc", label: "SCFW" },
-                                        { value: "popularity", label: "QESC" },
+                                        { value: "desc", label: "Decrescente" },
+                                        { value: "asc", label: "Crescente" },
+                                        { value: "popularity", label: "Popularidade" },
                                     ]}
                                     defaultCurrent={0}
                                     cls="wide"

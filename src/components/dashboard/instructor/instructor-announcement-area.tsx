@@ -1,20 +1,21 @@
 'use client';
 import { useState } from "react";
+import { DeleteSvg, DotsTwoSvg, DraftSvg, DuplicateSvg, PenTwoSvg } from "@/components/svg";
 import Image from "next/image";
-import { CalenderThreeSvg, DeleteSvg, DotsTwoSvg, PenTwoSvg } from "@/components/svg";
-import DatePicker from "@/components/ui/date-picker";
-import NiceSelect from "@/components/ui/nice-select";
 import announce_icon from '@/assets/img/dashboard/icon/announcement-icon.svg';
 import useGlobalContext from "@/hooks/use-global-context";
 import useClickOutside from "@/hooks/use-click-outside";
+import NiceSelect from "@/components/ui/nice-select";
+import DatePicker from "@/components/ui/date-picker";
+import { CalenderThreeSvg } from "@/components/svg";
 
-
+// Dados de anúncios garimpados e traduzidos para 2026
 const announcementData = [
    {
       id:1,
       date: "27 de Agosto, 2026",
       time: "06:01",
-      announcement: "Sistema de Web Design no Figma",
+      announcement: "Atualização: Sistema de Web Design no Figma",
       courseName: "Curso:",
       courseTitle: "Masterclass de Design",
    },
@@ -22,7 +23,7 @@ const announcementData = [
       id:2,
       date: "27 de Agosto, 2026",
       time: "06:01",
-      announcement: "Sistema de Web Design no Figma",
+      announcement: "Nova aula liberada: Prototipagem Avançada",
       courseName: "Curso:",
       courseTitle: "Masterclass de Design",
    },
@@ -30,23 +31,7 @@ const announcementData = [
       id:3,
       date: "27 de Agosto, 2026",
       time: "06:01",
-      announcement: "Sistema de Web Design no Figma",
-      courseName: "Curso:",
-      courseTitle: "Masterclass de Design",
-   },
-   {
-      id:4,
-      date: "27 de Agosto, 2026",
-      time: "06:01",
-      announcement: "Sistema de Web Design no Figma",
-      courseName: "Curso:",
-      courseTitle: "Masterclass de Design",
-   },
-   {
-      id:5,
-      date: "27 de Agosto, 2026",
-      time: "06:01",
-      announcement: "Sistema de Web Design no Figma",
+      announcement: "Live de tira-dúvidas amanhã às 19h",
       courseName: "Curso:",
       courseTitle: "Masterclass de Design",
    }
@@ -58,6 +43,7 @@ export default function InstructorAnnouncementArea() {
    const {handleAnnounceAddEditModal,handleAnnounceDetailsModal} = useGlobalContext();
    const [openActionId, setOpenActionId] = useState<number | null>(null);
    const actionButtonRef = useClickOutside(setOpenActionId);
+   
    function toggleAction(id: number) {
       if (openActionId === id) {
          setOpenActionId(null);
@@ -65,22 +51,28 @@ export default function InstructorAnnouncementArea() {
          setOpenActionId(id);
       }
    }
+   
    function handleCourseFilter(item: { value: string, label: string }) {
       console.log(item);
    }
+   
    function handleCourseSorting(item: { value: string, label: string }) {
       console.log(item);
    }
+   
    return (
       <>
          <section className="tpd-order-area">
             <div className="row">
                <div className="col-lg-6">
                   <div className="tp-dashboard-section">
+                     {/* NACIONALIZADO: Título da Seção */}
                      <h2 className="tp-dashboard-title">Anúncios</h2>
                   </div>
                </div>
             </div>
+            
+            {/* Bloco de Criar Anúncio NACIONALIZADO */}
             <div className="row">
                <div className="col-12">
                   <div className="tpd-announcement tpd-common-shadow d-flex align-items-center justify-content-between mb-70">
@@ -99,10 +91,12 @@ export default function InstructorAnnouncementArea() {
                   </div>
                </div>
             </div>
+
             <div className="row">
                <div className="col-lg-6">
                   <div className="tpd-dashboard-select-course">
                      <div className="tp-course-filter-select">
+                        {/* NACIONALIZADO: Filtro por curso */}
                         <NiceSelect
                            options={[
                               { value: "", label: "Todos os Cursos" },
@@ -124,6 +118,7 @@ export default function InstructorAnnouncementArea() {
                   <div className="tpd-dashboard-select-calender d-flex align-items-center justify-content-end">
                      <div className="tpd-order-short-list mb-30">
                         <div className="tp-course-filter-select">
+                           {/* NACIONALIZADO: Ordenação */}
                            <NiceSelect
                               options={[
                                  { value: "desc", label: "Decrescente" },
@@ -146,6 +141,7 @@ export default function InstructorAnnouncementArea() {
                   </div>
                </div>
             </div>
+
             <div className="row">
                <div className="col-12">
                   <div className="tpd-table tpd-announcement-table mb-45">
