@@ -12,43 +12,43 @@ import useClickOutside from "@/hooks/use-click-outside";
 const announcementData = [
    {
       id:1,
-      date: "August 27, 2024",
-      time: "6:01 am",
-      announcement: "Web Design System in Figma",
-      courseName: "Course:",
-      courseTitle: "Design Masterclass",
+      date: "27 de Agosto, 2026",
+      time: "06:01",
+      announcement: "Sistema de Web Design no Figma",
+      courseName: "Curso:",
+      courseTitle: "Masterclass de Design",
    },
    {
       id:2,
-      date: "August 27, 2024",
-      time: "6:01 am",
-      announcement: "Web Design System in Figma",
-      courseName: "Course:",
-      courseTitle: "Design Masterclass",
+      date: "27 de Agosto, 2026",
+      time: "06:01",
+      announcement: "Sistema de Web Design no Figma",
+      courseName: "Curso:",
+      courseTitle: "Masterclass de Design",
    },
    {
       id:3,
-      date: "August 27, 2024",
-      time: "6:01 am",
-      announcement: "Web Design System in Figma",
-      courseName: "Course:",
-      courseTitle: "Design Masterclass",
+      date: "27 de Agosto, 2026",
+      time: "06:01",
+      announcement: "Sistema de Web Design no Figma",
+      courseName: "Curso:",
+      courseTitle: "Masterclass de Design",
    },
    {
       id:4,
-      date: "August 27, 2024",
-      time: "6:01 am",
-      announcement: "Web Design System in Figma",
-      courseName: "Course:",
-      courseTitle: "Design Masterclass",
+      date: "27 de Agosto, 2026",
+      time: "06:01",
+      announcement: "Sistema de Web Design no Figma",
+      courseName: "Curso:",
+      courseTitle: "Masterclass de Design",
    },
    {
       id:5,
-      date: "August 27, 2024",
-      time: "6:01 am",
-      announcement: "Web Design System in Figma",
-      courseName: "Course:",
-      courseTitle: "Design Masterclass",
+      date: "27 de Agosto, 2026",
+      time: "06:01",
+      announcement: "Sistema de Web Design no Figma",
+      courseName: "Curso:",
+      courseTitle: "Masterclass de Design",
    }
 ];
 
@@ -77,7 +77,7 @@ export default function InstructorAnnouncementArea() {
             <div className="row">
                <div className="col-lg-6">
                   <div className="tp-dashboard-section">
-                     <h2 className="tp-dashboard-title">Announcements</h2>
+                     <h2 className="tp-dashboard-title">Anúncios</h2>
                   </div>
                </div>
             </div>
@@ -86,15 +86,15 @@ export default function InstructorAnnouncementArea() {
                   <div className="tpd-announcement tpd-common-shadow d-flex align-items-center justify-content-between mb-70">
                      <div className="tpd-announcement-info d-flex align-items-center">
                         <div className="tpd-announcement-icon">
-                           <span><Image src={announce_icon} alt="icon" /></span>
+                           <span><Image src={announce_icon} alt="ícone" /></span>
                         </div>
-                        <div className="tpd-announcement-notification">
-                           <span>Create Announcement</span>
-                           <h4 className="tpd-announcement-notification-title">Notify all students of your course</h4>
+                        <div className="tp-announcement-notification">
+                           <span>Criar Anúncio</span>
+                           <h4 className="tpd-announcement-notification-title">Notifique todos os alunos do seu curso</h4>
                         </div>
                      </div>
                      <div className="text-lg-end">
-                        <button className="tpd-border-btn active" onClick={()=>handleAnnounceAddEditModal()}>Add New Announcement</button>
+                        <button className="tpd-border-btn active" onClick={()=>handleAnnounceAddEditModal()}>Novo Anúncio</button>
                      </div>
                   </div>
                </div>
@@ -105,12 +105,12 @@ export default function InstructorAnnouncementArea() {
                      <div className="tp-course-filter-select">
                         <NiceSelect
                            options={[
-                              { value: "", label: "All Courses" },
-                              { value: "latest", label: "New Courses 2024" },
-                              { value: "web-d", label: "Web Design System in Figma" },
-                              { value: "interior", label: "Interior design concepts Masterclass" },
-                              { value: "graphic", label: "Graphic Design Masterclass" },
-                              { value: "bootstrap", label: "Bootstrap 5 From Scratch" },
+                              { value: "", label: "Todos os Cursos" },
+                              { value: "latest", label: "Novos Cursos 2026" },
+                              { value: "web-d", label: "Web Design no Figma" },
+                              { value: "interior", label: "Masterclass em Design de Interiores" },
+                              { value: "graphic", label: "Masterclass em Design Gráfico" },
+                              { value: "bootstrap", label: "Bootstrap 5 do Zero" },
                            ]}
                            defaultCurrent={0}
                            cls="wide"
@@ -121,14 +121,14 @@ export default function InstructorAnnouncementArea() {
                   </div>
                </div>
                <div className="col-lg-6">
-                  <div className="tpd-dashboard-select-calender d-flex align-items-center justify-content-lg-end">
+                  <div className="tpd-dashboard-select-calender d-flex align-items-center justify-content-end">
                      <div className="tpd-order-short-list mb-30">
                         <div className="tp-course-filter-select">
                            <NiceSelect
                               options={[
-                                 { value: "desc", label: "DESC" },
-                                 { value: "asc", label: "SCFW" },
-                                 { value: "popularity", label: "QESC" },
+                                 { value: "desc", label: "Decrescente" },
+                                 { value: "asc", label: "Crescente" },
+                                 { value: "popularity", label: "Popularidade" },
                               ]}
                               defaultCurrent={0}
                               cls="wide"
@@ -153,10 +153,10 @@ export default function InstructorAnnouncementArea() {
                         <li className="tpd-table-head">
                            <div className="tpd-table-row">
                               <div className="tpd-announcement-date">
-                                 <h4 className="tpd-table-title">Date</h4>
+                                 <h4 className="tpd-table-title">Data</h4>
                               </div>
                               <div className="tpd-announcement-announcement">
-                                 <h4 className="tpd-table-title">Announcements</h4>
+                                 <h4 className="tpd-table-title">Anúncios</h4>
                               </div>
                               <div className="tpd-announcement-btn"></div>
                               <div className="tpd-announcement-action"></div>
@@ -181,7 +181,7 @@ export default function InstructorAnnouncementArea() {
                                     className="tpd-announcement-btn"
                                     onClick={handleAnnounceDetailsModal}
                                  >
-                                    <button className="tpd-btn-details">Details</button>
+                                    <button className="tpd-btn-details">Detalhes</button>
                                  </div>
                                  <div className="tpd-announcement-action" ref={actionButtonRef}>
                                     <div className={`tpd-action-inexact-btn ${openActionId === item.id ? 'active' : ''}`}>
@@ -193,13 +193,13 @@ export default function InstructorAnnouncementArea() {
                                              <span>
                                                 <PenTwoSvg />
                                              </span>
-                                             Edit
+                                             Editar
                                           </button>
                                           <button>
                                              <span>
                                                 <DeleteSvg />
                                              </span>
-                                             Delete
+                                             Excluir
                                           </button>
                                        </div>
                                     </div>
@@ -212,8 +212,6 @@ export default function InstructorAnnouncementArea() {
                </div>
             </div>
          </section>
-
-        
       </>
    )
 }

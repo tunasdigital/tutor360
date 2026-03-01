@@ -6,7 +6,8 @@ import InstructorSettingPassword from "./instructor-setting-password";
 import InstructorSettingProfileWithdraw from "./instructor-setting-profile-withdraw";
 import InstructorSettingProfileSocials from "./instructor-setting-profile-socials";
 
-const tabs = ['Profile', 'Password', 'Withdraw', 'Social Profile'];
+// Garimpo das abas: Tradução dos nomes que aparecem no menu de navegação superior
+const tabs = ['Perfil', 'Senha', 'Retiradas', 'Redes Sociais'];
 
 type IProps = {
    studentProfile?: boolean;
@@ -18,7 +19,8 @@ export default function InstructorSettingProfileMainArea({studentProfile=false}:
          <div className="row">
             <div className="col-12">
                <div className="tp-dashboard-tab mb-25">
-                  <h2 className="tp-dashboard-tab-title">Settings</h2>
+                  {/* Nacionalização do título da página */}
+                  <h2 className="tp-dashboard-tab-title">Configurações</h2>
                   <div className="tp-dashboard-tab-list">
                      <ul>
                         {tabs.map((tab) => (
@@ -37,14 +39,13 @@ export default function InstructorSettingProfileMainArea({studentProfile=false}:
             </div>
          </div>
 
-         {/* instructor setting content */}
+         {/* Conteúdo das configurações do instrutor/aluno */}
          <InstructorSettingContentWrapper>
-            {activeTab === 'Profile' && <InstructorSettingProfilePage studentProfile={studentProfile} />}
-            {activeTab === 'Password' && <InstructorSettingPassword />}
-            {activeTab === 'Withdraw' && <InstructorSettingProfileWithdraw />}
-            {activeTab === 'Social Profile' && <InstructorSettingProfileSocials/>}
+            {activeTab === 'Perfil' && <InstructorSettingProfilePage studentProfile={studentProfile} />}
+            {activeTab === 'Senha' && <InstructorSettingPassword />}
+            {activeTab === 'Retiradas' && <InstructorSettingProfileWithdraw />}
+            {activeTab === 'Redes Sociais' && <InstructorSettingProfileSocials/>}
          </InstructorSettingContentWrapper>
-         {/* instructor setting content */}
       </>
    )
 }

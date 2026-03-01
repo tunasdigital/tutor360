@@ -4,26 +4,25 @@ import DashboardContentWrapper from "@/components/dashboard/dashboard-content-wr
 import InstructorWishlistArea from "@/components/dashboard/instructor/instructor-wishlist-area";
 
 export const metadata: Metadata = {
-    title: "Student Wishlist - Acadia",
+    title: "Lista de Desejos - Tutor360",
 }
 
 export default function StudentWishlistPage() {
     return (
         <main className="tp-dashboard-body-bg">
 
-            {/* dashboard banner area start */}
+            {/* Início da área do banner do dashboard (Configurado para Aluno) */}
             <DashboardBanner studentBanner={true} />
-            {/* dashboard banner area end */}
+            {/* Fim da área do banner do dashboard */}
 
-            {/* dashboard content area start */}
+            {/* Início da área de conteúdo com sidebar lateral do Aluno */}
             <DashboardContentWrapper studentSidebar={true}>
 
-                {/* dashboard fact area start */}
+                {/* Renderização da área de itens favoritados */}
                 <InstructorWishlistArea/>
-                {/* dashboard fact area end */}
 
             </DashboardContentWrapper>
-            {/* dashboard content area end */}
+            {/* Fim da área de conteúdo */}
 
         </main>
     )

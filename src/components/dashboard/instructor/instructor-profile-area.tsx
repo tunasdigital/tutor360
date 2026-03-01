@@ -1,27 +1,28 @@
+'use client';
+import React from "react";
 
-
+// Dados de perfil traduzidos para a realidade da Tutor360
 const profileData = [
-  { label: 'Registration Date', value: 'October 06, 2024 8:30 am' },
-  { label: 'First Name', value: 'Indigo' },
-  { label: 'Last Name', value: 'Violet' },
-  { label: 'Username', value: 'Instructor' },
-  { label: 'Email', value: 'example@gmail.com' },
-  { label: 'Phone Number', value: '+670 413 90 762' },
-  { label: 'Skill/Occupation', value: 'Full Stack Developer' },
+  { label: 'Data de Registro', value: '06 de Outubro, 2024 8:30 am' },
+  { label: 'Nome', value: 'Indigo' },
+  { label: 'Sobrenome', value: 'Violet' },
+  { label: 'Nome de Usuário', value: 'instrutor' },
+  { label: 'E-mail', value: 'exemplo@gmail.com' },
+  { label: 'Telefone', value: '+55 (47) 98466-2948' },
+  { label: 'Especialidade / Ocupação', value: 'Desenvolvedor Full Stack' },
   {
-    label: 'Biography',
-    value: 'I have a degree in Journalism with over 15 years of work experience in the field. Throughout the years, I have worked in several well-known institutions and published several books on that are available.',
+    label: 'Biografia',
+    value: 'Especialista em criar soluções digitais de alto impacto com Next.js, TypeScript e Laravel.',
   },
 ];
 
 export default function InstructorProfileArea() {
-
   return (
     <div className="tp-profile-wrapper">
       <div className="row">
         <div className="col-lg-6">
           <div className="tp-dashboard-section">
-            <h2 className="tp-dashboard-title">My Profile</h2>
+            <h2 className="tp-dashboard-title">Meu Perfil</h2>
           </div>
         </div>
       </div>
@@ -37,7 +38,7 @@ export default function InstructorProfileArea() {
                         <span>{item.label}</span>
                       </div>
                       <div className="tp-profile-info-details">
-                        <span className={item.label === 'Biography' ? 'details-zone' : ''}>
+                        <span className={item.label === 'Biografia' ? 'details-zone' : ''}>
                           {item.value}
                         </span>
                       </div>
@@ -51,4 +52,4 @@ export default function InstructorProfileArea() {
       </div>
     </div>
   );
-};
+}

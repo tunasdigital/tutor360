@@ -3,56 +3,56 @@ import Pagination from "@/components/ui/pagination";
 import usePagination from "@/hooks/use-pagination";
 import Link from "next/link";
 
-// quiz data
+// Dados de exemplo traduzidos e localizados
 const quizData = [
    {
-      date: "March 26, 2024",
-      title: "What is design thinking",
-      student: "Benjamin Evalent",
+      date: "26 de Março, 2026",
+      title: "O que é Design Thinking",
+      student: "Edvaldo Ferreira",
       questions: 2,
       totalMarks: 1,
       correctAnswers: 0,
-      result: "Fail",
+      result: "Reprovado",
       resultClass: "danger",
    },
    {
-      date: "March 26, 2024",
-      title: "Quiz Test 01",
-      student: "Benjamin Evalent",
+      date: "26 de Março, 2026",
+      title: "Teste de Quiz 01",
+      student: "Edvaldo Ferreira",
       questions: 1,
       totalMarks: 0,
       correctAnswers: 1,
-      result: "Pass",
+      result: "Aprovado",
       resultClass: "sucess",
    },
    {
-      date: "March 26, 2024",
-      title: "Quiz Test 02",
-      student: "Benjamin Evalent",
+      date: "26 de Março, 2026",
+      title: "Teste de Quiz 02",
+      student: "Edvaldo Ferreira",
       questions: 2,
       totalMarks: 0,
       correctAnswers: 1,
-      result: "Pass",
+      result: "Aprovado",
       resultClass: "sucess",
    },
    {
-      date: "March 26, 2024",
-      title: "Knowledge Check",
-      student: "Benjamin Evalent",
+      date: "26 de Março, 2026",
+      title: "Verificação de Conhecimento",
+      student: "Edvaldo Ferreira",
       questions: 1,
       totalMarks: 1,
       correctAnswers: 1,
-      result: "Pass",
+      result: "Aprovado",
       resultClass: "sucess",
    },
    {
-      date: "March 26, 2024",
-      title: "Quiz Test 03",
-      student: "Benjamin Evalent",
+      date: "26 de Março, 2026",
+      title: "Teste de Quiz 03",
+      student: "Edvaldo Ferreira",
       questions: 1,
       totalMarks: 0,
       correctAnswers: 0,
-      result: "Fail",
+      result: "Reprovado",
       resultClass: "danger",
    },
 ];
@@ -61,37 +61,37 @@ export default function StudentMyQuizArea() {
    const { currentItems, handlePageClick, pageCount } = usePagination(quizData, 4);
    return (
       <>
-         {/* section area start */}
+         {/* Área da seção início */}
          <div className="section-area">
             <div className="tp-dashboard-section">
-               <h2 className="tp-dashboard-title">My quiz Attempts</h2>
+               <h2 className="tp-dashboard-title">Minhas Tentativas de Quiz</h2>
             </div>
          </div>
-         {/* section area end */}
+         {/* Área da seção fim */}
 
-         {/* quiz area start */}
+         {/* Área de quiz início */}
          <div className="tpd-course-area">
             <div className="tpd-table mb-25">
                <ul>
                   <li className="tpd-table-head">
                      <div className="tpd-table-row">
                         <div className="tpd-quiz-info-sub">
-                           <h4 className="tpd-table-title">Quiz Info</h4>
+                           <h4 className="tpd-table-title">Informações do Quiz</h4>
                         </div>
                         <div className="tpd-quiz-ques">
-                           <h4 className="tpd-table-title">Qus</h4>
+                           <h4 className="tpd-table-title">Perg.</h4>
                         </div>
                         <div className="tpd-quiz-tm">
-                           <h4 className="tpd-table-title">TM</h4>
+                           <h4 className="tpd-table-title">Nota</h4>
                         </div>
                         <div className="tpd-quiz-ca-sub">
-                           <h4 className="tpd-table-title">CA</h4>
+                           <h4 className="tpd-table-title">AC</h4>
                         </div>
                         <div className="tpd-quiz-result-sub">
-                           <h4 className="tpd-table-title">Result</h4>
+                           <h4 className="tpd-table-title">Resultado</h4>
                         </div>
                         <div className="tpd-quiz-details">
-                           <h4 className="tpd-table-title">Details</h4>
+                           <h4 className="tpd-table-title">Detalhes</h4>
                         </div>
                      </div>
                   </li>
@@ -103,7 +103,7 @@ export default function StudentMyQuizArea() {
                               <span className="tpd-common-date">{item.date}</span>
                               <h4 className="tpd-quiz-title">{item.title}</h4>
                               <div className="tpd-student-info">
-                                 <p><span>Student: </span> {item.student}</p>
+                                 <p><span>Aluno: </span> {item.student}</p>
                               </div>
                            </div>
                            <div className="tpd-quiz-ques">
@@ -122,7 +122,7 @@ export default function StudentMyQuizArea() {
                            </div>
                            <div className="tpd-quiz-details">
                               <div className="tpd-quiz-details-btn">
-                                 <Link className="tpd-border-btn" href="/dashboard/instructor-quiz-attempts">Details</Link>
+                                 <Link className="tpd-border-btn" href="/dashboard/instructor-quiz-attempts">Detalhes</Link>
                               </div>
                            </div>
                         </div>
@@ -131,15 +131,15 @@ export default function StudentMyQuizArea() {
                </ul>
             </div>
          </div>
-         {/* quiz area end */}
+         {/* Área de quiz fim */}
 
-         {/* pagination area start */}
+         {/* Área de paginação início */}
          <div className="tp-dashboard-pagination pt-20">
             <div className="tp-pagination">
                <Pagination handlePageClick={handlePageClick} pageCount={pageCount} isCenter={true} />
             </div>
          </div>
-         {/* pagination area end */}
+         {/* Área de paginação fim */}
       </>
    )
 }

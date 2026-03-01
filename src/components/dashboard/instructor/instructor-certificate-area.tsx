@@ -1,40 +1,40 @@
 import { CloseEyeThree, CloseEyeTwo, DeleteSvg, DraftTwoSvg, OpenEyeThree, PenSvg } from "@/components/svg";
 import Image from "next/image";
 
-
+// Dados de certificados traduzidos para a realidade Tutor360
 const certificateData = [
    {
       id: 1,
-      title: "Design Basics Certificate",
-      status: "Draft",
+      title: "Fundamentos de Design",
+      status: "Rascunho",
       isPublished: false,
       image: "/assets/img/dashboard/bg/certificate.png",
    },
    {
       id: 2,
-      title: "UI/UX Fundamentals",
-      status: "Draft",
+      title: "Fundamentos de UI/UX",
+      status: "Rascunho",
       isPublished: false,
       image: null,
    },
    {
       id: 3,
-      title: "Web Development Advanced",
-      status: "Published",
+      title: "Desenvolvimento Web Avançado",
+      status: "Publicado",
       isPublished: true,
       image: "/assets/img/dashboard/bg/certificate.png",
    },
    {
       id: 4,
-      title: "Graphic Design Mastery",
-      status: "Published",
+      title: "Mestrado em Design Gráfico",
+      status: "Publicado",
       isPublished: true,
       image: null,
    },
    {
       id: 5,
-      title: "Digital Marketing Expert",
-      status: "Draft",
+      title: "Especialista em Marketing Digital",
+      status: "Rascunho",
       isPublished: false,
       image: null,
    },
@@ -44,19 +44,20 @@ const certificateData = [
 export default function InstructorCertificateArea() {
    return (
       <>
-         {/* section area start */}
+         {/* Início da área da seção */}
          <div className="section-area">
             <div className="row">
                <div className="col-lg-6">
                   <div className="tp-dashboard-section">
-                     <h2 className="tp-dashboard-title">All Certificates</h2>
+                     {/* Nacionalização do título */}
+                     <h2 className="tp-dashboard-title">Todos os Certificados</h2>
                   </div>
                </div>
             </div>
          </div>
-         {/* section area end */}
+         {/* Fim da área da seção */}
 
-         {/* certificate area start */}
+         {/* Início da área de certificados */}
          <div className="tpd-course-area">
             <div className="row">
                <div className="col-12">
@@ -69,7 +70,7 @@ export default function InstructorCertificateArea() {
                                     <div className="tpd-certificate-info d-flex align-items-center">
                                        {certificate.image && (
                                           <div className="tpd-certificate-img mr-15">
-                                             <Image src={certificate.image} alt="certificate" width={90} height={64} />
+                                             <Image src={certificate.image} alt="Certificado" width={90} height={64} />
                                           </div>
                                        )}
                                        <h4 className="tpd-certificate-title">{certificate.title}</h4>
@@ -81,6 +82,7 @@ export default function InstructorCertificateArea() {
                                                 <span className="tpd-certificate-badge-file">
                                                    {certificate.isPublished ? <OpenEyeThree /> : <DraftTwoSvg />}
                                                 </span>
+                                                {/* Exibição do status traduzido */}
                                                 {certificate.status}
                                              </span>
                                              <span className="tpd-certificate-badge-publish">
@@ -92,7 +94,8 @@ export default function InstructorCertificateArea() {
                                           <div className="tpd-action-inexact-btn">
                                              <button>
                                                 <PenSvg />
-                                                <span className="tpd-action-tooltip">Edit</span>
+                                                {/* Tooltip de edição traduzido */}
+                                                <span className="tpd-action-tooltip">Editar</span>
                                              </button>
                                           </div>
                                        </div>
@@ -100,6 +103,7 @@ export default function InstructorCertificateArea() {
                                           <div className="tpd-action-inexact-btn">
                                              <button className="border-bg">
                                                 <DeleteSvg />
+                                                {/* Sugestão de melhoria: adicionar tooltip de exclusão aqui também, se desejar */}
                                              </button>
                                           </div>
                                        </div>
@@ -114,7 +118,7 @@ export default function InstructorCertificateArea() {
                </div>
             </div>
          </div>
-         {/* certificate area end */}
+         {/* Fim da área de certificados */}
       </>
    )
 }

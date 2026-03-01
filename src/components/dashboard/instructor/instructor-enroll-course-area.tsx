@@ -5,10 +5,11 @@ import Pagination from "@/components/ui/pagination";
 import { online_courses_data } from "@/data/course-data";
 import DashboardEnrollCourseItem from "@/components/course/single/dashboard/dashboard-enroll-course-item";
 
+// Garimpo das abas: Tradução dos status dos cursos para o aluno
 const tab_lists = [
-   { id: 'enroll', title: 'Enrolled Courses' },
-   { id: 'active-course', title: 'Active Courses' },
-   { id: 'completed', title: 'Completed Courses' },
+   { id: 'enroll', title: 'Cursos Inscritos' },
+   { id: 'active-course', title: 'Cursos Ativos' },
+   { id: 'completed', title: 'Cursos Concluídos' },
 ]
 
 export default function InstructorEnrollCourseArea() {
@@ -45,24 +46,26 @@ export default function InstructorEnrollCourseArea() {
 
    return (
       <>
-         {/* course tab list area start */}
+         {/* Início da área de abas do curso */}
          <div className="dashboader-area mb-30">
             <div className="tp-dashboard-tab">
-               <h2 className="tp-dashboard-tab-title">Dashboard</h2>
+               <h2 className="tp-dashboard-tab-title">Cursos Matriculados</h2>
                <div className="tp-dashboard-tab-list">
                   <ul>
                      {tab_lists.map((tab, index) => (
                         <li key={index}>
-                           <a className={`${activeTab === tab.id ? 'active' : ''} pointer`} onClick={() => setActiveTab(tab.id)} >{tab.title} <span>({handleCourseCount(tab.id)})</span></a>
+                           <a className={`${activeTab === tab.id ? 'active' : ''} pointer`} onClick={() => setActiveTab(tab.id)} >
+                              {tab.title} <span>({handleCourseCount(tab.id)})</span>
+                           </a>
                         </li>
                      ))}
                   </ul>
                </div>
             </div>
          </div>
-         {/* course tab list area end */}
+         {/* Fim da área de abas */}
 
-         {/* course area start */}
+         {/* Início da área de listagem de cursos */}
          <div className="course-area">
             <div className="row">
                {currentItems.map((course, index) => (
@@ -72,9 +75,9 @@ export default function InstructorEnrollCourseArea() {
                ))}
             </div>
          </div>
-         {/* course area end */}
+         {/* Fim da área de listagem */}
 
-         {/* pagination area start */}
+         {/* Início da área de paginação */}
          {enrollCourses.length > 0 && enrollCourses.length >= limit && (
             <div className="tp-dashboard-pagination pt-20">
                <div className="tp-pagination">
@@ -82,7 +85,7 @@ export default function InstructorEnrollCourseArea() {
                </div>
             </div>
          )}
-         {/* pagination area end */}
+         {/* Fim da área de paginação */}
       </>
    )
 }

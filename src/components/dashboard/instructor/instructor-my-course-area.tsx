@@ -7,10 +7,11 @@ import { online_courses_data } from "@/data/course-data";
 import usePagination from "@/hooks/use-pagination";
 import no_found_img from '@/assets/img/dashboard/bg/withdrawal-bg.png';
 
+// Garimpo de Status: Tradução das abas visíveis
 const tab_lists = [
-   { id: 'publish', title: 'Published' },
-   { id: 'pending', title: 'Pending' },
-   { id: 'draft', title: 'Draft' },
+   { id: 'publish', title: 'Publicados' },
+   { id: 'pending', title: 'Pendentes' },
+   { id: 'draft', title: 'Rascunhos' },
 ]
 
 type IProps = {
@@ -49,10 +50,11 @@ export default function InstructorMyCourseArea({bundleCourse}:IProps) {
    }
    return (
       <>
-         {/* dashboard tab area start */}
+         {/* Início da área de abas do dashboard */}
          <div className="dashboader-area mb-30">
             <div className="tp-dashboard-tab">
-               <h2 className="tp-dashboard-tab-title">My Courses</h2>
+               {/* Nacionalização do título */}
+               <h2 className="tp-dashboard-tab-title">Meus Cursos</h2>
                <div className="tp-dashboard-tab-list">
                   <ul>
                      {tab_lists.map((tab) => (
@@ -69,10 +71,10 @@ export default function InstructorMyCourseArea({bundleCourse}:IProps) {
                </div>
             </div>
          </div>
-         {/* dashboard tab area end */}
+         {/* Fim da área de abas do dashboard */}
 
 
-         {/* course area start */}
+         {/* Início da área de listagem de cursos */}
          {currentItems.length > 0 ? <div className="course-area">
             <div className="row">
                {currentItems.map((course, index) => (
@@ -85,15 +87,16 @@ export default function InstructorMyCourseArea({bundleCourse}:IProps) {
             <div className="row">
                <div className="col-12">
                   <div className="tpd-withdraw-bg text-center">
-                     <Image src={no_found_img} alt="no-data" style={{height:'auto'}} />
-                     <p>No Data Available in this Section</p>
+                     <Image src={no_found_img} alt="sem-dados" style={{height:'auto'}} />
+                     {/* Tradução da mensagem de "lista vazia" */}
+                     <p>Nenhum dado disponível nesta seção</p>
                   </div>
                </div>
             </div>
          </div>}
-         {/* course area end */}
+         {/* Fim da área de listagem de cursos */}
 
-         {/* pagination area start */}
+         {/* Início da área de paginação */}
          {myCourses.length > 0 && myCourses.length >= limit && (
             <div className="tp-dashboard-pagination pt-20">
                <div className="tp-pagination">
@@ -101,7 +104,7 @@ export default function InstructorMyCourseArea({bundleCourse}:IProps) {
                </div>
             </div>
          )}
-         {/* pagination area end */}
+         {/* Fim da área de paginação */}
       </>
    )
 }

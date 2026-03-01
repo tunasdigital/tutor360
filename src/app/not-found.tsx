@@ -7,7 +7,7 @@ import FooterSeven from "@/components/footer/footer-seven";
 
 
 export const metadata: Metadata = {
-    title: "Not Found - Acadia",
+    title: "Página não encontrada - Tutor360",
 };
 
 export default function NotFound() {
@@ -24,14 +24,14 @@ export default function NotFound() {
                         <div className="row justify-content-center">
                             <div className="col-xl-10">
                                 <div className="tp-error-wrapper text-center">
-                                    <h4 className="tp-error-title">Oops!</h4>
+                                    <h4 className="tp-error-title">Ops!</h4>
                                     <div className="tp-error-thumb mb-50">
-                                        <Image src={error_img} alt="error-img" style={{ height: "auto" }} />
+                                        <Image src={error_img} alt="Imagem de erro" style={{ height: "auto" }} />
                                     </div>
                                     <div className="tp-error-content">
-                                        <h4 className="tp-error-title-sm">Something went Wrong...</h4>
-                                        <p>Sorry, {"we couldn't"} find your page.</p>
-                                        <Link className="tp-btn-inner" href="/">Back to Home</Link>
+                                        <h4 className="tp-error-title-sm">Algo deu errado...</h4>
+                                        <p>Desculpe, não conseguimos encontrar esta página.</p>
+                                        <Link className="tp-btn-inner" href="/">Voltar para o Início</Link>
                                     </div>
                                 </div>
                             </div>

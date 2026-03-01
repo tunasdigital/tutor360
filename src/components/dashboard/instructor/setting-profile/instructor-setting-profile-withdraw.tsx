@@ -2,43 +2,43 @@
 import { useState } from "react";
 
 
-// Data for the nav items (tabs)
+// Dados das abas de métodos de retirada traduzidos
 const navItemData = [
-   { id: 'home', title: 'Bank Transfer', subTitle: 'Min withdraw $20.00' },
-   { id: 'profile', title: 'E-Check', subTitle: 'Min withdraw $40.00' },
-   { id: 'contact', title: 'PayPal', subTitle: 'Min withdraw $30.00' }
+   { id: 'home', title: 'Transferência Bancária', subTitle: 'Saque mín. R$ 20,00' },
+   { id: 'profile', title: 'E-Check', subTitle: 'Saque mín. R$ 40,00' },
+   { id: 'contact', title: 'PayPal', subTitle: 'Saque mín. R$ 30,00' }
 ];
 
-// Data for the tab content
+// Dados dos campos de formulário traduzidos por método
 const tabContentData = [
    {
       id: 'home',
       formFields: [
-         { label: 'Account Name', placeholder: 'Account Name' },
-         { label: 'Account Number', placeholder: 'ES19  1234  5678  9087  6543' },
-         { label: 'Bank Name', placeholder: 'Bank of America' },
-         { label: 'IBAN', placeholder: '1234  5678  9087  6543' },
-         { label: 'BIC / SWIFT', placeholder: 'BIC / SWIFT' }
+         { label: 'Nome do Titular', placeholder: 'Nome Completo' },
+         { label: 'Número da Conta', placeholder: '0000 0000 0000 0000' },
+         { label: 'Nome do Banco', placeholder: 'Ex: Banco do Brasil, Itaú...' },
+         { label: 'Chave PIX / IBAN', placeholder: 'Sua chave ou código IBAN' },
+         { label: 'BIC / SWIFT', placeholder: 'Código BIC ou SWIFT do banco' }
       ]
    },
    {
       id: 'profile',
       formFields: [
-         { label: 'Account Name 2', placeholder: 'Account Name' },
-         { label: 'Account Number', placeholder: 'ES19  1234  5678  9087  6543' },
-         { label: 'Bank Name', placeholder: 'Bank of America' },
-         { label: 'IBAN', placeholder: '1234  5678  9087  6543' },
-         { label: 'BIC / SWIFT', placeholder: 'BIC / SWIFT' }
+         { label: 'Titular da Conta (E-Check)', placeholder: 'Nome Completo' },
+         { label: 'Número da Conta', placeholder: '0000 0000 0000 0000' },
+         { label: 'Nome do Banco', placeholder: 'Nome da Instituição' },
+         { label: 'IBAN', placeholder: '1234 5678 9087 6543' },
+         { label: 'BIC / SWIFT', placeholder: 'Código BIC / SWIFT' }
       ]
    },
    {
       id: 'contact',
       formFields: [
-         { label: 'Account Name 3', placeholder: 'Account Name' },
-         { label: 'Account Number', placeholder: 'ES19  1234  5678  9087  6543' },
-         { label: 'Bank Name', placeholder: 'Bank of America' },
-         { label: 'IBAN', placeholder: '1234  5678  9087  6543' },
-         { label: 'BIC / SWIFT', placeholder: 'BIC / SWIFT' }
+         { label: 'E-mail do PayPal', placeholder: 'exemplo@paypal.com' },
+         { label: 'Confirmar E-mail', placeholder: 'Repita o e-mail do PayPal' },
+         { label: 'Nome Completo no PayPal', placeholder: 'Nome do Titular' },
+         { label: 'ID do Vendedor (Opcional)', placeholder: 'Identificador' },
+         { label: 'Observações', placeholder: 'Informações adicionais' }
       ]
    }
 ];
@@ -50,7 +50,8 @@ export default function InstructorSettingProfileWithdraw() {
       <div className="tpd-course-area">
          <div className="tpd-setting-box withdraw">
             <div className="tpd-setting-withdraw-content tpd-redio-style">
-               <h5 className="tpd-setting-withdraw-title">Select a withdraw method</h5>
+               {/* Nacionalização do título da seção */}
+               <h5 className="tpd-setting-withdraw-title">Selecione um método de retirada</h5>
 
                <ul className="nav nav-tabs" id="myTab" role="tablist">
                   {navItemData.map((item) => (
@@ -95,7 +96,8 @@ export default function InstructorSettingProfileWithdraw() {
                               ))}
                               <div className="col-lg-12">
                                  <div className="tpd-setting-cartificate-btn">
-                                    <button>Save Withdrawal Account</button>
+                                    {/* Tradução do botão de salvar conta */}
+                                    <button>Salvar Conta para Retirada</button>
                                  </div>
                               </div>
                            </div>
@@ -105,7 +107,6 @@ export default function InstructorSettingProfileWithdraw() {
                </div>
             </div>
          </div>
-         );
       </div>
    )
 }

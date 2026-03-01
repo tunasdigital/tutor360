@@ -4,26 +4,26 @@ import DashboardContentWrapper from "@/components/dashboard/dashboard-content-wr
 import InstructorDashboardFacts from "@/components/dashboard/instructor/instructor-dashboard-fact-area";
 
 export const metadata: Metadata = {
-    title: "Student Dashboard - Acadia",
+    title: "Painel do Aluno - Tutor360",
 }
 
 export default function StudentDashboardPage() {
     return (
         <main className="tp-dashboard-body-bg">
 
-            {/* dashboard banner area start */}
+            {/* Início da área do banner do dashboard */}
             <DashboardBanner studentBanner={true} />
-            {/* dashboard banner area end */}
+            {/* Fim da área do banner do dashboard */}
 
-            {/* dashboard content area start */}
+            {/* Início da área de conteúdo com sidebar lateral do aluno */}
             <DashboardContentWrapper studentSidebar={true}>
 
-                {/* dashboard fact area start */}
+                {/* Início da área de estatísticas (Cards de resumo) */}
                 <InstructorDashboardFacts />
-                {/* dashboard fact area end */}
+                {/* Fim da área de estatísticas */}
 
             </DashboardContentWrapper>
-            {/* dashboard content area end */}
+            {/* Fim da área de conteúdo */}
 
         </main>
     )

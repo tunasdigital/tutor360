@@ -4,111 +4,114 @@ import usePagination from "@/hooks/use-pagination";
 import Image from "next/image";
 import { useState } from "react";
 
-// tabs 
-const tabs = ['Received', 'Given'];
-// review data
+// Tradução das abas de navegação
+const tabs = ['Recebidas', 'Realizadas'];
+
+// Dados de avaliações recebidas traduzidos e localizados (Simulação de 2026)
 const receivedReviewData = [
    {
       id: 1,
       studentName: 'Joss Sticks',
       studentImage: '/assets/img/dashboard/profile/reviews-profile-1.png',
-      date: 'August 27, 2024',
-      time: '8:31 am',
+      date: '27 de Agosto, 2026',
+      time: '08:31',
       rating: 5,
-      feedback: 'Nice Course',
-      courseTitle: 'Design Masterclass',
+      feedback: 'Curso excelente!',
+      courseTitle: 'Masterclass de Design',
    },
    {
       id: 2,
       studentName: 'Benjamin Evalent',
       studentImage: '/assets/img/dashboard/profile/reviews-profile-2.png',
-      date: 'January 30, 2024',
-      time: '10:21 am',
+      date: '30 de Janeiro, 2026',
+      time: '10:21',
       rating: 5,
-      feedback: 'Is Great Course!',
-      courseTitle: '3D Motion Design',
+      feedback: 'O curso é ótimo!',
+      courseTitle: 'Design de Movimento 3D',
    },
    {
       id: 3,
       studentName: 'Hanson Deck',
       studentImage: '/assets/img/dashboard/profile/reviews-profile-3.png',
-      date: 'April 20, 2024',
-      time: '1:05 pm',
+      date: '20 de Abril, 2026',
+      time: '13:05',
       rating: 5,
-      feedback: 'Awesome',
-      courseTitle: 'Graphic Design Masterclass',
+      feedback: 'Incrível',
+      courseTitle: 'Masterclass de Design Gráfico',
    },
    {
       id: 4,
       studentName: 'Hanson Violet',
       studentImage: '/assets/img/dashboard/profile/reviews-profile-4.png',
-      date: 'August 27, 2024',
-      time: '10:21 am',
+      date: '27 de Agosto, 2026',
+      time: '10:21',
       rating: 5,
-      feedback: 'Is Great Course!',
-      courseTitle: 'Graphic Design Masterclass',
+      feedback: 'Muito bom!',
+      courseTitle: 'Masterclass de Design Gráfico',
    },
    {
       id: 5,
       studentName: 'Indigo Violet',
       studentImage: '/assets/img/dashboard/profile/reviews-profile-5.png',
-      date: 'January 30, 2024',
-      time: '10:21 am',
+      date: '30 de Janeiro, 2026',
+      time: '10:21',
       rating: 5,
-      feedback: 'Awesome',
-      courseTitle: 'Design System in Figma',
+      feedback: 'Espetacular',
+      courseTitle: 'Sistema de Design no Figma',
    },
 ];
-// review data
+
+// Dados de avaliações dadas traduzidos
 const giverReviewData = [
    {
       id: 1,
       studentName: 'Hanson Deck',
       studentImage: '/assets/img/dashboard/profile/reviews-profile-3.png',
-      date: 'April 20, 2024',
-      time: '1:05 pm',
+      date: '20 de Abril, 2026',
+      time: '13:05',
       rating: 5,
-      feedback: 'Awesome',
-      courseTitle: 'Graphic Design Masterclass',
+      feedback: 'Incrível',
+      courseTitle: 'Masterclass de Design Gráfico',
    },
    {
       id: 2,
       studentName: 'Hanson Violet',
       studentImage: '/assets/img/dashboard/profile/reviews-profile-4.png',
-      date: 'August 27, 2024',
-      time: '10:21 am',
+      date: '27 de Agosto, 2026',
+      time: '10:21',
       rating: 5,
-      feedback: 'Is Great Course!',
-      courseTitle: 'Graphic Design Masterclass',
+      feedback: 'O curso é ótimo!',
+      courseTitle: 'Masterclass de Design Gráfico',
    },
    {
       id: 3,
       studentName: 'Indigo Violet',
       studentImage: '/assets/img/dashboard/profile/reviews-profile-5.png',
-      date: 'January 30, 2024',
-      time: '10:21 am',
+      date: '30 de Janeiro, 2026',
+      time: '10:21',
       rating: 5,
-      feedback: 'Awesome',
-      courseTitle: 'Design System in Figma',
+      feedback: 'Espetacular',
+      courseTitle: 'Sistema de Design no Figma',
    },
 ];
 
 export default function InstructorReviewArea() {
    const [activeTab, setActiveTab] = useState(tabs[0]);
-   const { currentItems, handlePageClick, pageCount } = usePagination(activeTab === 'Received' ? receivedReviewData : giverReviewData, 4);
+   const { currentItems, handlePageClick, pageCount } = usePagination(activeTab === 'Recebidas' ? receivedReviewData : giverReviewData, 4);
+
    function handleReviewCount (tab: string) {
-      if (tab === 'Received') {
+      if (tab === 'Recebidas') {
          return receivedReviewData.length
       } else {
          return giverReviewData.length
       }
    }
+
    return (
       <>
-
-         {/* review tab area start */}
+         {/* Início da área de abas de avaliações */}
          <div className="tp-dashboard-tab mb-30">
-            <h2 className="tp-dashboard-tab-title">Reviews</h2>
+            <h2 className="tp-dashboard-tab-title">Avaliações</h2>
             <div className="tp-dashboard-tab-list">
                <ul>
                   {tabs.map((tab) => (
@@ -124,18 +127,18 @@ export default function InstructorReviewArea() {
                </ul>
             </div>
          </div>
-         {/* review tab area end */}
+         {/* Fim da área de abas */}
 
-         {/* review area start */}
+         {/* Início da área de listagem */}
          <div className="tpd-table mb-25">
             <ul>
                <li className="tpd-table-head">
                   <div className="tpd-table-row">
                      <div className="tpd-reviews-student">
-                        <h4 className="tpd-table-title">Student</h4>
+                        <h4 className="tpd-table-title">Aluno</h4>
                      </div>
                      <div className="tpd-reviews-date">
-                        <h4 className="tpd-table-title">Date</h4>
+                        <h4 className="tpd-table-title">Data</h4>
                      </div>
                      <div className="tpd-reviews-feedback">
                         <h4 className="tpd-table-title">Feedback</h4>
@@ -166,7 +169,7 @@ export default function InstructorReviewArea() {
                            </div>
                            <span>{review.feedback}</span>
                            <div className="tpd-course-wrap">
-                              <span className="tpd-course-name">Course:</span>
+                              <span className="tpd-course-name">Curso:</span>
                               <span className="tpd-course-title">{review.courseTitle}</span>
                            </div>
                         </div>
@@ -175,15 +178,15 @@ export default function InstructorReviewArea() {
                ))}
             </ul>
          </div>
-         {/* review area end */}
+         {/* Fim da área de listagem */}
 
-         {/* pagination area start */}
+         {/* Início da área de paginação */}
          <div className="tp-dashboard-pagination pt-20">
             <div className="tp-pagination">
                <Pagination handlePageClick={handlePageClick} pageCount={pageCount} isCenter={true} />
             </div>
          </div>
-         {/* pagination area end */}
+         {/* Fim da área de paginação */}
       </>
    )
 }

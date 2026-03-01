@@ -1,79 +1,80 @@
+'use client';
 import { QuestionAnswerItem } from "../instructor/instructor-q-a-area";
 
 
-// student q-a data
+// Dados de Perguntas e Respostas (Q&A) traduzidos e localizados
 const studentQaData = [
    {
       id: 1,
       student: {
          name: "Hanson Deck",
-         date: "June 11, 2021 at 6:01 am",
+         date: "11 de Junho, 2026 às 06:01",
          profileImg: "/assets/img/dashboard/profile/reviews-profile-1.png"
       },
-      question: "Hello! Could you explain the last lesson?",
-      course: "New Course",
+      question: "Olá! Você poderia explicar a última lição?",
+      course: "Novo Curso de Next.js",
       replies: 2,
-      status: "pending",
+      status: "pendente",
    },
    {
       id: 2,
       student: {
          name: "Indigo Violet",
-         date: "June 12, 2021 at 2:15 pm",
+         date: "12 de Junho, 2026 às 14:15",
          profileImg: "/assets/img/dashboard/profile/reviews-profile-2.png"
       },
-      question: "I'm struggling with the assignment.",
-      course: "Advanced Math",
+      question: "Estou tendo dificuldades com a tarefa de TypeScript.",
+      course: "Masterclass em TypeScript",
       replies: 3,
-      status: "complete",
+      status: "completo",
    },
    {
       id: 3,
       student: {
          name: "Benjamin Evalent",
-         date: "June 13, 2021 at 9:45 am",
+         date: "13 de Junho, 2026 às 09:45",
          profileImg: "/assets/img/dashboard/profile/reviews-profile-3.png"
       },
-      question: "Can you clarify the project requirements?",
-      course: "Physics 101",
+      question: "Pode esclarecer os requisitos do projeto final?",
+      course: "Arquitetura de Software",
       replies: 1,
-      status: "pending",
+      status: "pendente",
    },
    {
       id: 4,
       student: {
          name: "Jennifer Lang",
-         date: "June 14, 2021 at 8:30 am",
+         date: "14 de Junho, 2026 às 08:30",
          profileImg: "/assets/img/dashboard/profile/reviews-profile-4.png"
       },
-      question: "What is the due date for the final project?",
-      course: "Art History",
+      question: "Qual é a data de entrega para o projeto final?",
+      course: "Design de Interface (UI)",
       replies: 5,
-      status: "complete",
+      status: "completo",
    },
    {
       id: 5,
       student: {
          name: "Michael Lee",
-         date: "June 15, 2021 at 3:20 pm",
+         date: "15 de Junho, 2026 às 15:20",
          profileImg: "/assets/img/dashboard/profile/reviews-profile-2.png"
       },
-      question: "Is there any extra credit available?",
-      course: "Chemistry Basics",
+      question: "Existe algum crédito extra disponível para este módulo?",
+      course: "Fundamentos de Backend",
       replies: 0,
-      status: "pending",
+      status: "pendente",
    },
    {
       id: 6,
       student: {
          name: "Sophia Blake",
-         date: "June 16, 2021 at 5:00 pm",
+         date: "16 de Junho, 2026 às 17:00",
          profileImg: "/assets/img/dashboard/profile/reviews-profile-1.png"
       },
-      question: "Can you review my essay before submission?",
-      course: "English Literature",
+      question: "Pode revisar meu resumo antes do envio final?",
+      course: "Gestão de Ativos Digitais",
       replies: 4,
-      status: "complete",
+      status: "completo",
    }
 ];
 
@@ -83,7 +84,7 @@ export default function StudentQuestionAnswerArea() {
          <div className="row">
             <div className="col-lg-6">
                <div className="tp-dashboard-section">
-                  <h2 className="tp-dashboard-title">Question & Answer</h2>
+                  <h2 className="tp-dashboard-title">Perguntas e Respostas</h2>
                </div>
             </div>
          </div>
@@ -94,13 +95,13 @@ export default function StudentQuestionAnswerArea() {
                <li className="tpd-table-head">
                   <div className="tpd-table-row">
                      <div className="tpd-instructor-qa-student">
-                        <h4 className="tpd-table-title">Student</h4>
+                        <h4 className="tpd-table-title">Aluno</h4>
                      </div>
                      <div className="tpd-instructor-qa-question">
-                        <h4 className="tpd-table-title">Question</h4>
+                        <h4 className="tpd-table-title">Pergunta</h4>
                      </div>
                      <div className="tpd-instructor-qa-reply">
-                        <h4 className="tpd-table-title">Reply</h4>
+                        <h4 className="tpd-table-title">Respostas</h4>
                      </div>
                      <div className="tpd-instructor-qa-status">
                         <h4 className="tpd-table-title">Status</h4>
