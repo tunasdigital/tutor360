@@ -7,21 +7,22 @@ export default function Layout({children}: {children:React.ReactNode}) {
   return (
     <MainProvider>
 
-      {/* header area start */}
+      {/* Início da área do cabeçalho */}
       <HeaderTwo inner={true}/>
-      {/* header area end */}
+      {/* Fim da área do cabeçalho */}
 
-      {/* main content */}
+      {/* Conteúdo principal dinâmico da página */}
       {children}
-      {/* main content */}
+      {/* Fim do conteúdo principal */}
 
-      {/* footer area start */}
+      {/* Início da área do rodapé do painel */}
       <FooterSeven dashboard_footer={true}/>
-      {/* footer area end */}
+      {/* Fim da área do rodapé do painel */}
 
-      {/* back to top */}
+      {/* Botão flutuante de voltar ao topo */}
       <BackToTop />
-      {/* back to top */}
+      {/* Fim do botão de voltar ao topo */}
+      
     </MainProvider>
   );
 }

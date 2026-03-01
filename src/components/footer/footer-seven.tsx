@@ -22,28 +22,31 @@ export default function FooterSeven({bgClr,dashboard_footer}: Props) {
               <div className="tp-footer-widget tp-footer-col-1 mb-30">
                 <div className="tp-footer-widget-logo mb-20 tp-header-logo">
                   <Link href="/">
-                    <Image src={dashboard_footer?logo_white:logo} alt="logo" style={{ height: "auto" }} />
+                    {/* Alterado o alt para Tutor360 e adicionado limite de segurança de largura */}
+                    <Image src={dashboard_footer?logo_white:logo} alt="Tutor360" style={{ height: "auto", maxWidth: "200px" }} />
                   </Link>
                 </div>
                 <div className="tp-footer-widget-content">
-                  <p>Lorem ipsum dolor sit amet, consectetur <br /> adipisc ing elit.</p>
+                  {/* Descrição institucional da plataforma */}
+                  <p>Plataforma especializada em empreendedorismo jovem <br /> e desenvolvimento de habilidades práticas.</p>
                 </div>
                 <div className="tp-footer-contact">
-                  <span>Got Questions? Call us</span>
-                  <a href="tel:012345678">+670 413 90 762</a>
+                  <span>Dúvidas? Fale conosco</span>
+                  {/* Telefone atualizado com o seu contato de SC */}
+                  <a href="https://wa.me/5547984662948" target="_blank" rel="noopener noreferrer">(47) 9 8466-2948</a>
                 </div>
                 <div className="tp-footer-contact-mail">
-                  <a href="mailto:sofial@gmail.com">
+                  <a href="mailto:contato@tutor360.com.br">
                     <span>
                       <Email />
                     </span>
-                    acadia@gmail.com</a>
+                    contato@tutor360.com.br</a>
                 </div>
               </div>
             </div>
             <div className="col-xl-2 col-lg-3 col-md-6 col-sm-6">
               <div className="tp-footer-widget tp-footer-col-2 mb-30">
-                <h4 className="tp-footer-widget-title mb-15">About</h4>
+                <h4 className="tp-footer-widget-title mb-15">Sobre a Tutor360</h4>
                 <div className="tp-footer-widget-link">
                   <ul>
                     {footerLinks.link_one.map((link) => (
@@ -57,7 +60,7 @@ export default function FooterSeven({bgClr,dashboard_footer}: Props) {
             </div>
             <div className="col-xl-2 col-lg-3 col-md-5 col-sm-5">
               <div className="tp-footer-widget tp-footer-col-3 mb-30">
-                <h4 className="tp-footer-widget-title mb-15">Quick links</h4>
+                <h4 className="tp-footer-widget-title mb-15">Links Rápidos</h4>
                 <div className="tp-footer-widget-link">
                   <ul>
                     {footerLinks.link_two.map((link) => (
@@ -71,16 +74,16 @@ export default function FooterSeven({bgClr,dashboard_footer}: Props) {
             </div>
             <div className="col-xl-4 col-lg-3 col-md-7 col-sm-7">
               <div className="p-footer-widget tp-footer-5-col-4 mb-30">
-                <h4 className="tp-footer-widget-title mb-15">Our Newsletter</h4>
+                <h4 className="tp-footer-widget-title mb-15">Nossa Newsletter</h4>
                 <div className="tp-footer-newsletter-wrap">
-                  <p>Enter your email and we will send you <br /> more information</p>
+                  <p>Insira seu e-mail e enviaremos <br /> nossas melhores novidades e cursos.</p>
                   <form action="#">
                     <div className={`tp-footer-newsletter-wrapper ${dashboard_footer?'':'tp-footer-inner-input'} mb-30`}>
                       <div className="tp-footer-newsletter-input">
-                        <input type="email" placeholder="Your email" />
+                        <input type="email" placeholder="Seu e-mail" />
                       </div>
                       <div className={`${dashboard_footer?'tp-footer-newsletter-submit':'tp-footer-5-newsletter-submit'}`}>
-                        <button className={`${dashboard_footer?'tp-btn':'tp-btn-inner'}`}>Subscribe</button>
+                        <button className={`${dashboard_footer?'tp-btn':'tp-btn-inner'}`}>Inscrever-se</button>
                       </div>
                     </div>
                   </form>
@@ -100,7 +103,8 @@ export default function FooterSeven({bgClr,dashboard_footer}: Props) {
           <div className="row">
             <div className="col-lg-12">
               <div className="tp-footer-copyright text-center">
-                <span>© {new Date().getFullYear()} <a href="#">Acadia</a>. All rights reserved.</span>
+                {/* Copyright dinâmico traduzido e com a marca correta */}
+                <span>© {new Date().getFullYear()} <Link href="/">Tutor360</Link>. Todos os direitos reservados.</span>
               </div>
             </div>
           </div>

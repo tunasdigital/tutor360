@@ -7,11 +7,12 @@ import student_img from "@/assets/img/dashboard/profile/dashboard-profile-2.jpg"
 type IProps = { 
   studentBanner?: boolean;
 }
+
 export default function DashboardBanner({studentBanner}: IProps) {
   return (
     <section className="tp-dashboard-banner-wrap">
       <div className="tp-dashboard-banner-shape">
-        <Image src={dashboard_shape} alt="shape" />
+        <Image src={dashboard_shape} alt="Forma decorativa" />
       </div>
       <div className="container">
         <div className="row">
@@ -25,13 +26,16 @@ export default function DashboardBanner({studentBanner}: IProps) {
                 <div className="tp-instructor-info d-flex">
                   <div className="tp-instructor-avatar">
                     <Image
-                      src={studentBanner?student_img:instructor_img}
-                      alt="profile"
+                      src={studentBanner ? student_img : instructor_img}
+                      alt="Foto de perfil"
                       style={{ height: "auto" }}
                     />
                   </div>
                   <div className="tp-instructor-content">
-                    <h4 className="tp-instructor-title">Indigo Violet</h4>
+                    {/* Nome dinâmico para espelhar a área atual até a integração do banco de dados */}
+                    <h4 className="tp-instructor-title">
+                      {studentBanner ? "Aluno Tutor360" : "Instrutor Tutor360"}
+                    </h4>
                     <div className="tp-instructor-rate  d-flex align-items-center">
                       <div className="tp-instructor-rating">
                         <i className="fa-solid fa-star"></i>
@@ -41,18 +45,22 @@ export default function DashboardBanner({studentBanner}: IProps) {
                         <i className="fa-solid fa-star"></i>
                       </div>
                       <span>4.61</span>
-                      <span>(18 Ratings)</span>
+                      {/* Tradução da legenda de avaliações */}
+                      <span>(18 Avaliações)</span>
                     </div>
                   </div>
                 </div>
-                <div className="tp-instructor-course-btn">
-                  <Link
-                    className="tp-btn-add-course"
-                    href="/dashboard/create-new-course"
-                  >
-                    <i className="fa-regular fa-plus"></i> Create a New Course
-                  </Link>
-                </div>
+                {/* Ocultação condicional: o botão de criar curso não renderiza se for o banner do aluno */}
+                {!studentBanner && (
+                  <div className="tp-instructor-course-btn">
+                    <Link
+                      className="tp-btn-add-course"
+                      href="/dashboard/create-new-course"
+                    >
+                      <i className="fa-regular fa-plus"></i> Criar Novo Curso
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           </div>

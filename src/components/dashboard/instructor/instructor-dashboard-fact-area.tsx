@@ -6,41 +6,41 @@ import icon_4 from '@/assets/img/dashboard/icon/fact/students.svg';
 import icon_5 from '@/assets/img/dashboard/icon/fact/course-total.svg';
 import icon_6 from '@/assets/img/dashboard/icon/fact/card-pos.svg';
 
-
+// Tradução completa das legendas das métricas
 const factData = [
   {
     count: 20,
-    label: 'Active Courses',
+    label: 'Cursos Ativos',
     icon: icon_1,
     className:'',
   },
   {
     count: 84,
-    label: 'Enrolled Courses',
+    label: 'Matrículas',
     icon: icon_2,
     className: 'common-pale-yellow',
   },
   {
     count: 42,
-    label: 'Completed Courses',
+    label: 'Cursos Concluídos',
     icon: icon_3,
     className: 'common-pale-pacific',
   },
   {
     count: 145,
-    label: 'Total Students',
+    label: 'Total de Alunos',
     icon: icon_4,
     className: 'common-pale-green',
   },
   {
     count: 65,
-    label: 'Total Courses',
+    label: 'Total de Cursos',
     icon: icon_5,
     className: 'common-pale-blue',
   },
   {
     count: 26,
-    label: 'Total Earnings',
+    label: 'Ganhos Totais',
     icon: icon_6,
     className: 'common-pale-purple',
   },
@@ -52,7 +52,8 @@ export default function InstructorDashboardFacts() {
       <div className="row">
         <div className="col-lg-6">
           <div className="tp-dashboard-section">
-            <h2 className="tp-dashboard-title">Dashboard</h2>
+            {/* Tradução do título principal da tela */}
+            <h2 className="tp-dashboard-title">Visão Geral</h2>
           </div>
         </div>
       </div>
@@ -66,7 +67,7 @@ export default function InstructorDashboardFacts() {
               </div>
               <div className="tp-fact-icon">
                 <span className={fact.className || ''}>
-                  <Image src={fact.icon} alt="fact-icon" />
+                  <Image src={fact.icon} alt="Ícone de estatística" />
                 </span>
               </div>
             </div>
