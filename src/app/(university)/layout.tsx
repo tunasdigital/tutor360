@@ -1,26 +1,26 @@
 import MainProvider from "@/components/provider/main-provider";
 import BackToTop from "@/components/back-to-top";
 import HeaderSeven from "@/components/header/header-seven";
-import FooterFive from "@/components/footer/footer-five";
+import FooterOne from "@/components/footer/footer-one";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <MainProvider>
-      {/* header area start */}
+      {/* Início da área do cabeçalho da universidade */}
       <HeaderSeven/>
-      {/* header area end */}
+      {/* Fim da área do cabeçalho */}
 
-      {/* main content */}
+      {/* Conteúdo dinâmico da página (Cursos/Programas) */}
       {children}
-      {/* main content */}
+      {/* Fim do conteúdo principal */}
 
-      {/* footer area start */}
-      <FooterFive inner={true}/>
-      {/* footer area end */}
+      {/* Início da área do rodapé oficial Tutor360 */}
+      <FooterOne />
+      {/* Fim da área do rodapé */}
 
-      {/* back to top */}
+      {/* Botão flutuante de voltar ao topo */}
       <BackToTop/>
-      {/* back to top */}
+      {/* Fim do botão de voltar ao topo */}
     </MainProvider>
   );
 }

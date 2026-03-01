@@ -21,7 +21,7 @@ export default function CourseCertificate() {
                aria-expanded="false"
                aria-controls="panelsStayOpen-collapseEight"
             >
-               Certificate Template
+               Modelo de Certificado
             </button>
          </h2>
          <div id="panelsStayOpen-collapseEight" className="accordion-collapse collapse">
@@ -31,7 +31,13 @@ export default function CourseCertificate() {
                      {certificateData.map((certificate) => (
                         <div key={certificate.id} className="col-lg-4 col-sm-6">
                            <div className="tpd-new-course-cartificate mb-30">
-                              <Image src={certificate.imgSrc} alt={`certificate-${certificate.id}`} width={215} height={276} style={{height:'auto'}} />
+                              <Image 
+                                 src={certificate.imgSrc} 
+                                 alt={`Modelo de certificado ${certificate.id}`} 
+                                 width={215} 
+                                 height={276} 
+                                 style={{height:'auto'}} 
+                              />
                            </div>
                         </div>
                      ))}

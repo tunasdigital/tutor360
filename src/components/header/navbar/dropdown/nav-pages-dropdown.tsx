@@ -74,17 +74,17 @@ export default function NavPagesDropdown({ pages_dropdown }: IProps) {
                 <div className="tp-megamenu-fullwidth-item d-flex justify-content-between align-items-center mb-8">
                   <div className="tp-megamenu-fullwidth-content blue">
                     <h4 className="tp-megamenu-fullwidth-content-title">
-                      Online <br /> Learning Platforms
+                      Plataforma de <br /> Ensino Online
                     </h4>
                     <Link className="tp-btn" href="/course-with-filter">
-                      All Course{" "}
+                      Todos os Cursos{" "}
                       <span>
                         <RightSmArrow />
                       </span>
                     </Link>
                   </div>
                   <div className="tp-megamenu-fullwidth-content-thumb">
-                    <Image src={menu_shape_1} alt="menu-shape" />
+                    <Image src={menu_shape_1} alt="forma-decorativa" />
                   </div>
                 </div>
               </div>
@@ -92,17 +92,17 @@ export default function NavPagesDropdown({ pages_dropdown }: IProps) {
                 <div className="tp-megamenu-fullwidth-item bg d-flex justify-content-between align-items-center">
                   <div className="tp-megamenu-fullwidth-content">
                     <h4 className="tp-megamenu-fullwidth-content-title">
-                      Accelerated <br /> Degree Programs
+                      Programas de <br /> Graduação Acelerada
                     </h4>
                     <Link className="tp-btn" href="/university-program">
-                      All Programs{" "}
+                      Todos os Programas{" "}
                       <span>
                         <RightSmArrow />
                       </span>
                     </Link>
                   </div>
                   <div className="tp-megamenu-fullwidth-content-thumb">
-                    <Image src={menu_shape_2} alt="menu-shape" />
+                    <Image src={menu_shape_2} alt="forma-decorativa" />
                   </div>
                 </div>
               </div>

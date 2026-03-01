@@ -7,21 +7,22 @@ export default function Layout({children}: {children:React.ReactNode}) {
   return (
     <MainProvider>
 
-      {/* header area start */}
-      <HeaderFour sm_mega_title="programs" />
-      {/* header area end */}
+      {/* Início da área do cabeçalho */}
+      <HeaderFour sm_mega_title="programas" />
+      {/* Fim da área do cabeçalho */}
 
-      {/* main content */}
+      {/* Conteúdo principal dinâmico */}
       {children}
-      {/* main content */}
+      {/* Fim do conteúdo principal */}
 
-      {/* footer area start */}
-      <FooterOne style_2={true}/>
-      {/* footer area end */}
+      {/* Início da área do rodapé oficial Tutor360 */}
+      <FooterOne />
+      {/* Fim da área do rodapé */}
 
-      {/* back to top */}
+      {/* Botão flutuante de voltar ao topo */}
       <BackToTop />
-      {/* back to top */}
+      {/* Fim do botão de voltar ao topo */}
+      
     </MainProvider>
   );
 }

@@ -10,7 +10,7 @@ export default function CourseIntroVideo() {
         <div className="accordion-item">
             <h2 className="accordion-header">
                 <button className="accordion-button collapsed tpd-new-course-heading-title" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                    Course Intro Video
+                    Vídeo de Introdução do Curso
                 </button>
             </h2>
             <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse">
@@ -18,16 +18,15 @@ export default function CourseIntroVideo() {
                     <div className="tpd-new-course-wrapper">
                         <div className="tpd-new-course-categories">
                             <div className="tpd-input">
-                                <label>Course Intro Video</label>
+                                <label>Fonte do Vídeo de Introdução</label>
                                 <div className="tpd-select">
                                     <NiceSelect
                                         options={[
-                                            { value: "", label: "All Courses" },
-                                            { value: "latest", label: "New Courses 2024" },
-                                            { value: "web-d", label: "Web Design System in Figma" },
-                                            { value: "interior", label: "Interior design concepts Masterclass" },
-                                            { value: "graphic", label: "Graphic Design Masterclass" },
-                                            { value: "bootstrap", label: "Bootstrap 5 From Scratch" },
+                                            { value: "", label: "Selecione a fonte" },
+                                            { value: "youtube", label: "YouTube" },
+                                            { value: "vimeo", label: "Vimeo" },
+                                            { value: "external", label: "Link Externo" },
+                                            { value: "upload", label: "Upload Direto" },
                                         ]}
                                         defaultCurrent={0}
                                         onChange={handleCourseFilter}

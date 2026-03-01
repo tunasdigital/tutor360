@@ -14,7 +14,7 @@ export default function HeaderEight() {
                      <div className="tp-header-2-right d-flex align-items-center">
                         <div className="logo tp-header-logo">
                            <Link href="/">
-                              <Image src={logo} alt="logo" style={{ height: 'auto' }} />
+                              <Image src={logo} alt="Tutor360 Logo" style={{ height: 'auto' }} />
                            </Link>
                         </div>
                      </div>
@@ -22,11 +22,13 @@ export default function HeaderEight() {
                   <div className="col-10">
                      <div className="tp-header-new-course-right d-flex justify-content-end">
                         <div className="tp-header-new-course-option d-none d-sm-block">
-                           <a className="draft" href="#">Save as Draft</a>
-                           <a className="preview" href="#">Preview</a>
-                           <a className="pulish" href="#">Publish</a>
+                           {/* Tradução dos comandos de ação do topo */}
+                           <a className="draft" href="#">Salvar como Rascunho</a>
+                           <a className="preview" href="#">Visualizar</a>
+                           <a className="pulish" href="#">Publicar</a>
                         </div>
                         <span>
+                           {/* Botão de fechar redirecionando para o painel principal */}
                            <Link href="/dashboard/instructor-dashboard"><CloseFiveSvg /></Link>
                         </span>
                      </div>

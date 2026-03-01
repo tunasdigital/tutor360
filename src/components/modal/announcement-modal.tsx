@@ -23,8 +23,8 @@ export default function AnnouncementModal() {
       <>
          <Modal className="tpd-modal-announcement" show={showAnnounceAddEditModal} onHide={handleAnnounceAddEditModal} centered={true}>
             <div className="modal-header">
-               <h4 className="tpd-modal-title" id="exampleModaltow">{edit ? 'Edit' : 'Create'} Announcement</h4>
-               <button onClick={() => handleAnnounceAddEditModal()} type="button" className="tpd-modal-btn-close" data-bs-dismiss="modal" aria-label="Close">
+               <h4 className="tpd-modal-title" id="exampleModaltow">{edit ? 'Editar' : 'Criar'} Tópico / Anúncio</h4>
+               <button onClick={() => handleAnnounceAddEditModal()} type="button" className="tpd-modal-btn-close" data-bs-dismiss="modal" aria-label="Fechar">
                   <span>
                      <CloseFourSvg />
                   </span>
@@ -33,22 +33,22 @@ export default function AnnouncementModal() {
             <div className="modal-body">
                <form>
                   <div className="tpd-input-white mb-20">
-                     <label>Course Name</label>
-                     <input type="text" placeholder="Announcement" value={announcement} onChange={(e) => setAnnouncement(e.target.value)} />
+                     <label>Nome do Tópico</label>
+                     <input type="text" placeholder="Ex: Introdução ao Empreendedorismo" value={announcement} onChange={(e) => setAnnouncement(e.target.value)} />
                   </div>
                   <div className="tpd-input-white mb-20">
-                     <label>Course Title</label>
-                     <input type="text" placeholder="course title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                     <label>Título do Conteúdo</label>
+                     <input type="text" placeholder="Título que aparecerá para o aluno" value={title} onChange={(e) => setTitle(e.target.value)} />
                   </div>
                   <div className="tpd-input-white">
-                     <label htmlFor="message-text" className="col-form-label">Summary</label>
-                     <textarea className="form-control" id="message-text" placeholder="Lorem Ipsum...."></textarea>
+                     <label htmlFor="message-text" className="col-form-label">Resumo / Descrição</label>
+                     <textarea className="form-control" id="message-text" placeholder="Descreva brevemente o conteúdo deste tópico..."></textarea>
                   </div>
                </form>
             </div>
             <div className="modal-footer">
-               <button type="button" data-bs-dismiss="modal" aria-label="Close" className="tpd-btn-cancel">Cancel</button>
-               <button type="submit" className="tpd-btn-edit ml-10">Publish</button>
+               <button type="button" onClick={() => handleAnnounceAddEditModal()} className="tpd-btn-cancel">Cancelar</button>
+               <button type="submit" className="tpd-btn-edit ml-10">Publicar</button>
             </div>
          </Modal>
       </>

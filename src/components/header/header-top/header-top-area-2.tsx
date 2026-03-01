@@ -14,7 +14,7 @@ export default function HeaderTopAreaTwo() {
                   <a href="#">
                     <i className="fa-brands fa-facebook-f"></i>
                   </a>
-                  7500k Followers
+                  7500k Seguidores
                 </span>
               </div>
               <div className="tp-header-info-item">
@@ -30,8 +30,8 @@ export default function HeaderTopAreaTwo() {
             <div className="tp-header-4-top d-flex align-items-center justify-content-md-end">
               <div className="tp-header-4-top-item">
                 <div className="tp-header-4-link">
-                  <Link href="/event">Events</Link>
-                  <Link href="/contact">Contact</Link>
+                  <Link href="/event">Eventos</Link>
+                  <Link href="/contact">Contato</Link>
                 </div>
               </div>
               <div className="tp-header-4-top-item">
@@ -40,7 +40,7 @@ export default function HeaderTopAreaTwo() {
                     <span>
                       <UserSvgFour />
                     </span>
-                    log in as a student
+                    Área do Aluno
                     <i>
                       <svg
                         width="9"
@@ -64,7 +64,7 @@ export default function HeaderTopAreaTwo() {
               <div className="tp-header-4-top-item">
                 <div className="tp-header-4-search">
                   <form action="#">
-                    <input type="text" placeholder="Search..." />
+                    <input type="text" placeholder="Buscar..." />
                     <span>
                       <SearchSvg clr="white" />
                     </span>

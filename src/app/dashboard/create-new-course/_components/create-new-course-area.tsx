@@ -7,87 +7,87 @@ import CourseInstructor from "./course-instructor";
 import CourseIntroVideo from "./course-intro-video";
 import CoursePrerequisites from "./course-prerequisites";
 
-
+// Dicas de Upload de Curso traduzidas para o português
 const listData = [
-   "Set the Course Price option or make it free.",
-   "Standard size for the course thumbnail is 700x430.",
-   "Video section controls the course overview video.",
-   "Course Builder is where you create & organize a course.",
-   "Add Topics in the Course Builder section to create lessons, quizzes, and assignments.",
+    "Configure a opção de Preço do Curso ou defina-o como gratuito.",
+    "O tamanho padrão para a miniatura (thumbnail) do curso é 700x430 pixels.",
+    "A seção de Vídeo controla o vídeo de apresentação (overview) do curso.",
+    "O Construtor de Cursos é onde você cria e organiza toda a estrutura do seu conteúdo.",
+    "Adicione Tópicos no Construtor para criar lições, questionários (quizzes) e tarefas.",
 ];
 
 export default function CreateNewCourseArea() {
-   return (
-      <main className="tp-dashboard-body-bg p-relative">
-         <div className="tpd-dashboard-wrap-bg" style={{ backgroundImage: "url(/assets/img/dashboard/bg/dashboard-bg-shape-1.jpg)" }}>
+    return (
+        <main className="tp-dashboard-body-bg p-relative">
+            <div className="tpd-dashboard-wrap-bg" style={{ backgroundImage: "url(/assets/img/dashboard/bg/dashboard-bg-shape-1.jpg)" }}>
 
-            {/* create new course area start */}
-            <section className="tpd-new-course-area pt-80 pb-120">
-               <div className="container">
-                  <div className="row">
-                     <div className="col-lg-8">
-                        <div className="tpd-new-course-wrap">
-                           <div className="tpd-new-course-box">
+                {/* Início da área de criação de novo curso */}
+                <section className="tpd-new-course-area pt-80 pb-120">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-8">
+                                <div className="tpd-new-course-wrap">
+                                    <div className="tpd-new-course-box">
 
-                              <div className="accordion" id="accordionPanelsStayOpenExample">
+                                        <div className="accordion" id="accordionPanelsStayOpenExample">
 
-                                 {/* course info area start */}
-                                 <CourseInfoArea />
-                                 {/* course info area end */}
+                                            {/* Início da área de informações básicas */}
+                                            <CourseInfoArea />
+                                            {/* Fim da área de informações básicas */}
 
+                                            {/* Vídeo de introdução do curso */}
+                                            <CourseIntroVideo />
+                                            {/* Vídeo de introdução do curso */}
 
-                                 {/* course intro video */}
-                                 <CourseIntroVideo />
-                                 {/* course intro video */}
+                                            {/* Área do construtor de cursos (grade curricular) */}
+                                            <CourseBuilderArea />
+                                            {/* Área do construtor de cursos */}
 
-                                 {/* course builder area */}
-                                 <CourseBuilderArea />
-                                 {/* course builder area */}
+                                            {/* Área de seleção de instrutores */}
+                                            <CourseInstructor />
+                                            {/* Área de seleção de instrutores */}
 
-                                 {/* course instructor area */}
-                                 <CourseInstructor />
-                                 {/* course instructor area */}
+                                            {/* Área de anexos do curso */}
+                                            <CourseAttachment />
+                                            {/* Área de anexos do curso */}
 
-                                 {/* course attachment area */}
-                                 <CourseAttachment />
-                                 {/* course attachment area */}
+                                            {/* Informações adicionais */}
+                                            <CourseAdditionalInfo />
+                                            {/* Informações adicionais */}
 
-                                 {/* course additional info */}
-                                 <CourseAdditionalInfo />
-                                 {/* course additional info */}
+                                            {/* Pré-requisitos do curso */}
+                                            <CoursePrerequisites />
+                                            {/* Pré-requisitos do curso */}
 
-                                 {/* course prerequisites */}
-                                 <CoursePrerequisites />
-                                 {/* course prerequisites */}
+                                            {/* Certificado do curso */}
+                                            <CourseCertificate />
+                                            {/* Certificado do curso */}
 
-                                 {/* course certificate */}
-                                 <CourseCertificate />
-                                 {/* course certificate */}
+                                        </div>
 
-                              </div>
-
-                           </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-4">
+                                <div className="tpd-course-enroll-list">
+                                    {/* Título lateral traduzido */}
+                                    <h2 className="tp-dashboard-title">Dicas para o Upload</h2>
+                                    <ul>
+                                        {listData.map((tip, index) => (
+                                            <li key={index}>
+                                                <span>{index + 1}. </span>
+                                                {tip}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                     <div className="col-lg-4">
-                        <div className="tpd-course-enroll-list">
-                           <h2 className="tp-dashboard-title">Course Upload Tips</h2>
-                           <ul>
-                              {listData.map((tip, index) => (
-                                 <li key={index}>
-                                    <span>{index + 1}. </span>
-                                    {tip}
-                                 </li>
-                              ))}
-                           </ul>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </section>
-            {/* create new course area end */}
+                    </div>
+                </section>
+                {/* Fim da área de criação de novo curso */}
 
-         </div>
-      </main>
-   )
+            </div>
+        </main>
+    )
 }

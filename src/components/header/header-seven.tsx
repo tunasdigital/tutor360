@@ -17,15 +17,15 @@ export default function HeaderSeven() {
               <div className="col-xxl-2 col-xl-2 col-6">
                 <div className="tp-header-logo">
                   <Link href="/">
-                    <Image src={logo} alt="logo" style={{ height: "auto" }} />
+                    <Image src={logo} alt="Tutor360 Logo" style={{ height: "auto" }} />
                   </Link>
                 </div>
               </div>
               <div className="col-xxl-7 col-xl-7 d-none d-xl-block">
                 <div className="main-menu text-xl-center">
-                  {/* nav menus start */}
+                  {/* Início dos menus de navegação (NavMenus já processado) */}
                   <NavMenus />
-                  {/* nav menus end */}
+                  {/* Fim dos menus de navegação */}
                 </div>
               </div>
               <div className="col-xxl-3 col-xl-3 col-6">
@@ -35,7 +35,7 @@ export default function HeaderSeven() {
                   </div>
                   <div className="tp-header-inner-btn d-none d-md-block">
                     <Link className="tp-btn-3" href="/university-schedule">
-                      Plan a Visit
+                      Agende uma Visita
                     </Link>
                   </div>
                   <div className="tp-header-red-sidebar">
@@ -50,9 +50,9 @@ export default function HeaderSeven() {
         </HeaderStickyWrapper>
       </header>
 
-      {/* mobile offcanvas */}
+      {/* Menu mobile (offcanvas) */}
       <div id="offcanvas-sidebar" />
-      {/* mobile offcanvas */}
+      {/* Menu mobile (offcanvas) */}
     </>
   );
 }

@@ -1,7 +1,8 @@
 'use client';
 import React from "react";
 import Image from "next/image";
-import flag from "@/assets/img/flag/flag-1.png";
+// Nota: Recomendo futuramente trocar flag-1.png por uma bandeira do Brasil
+import flag from "@/assets/img/flag/flag-1.png"; 
 import { DownArrow } from "@/components/svg";
 
 
@@ -11,17 +12,16 @@ export default function HeaderLanguage() {
         <li>
             <a onClick={() => setOpenLang(!openLang)} id="header-bottom__lang-toggle" href="#">
                 <span>
-                    <Image src={flag} alt="flag-img" />
-                    English
+                    <Image src={flag} alt="Bandeira" />
+                    Português
                 </span>
                 <span>
                     <DownArrow />
                 </span>
             </a>
             <ul className={`header-bottom__lang-submenu ${openLang ? "open" : ""}`}>
-                <li><a href="#">Arabic</a></li>
-                <li><a href="#">Spanish</a></li>
-                <li><a href="#">Mandarin</a></li>
+                <li><a href="#">Inglês</a></li>
+                <li><a href="#">Espanhol</a></li>
             </ul>
         </li>
     )

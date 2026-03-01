@@ -1,26 +1,26 @@
-import BackToTop from "@/components/back-to-top";
-import FooterFive from "@/components/footer/footer-five";
-import HeaderFive from "@/components/header/header-five";
 import MainProvider from "@/components/provider/main-provider";
+import BackToTop from "@/components/back-to-top";
+import HeaderFive from "@/components/header/header-five";
+import FooterOne from "@/components/footer/footer-one";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <MainProvider>
-      {/* header area start */}
+      {/* Início da área do cabeçalho */}
       <HeaderFive/>
-      {/* header area end */}
+      {/* Fim da área do cabeçalho */}
 
-      {/* main content */}
+      {/* Conteúdo principal dinâmico */}
       {children}
-      {/* main content */}
+      {/* Fim do conteúdo principal */}
 
-      {/* footer area start */}
-      <FooterFive/>
-      {/* footer area end */}
+      {/* Início da área do rodapé oficial Tutor360 */}
+      <FooterOne />
+      {/* Fim da área do rodapé */}
 
-      {/* back to top */}
+      {/* Botão flutuante de voltar ao topo */}
       <BackToTop />
-      {/* back to top */}
+      {/* Fim do botão de voltar ao topo */}
     </MainProvider>
   );
 }

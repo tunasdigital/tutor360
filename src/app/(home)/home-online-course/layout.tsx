@@ -1,26 +1,26 @@
-import HeaderTwo from "@/components/header/header-two";
 import BackToTop from "@/components/back-to-top";
+import FooterOne from "@/components/footer/footer-one";
+import HeaderThee from "@/components/header/header-thee";
 import MainProvider from "@/components/provider/main-provider";
-import FooterTwo from "@/components/footer/footer-two";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <MainProvider>
-      {/* header area start */}
-      <HeaderTwo />
-      {/* header area end */}
+      {/* Início da área do cabeçalho */}
+      <HeaderThee sm_mega_title="Programas" />
+      {/* Fim da área do cabeçalho */}
 
-      {/* main content */}
+      {/* Conteúdo principal dinâmico */}
       {children}
-      {/* main content */}
+      {/* Fim do conteúdo principal */}
 
-      {/* footer area start */}
-      <FooterTwo />
-      {/* footer area end */}
+      {/* Início da área do rodapé oficial Tutor360 */}
+      <FooterOne />
+      {/* Fim da área do rodapé */}
 
-      {/* back to top */}
+      {/* Botão flutuante de voltar ao topo */}
       <BackToTop />
-      {/* back to top */}
+      {/* Fim do botão de voltar ao topo */}
     </MainProvider>
   );
 }

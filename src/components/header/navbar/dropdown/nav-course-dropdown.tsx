@@ -27,10 +27,11 @@ export default function NavCourseDropdown({ course_dropdown }: IProps) {
         </div>
       </div>
       <div className="tp-megamenu-courses-wrap d-none d-xl-block">
-        <h4 className="tp-megamenu-courses-wrap-title">Developer hub</h4>
-        <p>Start building fast, with code samples and more</p>
+        {/* Tradução da área de destaque para desenvolvedores e alunos técnicos */}
+        <h4 className="tp-megamenu-courses-wrap-title">Central do Desenvolvedor</h4>
+        <p>Comece a construir rápido com exemplos de código e muito mais.</p>
         <div className="tp-megamenu-courses-thumb">
-          <Image src={shape} alt="shape" />
+          <Image src={shape} alt="Forma decorativa" />
         </div>
       </div>
     </div>

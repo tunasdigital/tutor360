@@ -10,7 +10,7 @@ import HeaderStickyWrapper from "./header-sticky-provider/header-sticky-wrapper"
 import CartButton from "./button/cart-button";
 import OffcanvasButton from "./button/offcanvas-btn";
 
-// img style 
+// Estilo da logo
 const logoStyle: CSSProperties = {
   height: 'auto'
 }
@@ -19,9 +19,9 @@ export default function HeaderFive() {
   return (
     <>
       <header className="header-area p-relative tp-header-4">
-        {/* header top area */}
+        {/* Área superior do cabeçalho (já traduzida) */}
         <HeaderTopAreaTwo />
-        {/* header top area */}
+        
         <HeaderStickyWrapper cls="tp-header-4-main">
           <div className="container">
             <div className="row align-items-center">
@@ -31,13 +31,13 @@ export default function HeaderFive() {
                     <Image
                       className="logo-1"
                       src={logo}
-                      alt="logo"
+                      alt="Tutor360 Logo"
                       style={logoStyle}
                     />
                     <Image
                       className="logo-2"
                       src={logo_black}
-                      alt="logo"
+                      alt="Tutor360 Logo"
                       style={logoStyle}
                     />
                   </Link>
@@ -45,9 +45,8 @@ export default function HeaderFive() {
               </div>
               <div className="col-xxl-7 col-xl-7 d-none d-xl-block">
                 <div className="main-menu main-menu-4">
-                  {/* nav menus start */}
+                  {/* Menus de navegação (já traduzidos) */}
                   <NavMenus />
-                  {/* nav menus end */}
                 </div>
               </div>
               <div className="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-6">
@@ -56,7 +55,8 @@ export default function HeaderFive() {
                     <CartButton icon={<CartTwo />} />
                   </div>
                   <div className="tp-header-4-btn d-none d-md-block ml-30">
-                    <Link href="/university-schedule">Plan a Visit</Link>
+                    {/* Tradução do botão de ação principal */}
+                    <Link href="/university-schedule">Agende uma Visita</Link>
                   </div>
                   <div className="tp-header-bar d-xl-none ml-30">
                     <OffcanvasButton/>
@@ -68,13 +68,11 @@ export default function HeaderFive() {
         </HeaderStickyWrapper>
       </header>
 
-      {/* cart mini sidebar */}
+      {/* Mini sidebar do carrinho */}
       <div id="cart-mini-sidebar"></div>
-      {/* cart mini sidebar */}
 
-      {/* mobile offcanvas */}
+      {/* Menu mobile (offcanvas) */}
       <div id="offcanvas-sidebar"/>
-      {/* mobile offcanvas */}
     </>
   );
 }

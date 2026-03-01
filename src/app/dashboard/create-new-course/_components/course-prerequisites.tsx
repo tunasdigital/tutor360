@@ -10,21 +10,18 @@ type OptionType = {
 };
 
 export default function CoursePrerequisites() {
-   // Defining state for selected prerequisite courses
-   const [selectedCourses, setSelectedCourses] = useState<OptionType[]>([
-      { value: "en", label: "The Science Behind Drawing" },
-      { value: "fr", label: "Art" },
-   ]);
+   // Definindo estado inicial vazio para os cursos pré-requisitos selecionados
+   const [selectedCourses, setSelectedCourses] = useState<OptionType[]>([]);
 
-   // Course options for prerequisites
+   // Opções de cursos para pré-requisitos traduzidas
    const courseOptions = [
-      { value: "en", label: "The Science Behind Drawing" },
-      { value: "fr", label: "Art" },
-      { value: "de", label: "Music" },
-      { value: "pt", label: "Photography" }
+      { value: "mkt-digital", label: "Marketing Digital para Iniciantes" },
+      { value: "gestao-tempo", label: "Gestão de Tempo e Produtividade" },
+      { value: "financas-negocios", label: "Finanças para Pequenos Negócios" },
+      { value: "vendas-estrategicas", label: "Vendas Estratégicas" }
    ];
 
-   // Handle change for course prerequisites select
+   // Manipular mudança na seleção de pré-requisitos
    const handleSelectChange = (newValue: unknown) => {
       const selectedOptions = newValue as MultiValue<OptionType>;
       setSelectedCourses([...selectedOptions] as OptionType[]);
@@ -41,16 +38,18 @@ export default function CoursePrerequisites() {
                aria-expanded="false"
                aria-controls="panelsStayOpen-collapseSeven"
             >
-               Course Prerequisites
+               Pré-requisitos do Curso
             </button>
          </h2>
          <div id="panelsStayOpen-collapseSeven" className="accordion-collapse collapse">
             <div className="accordion-body">
                <div className="tpd-new-course-select2">
                   <div className="tpd-input">
-                     <label>Select course</label>
+                     <label>Selecionar Cursos</label>
                      <Select
                         isMulti
+                        placeholder="Escolha os cursos necessários..."
+                        noOptionsMessage={() => "Nenhum curso encontrado"}
                         name="prerequisiteCourses"
                         options={courseOptions}
                         value={selectedCourses}

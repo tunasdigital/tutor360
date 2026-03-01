@@ -1,5 +1,5 @@
 import BackToTop from "@/components/back-to-top";
-import FooterSix from "@/components/footer/footer-six";
+import FooterOne from "@/components/footer/footer-one";
 import HeaderSix from "@/components/header/header-six";
 import MainProvider from "@/components/provider/main-provider";
 
@@ -7,21 +7,22 @@ export default function Layout({children}: {children:React.ReactNode}) {
   return (
     <MainProvider>
 
-      {/* header area start */}
-      <HeaderSix sm_mega_title="programs" inner={true}/>
-      {/* header area end */}
+      {/* Início da área do cabeçalho da loja */}
+      <HeaderSix sm_mega_title="programas" inner={true}/>
+      {/* Fim da área do cabeçalho */}
 
-      {/* main content */}
+      {/* Conteúdo dinâmico da loja (Produtos/Cursos) */}
       {children}
-      {/* main content */}
+      {/* Fim do conteúdo principal */}
 
-      {/* footer area start */}
-      <FooterSix/>
-      {/* footer area end */}
+      {/* Início da área do rodapé oficial Tutor360 */}
+      <FooterOne />
+      {/* Fim da área do rodapé */}
 
-      {/* back to top */}
+      {/* Botão flutuante de voltar ao topo */}
       <BackToTop />
-      {/* back to top */}
+      {/* Fim do botão de voltar ao topo */}
+      
     </MainProvider>
   );
 }

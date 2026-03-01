@@ -28,17 +28,18 @@ export default function NavAcademicDropdown({ academic_dropdown }: IProps) {
             ))}
             <div className="col-xl-6 col-12">
               <div className="tp-megamenu-academics-banner p-relative d-none d-xl-block">
-                <h4 className="tp-megamenu-academics-banner-title">Alumni</h4>
+                {/* Tradução do cabeçalho do banner lateral */}
+                <h4 className="tp-megamenu-academics-banner-title">Nossos Alunos</h4>
                 <Image src={shape_2} alt="shape" />
                 <p>
-                  Everything that I learned at <br />
-                  Kempbelle University really <br />
-                  helped put me above the <br />
-                  competition in the field <br />
-                  of Computer Science.
+                  Tudo o que aprendi nos cursos da <br />
+                  Tutor360 realmente me ajudou <br />
+                  a me destacar no mercado de <br />
+                  trabalho e a dominar as novas <br />
+                  tecnologias do setor.
                 </p>
                 <a href="#">
-                  Our Alumni{" "}
+                  Conheça Histórias de Sucesso{" "}
                   <span>
                     <RightArrowTwo clr="currentColor" />
                   </span>
@@ -53,11 +54,12 @@ export default function NavAcademicDropdown({ academic_dropdown }: IProps) {
         <div className="row">
           <div className="col-lg-12 d-none d-xl-block">
             <div className="tp-megamenu-academics-btns text-center">
-              <Link href="/university-request-info">Request Info</Link>
+              {/* Tradução dos botões de ação do megamenu */}
+              <Link href="/university-request-info">Solicitar Informações</Link>
               <Link className="active" href="/university-application-form">
-                Apply Now
+                Matricule-se Agora
               </Link>
-              <Link href="/university-schedule">Visit University</Link>
+              <Link href="/university-schedule">Conheça a Plataforma</Link>
             </div>
           </div>
         </div>

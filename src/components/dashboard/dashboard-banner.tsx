@@ -32,11 +32,11 @@ export default function DashboardBanner({studentBanner}: IProps) {
                     />
                   </div>
                   <div className="tp-instructor-content">
-                    {/* Nome dinâmico para espelhar a área atual até a integração do banco de dados */}
+                    {/* Identidade visual unificada Tutor360 */}
                     <h4 className="tp-instructor-title">
                       {studentBanner ? "Aluno Tutor360" : "Instrutor Tutor360"}
                     </h4>
-                    <div className="tp-instructor-rate  d-flex align-items-center">
+                    <div className="tp-instructor-rate d-flex align-items-center">
                       <div className="tp-instructor-rating">
                         <i className="fa-solid fa-star"></i>
                         <i className="fa-solid fa-star"></i>
@@ -45,12 +45,12 @@ export default function DashboardBanner({studentBanner}: IProps) {
                         <i className="fa-solid fa-star"></i>
                       </div>
                       <span>4.61</span>
-                      {/* Tradução da legenda de avaliações */}
+                      {/* Nacionalização das avaliações */}
                       <span>(18 Avaliações)</span>
                     </div>
                   </div>
                 </div>
-                {/* Ocultação condicional: o botão de criar curso não renderiza se for o banner do aluno */}
+                {/* Botão de ação exclusivo para o perfil do instrutor */}
                 {!studentBanner && (
                   <div className="tp-instructor-course-btn">
                     <Link

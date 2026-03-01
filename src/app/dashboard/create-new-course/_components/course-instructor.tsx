@@ -11,21 +11,21 @@ export default function CourseInstructor() {
         <div className="accordion-item">
             <h2 className="accordion-header">
                 <button className="accordion-button collapsed tpd-new-course-heading-title" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
-                    Instructors
+                    Instrutores
                 </button>
             </h2>
             <div id="panelsStayOpen-collapseFour" className="accordion-collapse collapse">
                 <div className="accordion-body">
                     <div className="tpd-new-course-instructor">
                         <div className="tpd-new-course-instructor-user d-flex align-items-center">
-                            <Image src={profile_img} alt="profile-img" style={{height:'auto'}} />
-                            <span>Indigo Violet</span>
+                            <Image src={profile_img} alt="Imagem de perfil do instrutor" style={{height:'auto'}} />
+                            {/* Nome ajustado para a identidade da plataforma */}
+                            <span>Instrutor Tutor360</span>
                         </div>
-                        {/* modal-announcement-btn */}
-                        <button type="button" className="btn btn-primary" onClick={() => handleAnnounceAddEditModal()} data-bs-whatever="@fat"><span>
-                            <UserSvgSix/></span> Add Instructor
+                        {/* Botão de ação traduzido */}
+                        <button type="button" className="btn btn-primary" onClick={() => handleAnnounceAddEditModal()} data-bs-whatever="@fat">
+                           <span><UserSvgSix/></span> Adicionar Instrutor
                         </button>
-                        {/* modal-announcement-btn-end */}
                     </div>
                 </div>
             </div>

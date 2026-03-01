@@ -38,17 +38,17 @@ export default function NavSmMegaMenus({dropdown_menus}: IProps) {
         <div className="col-xl-12">
           <div className="tp-megamenu-small-cta d-flex">
             <div className="tp-megamenu-small-cta-thumb">
-              <Image src={cta_shape} alt="cta-shape" />
+              <Image src={cta_shape} alt="forma-decorativa" />
             </div>
             <h4 className="tp-megamenu-small-cta-title">
-              All signature programs
+              Todos os programas de assinatura
             </h4>
             <div className="tp-megamenu-small-cta-btn">
               <Link
                 className="tp-btn"
                 href="/university-application-form"
               >
-                Apply now
+                Matricule-se agora
               </Link>
             </div>
           </div>
