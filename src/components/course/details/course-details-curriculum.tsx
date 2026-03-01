@@ -19,16 +19,24 @@ interface CurriculumProps {
   lessons?: LessonLite[];
 }
 
+// Mock traduzido para caso o curso não tenha aulas (fallback)
 const CurriculumDataMock = [
   {
-    moduleTitle: "Intro to Course and Histudy (Mock)",
+    moduleTitle: "Introdução ao Curso (Exemplo)",
     lessons: [
-      { type: "video", title: "Course Intro", duration: "20 min", preview: true },
+      { type: "video", title: "Introdução", duration: "20 min", preview: true },
     ],
     totalLessons: 1,
     totalTime: "20m",
   },
 ];
+
+// Dicionário para traduzir o tipo de mídia de forma dinâmica
+const typeTranslation: Record<string, string> = {
+  video: "Vídeo",
+  audio: "Áudio",
+  reading: "Leitura",
+};
 
 export default function CourseDetailsCurriculum({ lessons = [] }: CurriculumProps) {
   const safeLessons = Array.isArray(lessons) ? lessons : [];
@@ -67,7 +75,8 @@ export default function CourseDetailsCurriculum({ lessons = [] }: CurriculumProp
               >
                 <span className="span">{module.moduleTitle}</span>
                 <span className="lesson">
-                  {module.totalLessons} Lessons {module.totalTime && `• ${module.totalTime}`}
+                  {/* Lógica para pluralizar "Aula/Aulas" automaticamente */}
+                  {module.totalLessons} {module.totalLessons === 1 ? 'Aula' : 'Aulas'} {module.totalTime && `• ${module.totalTime}`}
                 </span>
                 <span className="accordion-btn"></span>
               </button>
@@ -89,7 +98,8 @@ export default function CourseDetailsCurriculum({ lessons = [] }: CurriculumProp
                         {lesson.type === "video" && <VideoPlayerTwoSvg />}
                         {lesson.type === "audio" && <AudioPlayerSvg />}
                         {lesson.type === "reading" && <Document />}{" "}
-                        <i>{lesson.type.charAt(0).toUpperCase() + lesson.type.slice(1)}:</i>{" "}
+                        {/* Aplica a tradução do tipo (ex: Video -> Vídeo) */}
+                        <i>{typeTranslation[lesson.type] || lesson.type}:</i>{" "}
                         {lesson.title}
                       </span>
                     </div>
@@ -98,7 +108,7 @@ export default function CourseDetailsCurriculum({ lessons = [] }: CurriculumProp
                         {lesson.duration}{" "}
                         {lesson.preview && lesson.id ? (
                           <Link href={`/course-lesson/${lesson.id}`}>
-                            <OpenEyeTwo /> Preview
+                            <OpenEyeTwo /> Assistir
                           </Link>
                         ) : (
                           <Lock />

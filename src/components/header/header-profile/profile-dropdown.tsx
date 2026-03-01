@@ -21,18 +21,19 @@ type ListItem =
   | { link: string; icon: JSX.Element; label: string; isDivider?: false }
   | { isDivider: true };
 
+// Tradução dos itens do menu de usuário
 const listData: ListItem[] = [
-  { link: "/dashboard/instructor-dashboard", icon: <DashboardSvg />, label: "My Dashboard" },
-  { link: "/dashboard/instructor-profile", icon: <UserSvg />, label: "My Profile" },
-  { link: "/dashboard/instructor-enroll-course", icon: <EnrollmentSvg />, label: "Enrolled Courses" },
-  { link: "/dashboard/instructor-wishlist", icon: <WishlistSvg />, label: "Wishlist" },
-  { link: "/dashboard/instructor-reviews", icon: <ReviewSvg />, label: "Reviews" },
-  { link: "/dashboard/instructor-quiz-attempts", icon: <QuizSvg />, label: "My Quiz Attempts" },
-  { link: "/dashboard/instructor-order", icon: <OrderSvg />, label: "Order History" },
-  { link: "/dashboard/instructor-announcements", icon: <QuestionSvg />, label: "Question & Answer" },
+  { link: "/dashboard/instructor-dashboard", icon: <DashboardSvg />, label: "Meu Painel" },
+  { link: "/dashboard/instructor-profile", icon: <UserSvg />, label: "Meu Perfil" },
+  { link: "/dashboard/instructor-enroll-course", icon: <EnrollmentSvg />, label: "Meus Cursos" },
+  { link: "/dashboard/instructor-wishlist", icon: <WishlistSvg />, label: "Lista de Desejos" },
+  { link: "/dashboard/instructor-reviews", icon: <ReviewSvg />, label: "Minhas Avaliações" },
+  { link: "/dashboard/instructor-quiz-attempts", icon: <QuizSvg />, label: "Meus Testes" },
+  { link: "/dashboard/instructor-order", icon: <OrderSvg />, label: "Histórico de Pedidos" },
+  { link: "/dashboard/instructor-announcements", icon: <QuestionSvg />, label: "Perguntas e Respostas" },
   { isDivider: true },
-  { link: "/dashboard/instructor-setting-profile", icon: <SettingSvg />, label: "Settings" },
-  { link: "/login", icon: <LogoutSvg />, label: "Logout" },
+  { link: "/dashboard/instructor-setting-profile", icon: <SettingSvg />, label: "Configurações" },
+  { link: "/login", icon: <LogoutSvg />, label: "Sair" },
 ];
 
 type IProps = {
@@ -54,8 +55,9 @@ export default function ProfileDropdown({top_cls="tp-header-inner-login",user_ic
               <Image src={user_img} alt="user" />
             </div>
             <div className="tp-header-user-profile-content">
-              <h4>Floyd Miles</h4>
-              <span>Founder</span>
+              {/* Adaptação provisória para o ecossistema Tutor360 */}
+              <h4>Aluno Tutor360</h4>
+              <span>Empreendedor</span>
             </div>
           </div>
 

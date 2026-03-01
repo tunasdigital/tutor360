@@ -1,7 +1,6 @@
 import { all_courses } from "@/data/course-data"
 import CourseItem from "../single/course-item";
 
-
 const related_courses = all_courses.slice(0, 3);
 export default function RelatedCourses() {
     return (
@@ -11,8 +10,8 @@ export default function RelatedCourses() {
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="tp-course-details-2-related-heading pt-80">
-                            <h3 className="tp-course-details-2-related-title">Related Courses</h3>
-                            <p>10,000+ unique online course list designs</p>
+                            <h3 className="tp-course-details-2-related-title">Cursos Relacionados</h3>
+                            <p>Explore outros treinamentos para impulsionar a sua jornada</p>
                         </div>
                     </div>
                 </div>

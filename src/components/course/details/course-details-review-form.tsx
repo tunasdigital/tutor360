@@ -1,6 +1,5 @@
 import { StarTwo } from "@/components/svg";
 
-
 export default function CourseDetailsReviewForm() {
   return (
     <form>
@@ -16,18 +15,18 @@ export default function CourseDetailsReviewForm() {
         <div className="row">
           <div className="col-xl-12">
             <div className="tp-contact-input p-relative">
-              <label>Review Title</label>
-              <input type="text" />
+              <label>Título da Avaliação</label>
+              <input type="text" placeholder="Ex: Excelente didática!" />
             </div>
           </div>
           <div className="col-xl-12">
             <div className="tp-contact-input p-relative">
-              <label>Review Content</label>
-              <textarea></textarea>
+              <label>Seu Comentário</label>
+              <textarea placeholder="Conte-nos mais sobre a sua experiência..."></textarea>
             </div>
           </div>
           <div className="tp-contact-btn">
-            <button className="tp-btn-inner">Submit Review</button>
+            <button className="tp-btn-inner">Publicar Avaliação</button>
           </div>
         </div>
       </div>

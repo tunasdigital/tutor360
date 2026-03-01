@@ -24,8 +24,8 @@ export async function generateMetadata({ params }: Props) {
 
   return {
     title: course?.title
-      ? `${removeTagInText(course.title)} - Acadia`
-      : "Course Details - Acadia",
+      ? `${removeTagInText(course.title)} - Tutor360`
+      : "Detalhes do Curso - Tutor360",
   };
 }
 
@@ -119,7 +119,7 @@ export default async function CourseDetailsPage({ params }: Props) {
   if (!dbCourse) {
     return (
       <div className="text-center mt-100 mb-80">
-        <h3>No Course found with id: {id}</h3>
+        <h3>Nenhum curso encontrado com o ID: {id}</h3>
       </div>
     );
   }

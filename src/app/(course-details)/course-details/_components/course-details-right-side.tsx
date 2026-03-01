@@ -27,49 +27,51 @@ export default function CourseDetailsRightSide({ course }: IProps) {
                <CoursePrice discount={discount} price={price} />
             </div>
             <div className="tp-course-details-2-widget-btn">
-               <Link className="active" href="/cart">Add to Cart</Link>
-               <Link href="/course-with-filter">Buy Course</Link>
-               <p>30-Day Money-Back Guarantee</p>
+               <Link className="active" href="/cart">Adicionar ao Carrinho</Link>
+               <Link href="/course-with-filter">Comprar Curso</Link>
+               <p>Garantia de 30 dias de devolução</p>
             </div>
 
             <div className="tp-course-details-2-widget-list">
-               <h5>This course includes:</h5>
+               <h5>Este curso inclui:</h5>
 
                <div className="tp-course-details-2-widget-list-item-wrapper">
 
                   <div className="tp-course-details-2-widget-list-item d-flex align-items-center justify-content-between">
-                     <span> <LectureSvg /> Lectures</span>
+                     <span> <LectureSvg /> Aulas</span>
                      <span>40</span>
                   </div>
                   <div className="tp-course-details-2-widget-list-item d-flex align-items-center justify-content-between">
-                     <span> <DurationSvg /> Duration</span>
+                     <span> <DurationSvg /> Duração</span>
                      <span>4h 50m</span>
                   </div>
                   <div className="tp-course-details-2-widget-list-item d-flex align-items-center justify-content-between">
-                     <span> <SkillLevelSvg /> Skill Level</span>
-                     <span>Beginner</span>
+                     <span> <SkillLevelSvg /> Nível</span>
+                     <span>Iniciante</span>
                   </div>
                   <div className="tp-course-details-2-widget-list-item d-flex align-items-center justify-content-between">
-                     <span> <LanguageSvg /> Language</span>
-                     <span>{course.language}</span>
+                     <span> <LanguageSvg /> Idioma</span>
+                     {/* Fallback inteligente caso a linguagem não venha do banco */}
+                     <span>{course.language || "Português"}</span>
                   </div>
                   <div className="tp-course-details-2-widget-list-item d-flex align-items-center justify-content-between">
-                     <span> <DeadLineSvg /> Deadline</span>
-                     <span>30 Nov 2024</span>
+                     <span> <DeadLineSvg /> Acesso</span>
+                     {/* Alterado de data fixa para "Vitalício", muito comum em infoprodutos BR */}
+                     <span>Vitalício</span>
                   </div>
                   <div className="tp-course-details-2-widget-list-item d-flex align-items-center justify-content-between">
-                     <span> <CertificateSvg /> Certificate</span>
-                     <span>Yes</span>
+                     <span> <CertificateSvg /> Certificado</span>
+                     <span>Sim</span>
                   </div>
 
                   <div className="tp-course-details-2-widget-share d-flex align-items-center justify-content-between">
-                     <a className="share" href="#"><span><ShareSvg clr="#5169F1" /></span> Share this course</a>
-                     <a className="coupon" href="#">Apply coupon</a>
+                     <a className="share" href="#"><span><ShareSvg clr="#5169F1" /></span> Compartilhar curso</a>
+                     <a className="coupon" href="#">Aplicar cupom</a>
                   </div>
                   <div className="tp-course-details-2-widget-search p-relative">
                      <form action="#">
-                        <input type="text" placeholder="Enter Coupon Code" />
-                        <button type="submit">Apply</button>
+                        <input type="text" placeholder="Código do Cupom" />
+                        <button type="submit">Aplicar</button>
                      </form>
                   </div>
                </div>

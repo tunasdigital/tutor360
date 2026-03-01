@@ -7,17 +7,17 @@ export default function DashboardArea() {
     return (
         <DashboardContentWrapper>
 
-            {/* dashboard fact area start */}
+            {/* Início da área de métricas do painel (fatos e números) */}
             <InstructorDashboardFacts />
-            {/* dashboard fact area end */}
+            {/* Fim da área de métricas do painel */}
 
-            {/* in progress courses */}
+            {/* Área de cursos em andamento */}
             <InProgressCourses />
-            {/* in progress courses */}
+            {/* Área de cursos em andamento */}
 
-            {/* dashboard courses area start */}
+            {/* Início da área da tabela de cursos do instrutor */}
             <DashboardCoursesArea />
-            {/* dashboard courses area end */}
+            {/* Fim da área da tabela de cursos do instrutor */}
 
         </DashboardContentWrapper>
     )

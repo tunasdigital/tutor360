@@ -3,27 +3,26 @@ import user_img from '@/assets/img/course/details/user.png';
 import { Star, UserSvgTwo, VideoPlayerThreeSvg } from "@/components/svg";
 import SocialLinks from "@/components/social/social-links";
 
-
 export default function CourseDetailsInstructor() {
     return (
         <div className="tp-course-details-2-instructor d-flex">
             <div className="tp-course-details-2-instructor-thumb mr-40">
-                <Image src={user_img} alt="user-img" />
+                <Image src={user_img} alt="Tutor360 Instrutor" />
             </div>
             <div className="tp-course-details-2-instructor-content">
-                <h5>Undon Xie</h5>
-                <span className="pre">President of Sales</span>
+                <h5>Equipe Tutor360</h5>
+                <span className="pre">Especialistas em Empreendedorismo e Negócios</span>
                 <div className="tp-course-details-2-instructor-sub d-flex">
-                    <span><Star /> 4.4 Rating</span>
-                    <span><VideoPlayerThreeSvg /> 58 Courses</span>
-                    <span><UserSvgTwo clr="#6C7275" /> 45 Student</span>
+                    <span><Star /> 4.9 Avaliação</span>
+                    <span><VideoPlayerThreeSvg /> 50+ Cursos</span>
+                    <span><UserSvgTwo clr="#6C7275" /> 10.000+ Alunos</span>
                 </div>
                 <div className="tp-course-details-2-instructor-text">
-                    <p>I am also the founder of a large local design organization, Salt Lake <br />
-                        Designers, where I and other local influencers help cultivate the talents <br />
-                        of up and coming UX designers through workshops and panel discussions.</p>
-                    <p>Undon Xie is a brilliant educator, whose life was spent for computer <br />
-                        science and love of nature.</p>
+                    <p>Nossa missão é ajudar jovens empreendedores a desenvolverem habilidades <br />
+                        práticas para o mercado de trabalho e para a vida. Através de uma metodologia <br />
+                        focada em resultados, transformamos a forma como você aprende e aplica seus conhecimentos.</p>
+                    <p>A Tutor360 é formada por profissionais dedicados ao seu crescimento <br />
+                        pessoal e profissional, oferecendo suporte contínuo em toda a sua jornada.</p>
                 </div>
                 <div className="tp-course-details-2-instructor-social">
                     <SocialLinks/>

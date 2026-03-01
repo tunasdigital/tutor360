@@ -2,41 +2,41 @@
 import React from "react";
 import { MinusSvg, PlusThreeSvg } from "@/components/svg";
 
-
 export default function CourseDetailsInfo() {
   const [showMore, setShowMore] = React.useState(false);
   return (
     <div id="info">
-      <h4 className="tp-course-details-2-main-title">About Course</h4>
+      <h4 className="tp-course-details-2-main-title">Sobre o Curso</h4>
       <div className="tp-course-details-2-text mb-60">
         <div className={`content ${showMore ? 'show' : ''}`}>
-          <p>This course is aimed at people interested in UI/UX Design. We’ll start from the very <br />
-            beginning and work all the way through, step by step. If you already have some UI/UX <br />
-            Design experience but want to get up to speed using Adobe XD then this course is perfect <br />
-            for you too!</p>
-          <p>First, we will go over the differences between UX and UI Design. We will look at what our <br />
-            brief for this real-world project is, then we will learn about low-fidelity wireframes and how <br /> to make use of existing UI design kits.</p>
+          <p>Este curso é voltado para pessoas interessadas em desenvolver novas habilidades. Começaremos desde o <br />
+            básico e avançaremos passo a passo. Se você já tem alguma <br />
+            experiência na área, mas quer se atualizar e acelerar seus resultados, este curso é perfeito <br />
+            para você também!</p>
+          <p>Primeiro, vamos repassar os conceitos fundamentais e as melhores práticas do mercado. Veremos como aplicar <br />
+            o conhecimento em projetos do mundo real, aprenderemos sobre estruturação e como <br /> tirar o máximo de proveito das ferramentas disponíveis.</p>
         </div>
-        <a onClick={() => setShowMore(!showMore)} className="tp-course-details-showmore show-more-button">
+        {/* Adicionado style pointer para garantir UX caso o CSS base não cubra tags <a> sem href */}
+        <a style={{ cursor: 'pointer' }} onClick={() => setShowMore(!showMore)} className="tp-course-details-showmore show-more-button">
           <span className="svg-icon">
             {showMore ? <MinusSvg clr="#3C66F9" /> : <PlusThreeSvg clr="#3C66F9" />}
           </span> 
-          Show {showMore ? 'Less' : 'More'}
+          {/* Lógica de tradução condicional para o estado do botão */}
+          {showMore ? 'Mostrar Menos' : 'Mostrar Mais'}
        </a>
       </div>
-      <h4 className="tp-course-details-2-main-title">What will you Learn?</h4>
+      <h4 className="tp-course-details-2-main-title">O que você vai aprender?</h4>
       <div className="tp-course-details-2-list">
         <ul>
-          <li>Become a UX designer.</li>
-          <li>Filming 101</li>
-          <li>Learn to design websites.</li>
-          <li>Tools you need for best results.</li>
-          <li>How to plan for a video idea</li>
-          <li>How to use premade UI kits.</li>
-          <li>Differences between ads, trailers, vlogs,etc</li>
+          <li>Domine os conceitos essenciais da área.</li>
+          <li>Fundamentos práticos para iniciantes e avançados.</li>
+          <li>Aprenda a planejar e executar projetos do zero.</li>
+          <li>As ferramentas necessárias para os melhores resultados.</li>
+          <li>Como organizar suas ideias e criar estratégias sólidas.</li>
+          <li>Como utilizar materiais de apoio e templates prontos.</li>
+          <li>Diferenças entre as principais abordagens do mercado.</li>
         </ul>
-        <p>With this course, you also have access to a whole lot of resources not only for reference but
-          also free media like aerial video shots, background music, fonts, and more.</p>
+        <p>Com este curso, você também tem acesso a diversos recursos complementares, materiais de apoio e ferramentas extras para impulsionar o seu aprendizado de forma prática.</p>
       </div>
     </div>
   )

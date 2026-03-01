@@ -1,11 +1,12 @@
 import { StarTwo } from "@/components/svg";
 
+// Dados fictícios de avaliação. No futuro, também virão do Prisma.
 const ratingData = [
-    { stars: "5 star", percentage: 82, width: "82%" },
-    { stars: "4 star", percentage: 30, width: "30%" },
-    { stars: "3 star", percentage: 15, width: "15%" },
-    { stars: "2 star", percentage: 6, width: "6%" },
-    { stars: "1 star", percentage: 10, width: "10%" },
+    { stars: "5 estrelas", percentage: 82, width: "82%" },
+    { stars: "4 estrelas", percentage: 30, width: "30%" },
+    { stars: "3 estrelas", percentage: 15, width: "15%" },
+    { stars: "2 estrelas", percentage: 6, width: "6%" },
+    { stars: "1 estrela", percentage: 10, width: "10%" },
 ];
 
 export default function CourseDetailsRatingReviews() {
@@ -22,7 +23,8 @@ export default function CourseDetailsRatingReviews() {
                             <span><StarTwo /></span>
                             <span><StarTwo clr="#BFC5CA" /></span>
                         </div>
-                        <p>Rated 4 out of 1 Rating</p>
+                        {/* Texto adaptado para fazer mais sentido e soar mais natural */}
+                        <p>Baseado em 1 avaliação</p>
                     </div>
                 </div>
                 <div className="col-lg-8">

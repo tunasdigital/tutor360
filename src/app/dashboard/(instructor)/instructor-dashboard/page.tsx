@@ -3,7 +3,7 @@ import DashboardBanner from "@/components/dashboard/dashboard-banner";
 import DashboardArea from "./_components/dashboard-area";
 
 export const metadata:Metadata = {
-    title: "Instructor Dashboard - Acadia",
+    title: "Painel do Instrutor - Tutor360",
 }
 
 export default function InstructorDashboardPage() {

@@ -19,15 +19,17 @@ type IProps = {
 export default function HeaderTwo({ inner = false, transparent }: IProps) {
   return (
     <>
-      <header className="header-area p-relative">
-        <HeaderStickyWrapper cls={`tp-header-2 ${transparent ? 'tp-header-transparent' : ''}`}>
+      {/* Adição dinâmica das classes 'tp-header-inner' e 'header-inner' baseadas na prop inner */}
+      <header className={`header-area p-relative ${inner ? 'tp-header-inner header-inner' : ''}`}>
+        <HeaderStickyWrapper cls={`tp-header-2 ${inner ? 'tp-header-inner' : ''} ${transparent ? 'tp-header-transparent' : ''}`}>
           <div className="container custom-container-larg">
             <div className="row align-items-center">
               <div className="col-xxl-3 col-xl-3 col-lg-6 col-6">
                 <div className="tp-header-2-right d-flex align-items-center">
                   <div className="tp-header-inner-logo tp-header-logo">
                     <Link href="/">
-                      <Image src={logo} alt="logo" priority style={{ height: 'auto' }} />
+                      {/* Trava de segurança no estilo: maxWidth de 160px para impedir que a imagem empurre o menu */}
+                      <Image src={logo} alt="logo Tutor360" priority style={{ maxWidth: '160px', height: 'auto' }} />
                     </Link>
                   </div>
                   <HeaderCategoryArea />
@@ -47,8 +49,9 @@ export default function HeaderTwo({ inner = false, transparent }: IProps) {
                     <CartButton/>
                   </div>
                   <div className={`tp-header-inner-btn ${inner ? '' : 'home-2'} d-none d-xxl-block`}>
+                    {/* Tradução do CTA */}
                     <Link className="tp-btn-inner" href="/course-with-filter">
-                      Enroll Now
+                      Matricule-se
                     </Link>
                   </div>
                   {/* profile dropdown */}

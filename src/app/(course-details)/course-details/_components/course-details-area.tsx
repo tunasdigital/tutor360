@@ -32,27 +32,27 @@ export default function CourseDetailsArea({ course, lessons }: IProps) {
                         </div>
 
                         <div id="curriculum" className="pt-70">
-                           <h4 className="tp-course-details-2-main-title">Course Curriculum</h4>
+                           <h4 className="tp-course-details-2-main-title">Grade Curricular</h4>
                            {/* Repassando as aulas reais para o componente de currículo */}
                            <CourseDetailsCurriculum lessons={lessons} />
                         </div>
 
                         <div id="instructors" className="pt-100">
-                           <h4 className="tp-course-details-2-main-title">Your Instructors</h4>
+                           <h4 className="tp-course-details-2-main-title">Seus Instrutores</h4>
                            <CourseDetailsInstructor />
                         </div>
 
                         <div id="reviews">
-                           <h4 className="tp-course-details-2-main-title">Ratings & Reviews</h4>
+                           <h4 className="tp-course-details-2-main-title">Avaliações e Comentários</h4>
                            <CourseDetailsRatingReviews />
                         </div>
 
-                        <h4 className="tp-course-details-2-main-title">Featured review</h4>
+                        <h4 className="tp-course-details-2-main-title">Avaliação em Destaque</h4>
                         <CourseDetailsFeaturedReviews />
 
-                        <h4 className="tp-course-details-2-main-title">Write a Review</h4>
+                        <h4 className="tp-course-details-2-main-title">Escreva uma Avaliação</h4>
                         <div className="tp-course-details-2-comment-box pr-25">
-                           <span>What is it like to Course?</span>
+                           <span>O que você achou deste curso?</span>
                            <CourseDetailsReviewForm />
                         </div>
                      </div>

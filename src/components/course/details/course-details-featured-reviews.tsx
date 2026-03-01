@@ -3,20 +3,22 @@ import { useState } from "react";
 import { DisLikeSvg, LikeSvg, StarTwo } from "@/components/svg";
 import Image from "next/image";
 
+// Dados fictícios (mockados) temporários do template. 
+// No futuro, podemos conectar isso ao Prisma para puxar avaliações reais.
 const reviewsData = [
     {
         name: "David W.",
         img: "/assets/img/course/details/user-2.png",
         rating: 4,
-        timeAgo: "2 weeks ago",
-        content: "I love the way the instructor goes about the course. So easy to follow, even though a little bit challenging as expected."
+        timeAgo: "há 2 semanas",
+        content: "Adorei a didática do instrutor durante o curso. Muito fácil de acompanhar, embora seja um pouco desafiador, exatamente como eu esperava."
     },
     {
         name: "Nithish ..",
         img: "/assets/img/course/details/user-3.png",
         rating: 4,
-        timeAgo: "2 weeks ago",
-        content: "I love the way the instructor goes about the course. So easy to follow, even though a little bit challenging as expected."
+        timeAgo: "há 2 semanas",
+        content: "Excelente curso! A forma como o conteúdo é passado torna tudo mais simples, sem perder o nível de desafio necessário para o aprendizado."
     }
 ];
 
@@ -49,7 +51,7 @@ export default function CourseDetailsFeaturedReviews() {
                     </div>
                     <p>{review.content}</p>
                     <div className="tp-course-details-2-review-react d-flex align-items-center">
-                        <span>Helpful? </span>
+                        <span>Útil? </span>
                         <div className="react">
                             <a href="#"><span><LikeSvg /></span></a>
                             <a href="#"><span><DisLikeSvg /></span></a>
@@ -59,7 +61,7 @@ export default function CourseDetailsFeaturedReviews() {
             ))}
             {visibleReviews < reviewsData.length && (
                 <div className="tp-course-details-2-review-reply-btn">
-                    <a className="pointer" onClick={showMoreReviews}>Show More Reviews</a>
+                    <a className="pointer" onClick={showMoreReviews}>Mostrar Mais Avaliações</a>
                 </div>
             )}
         </div>
