@@ -6,18 +6,18 @@ import {LessonsSvg, PenSvg, UserSvgTwo } from "@/components/svg";
 import Link from "next/link";
 import CourseDashboardItemAction from "./course-d-item-action";
 
-
 type IProps = {
     course: ICourseDT;
 };
 
 export default function DashboardCourseItemThree({ course }: IProps) {
     const {id,title, discount, thumbnail, total_rating, lessons, students,price } = course || {};
+    
     return (
         <div className="tp-dashboard-course tp-dashboard-course-2 mb-25">
             <div className="tp-dashboard-course-thumb">
                 <Link href={`/course-details/${id}`}>
-                    <Image src={thumbnail}alt={removeTagInText(title)} width={262} height={160}/>
+                    <Image src={thumbnail} alt={removeTagInText(title)} width={262} height={160}/>
                 </Link>
             </div>
             <div className="tp-dashboard-course-content">
@@ -27,7 +27,8 @@ export default function DashboardCourseItemThree({ course }: IProps) {
                     <i className="fa-solid fa-star"></i>
                     <i className="fa-solid fa-star"></i>
                     <i className="fa-solid fa-star"></i>
-                    <span>({total_rating} Reviews)</span>
+                    {/* Tradução: Reviews para Avaliações */}
+                    <span>({total_rating} Avaliações)</span>
                 </div>
                 <h4 className="tp-dashboard-course-title">
                     <Link href={`/course-details/${id}`}>{removeTagInText(title)}</Link>
@@ -37,13 +38,15 @@ export default function DashboardCourseItemThree({ course }: IProps) {
                         <span>
                             <LessonsSvg/>
                         </span>
-                        {" "}{lessons} Lessons
+                        {/* Tradução: Lessons para Aulas */}
+                        {" "}{lessons} Aulas
                     </span>
                     <span>
                         <span>
                             <UserSvgTwo/>
                         </span>
-                        {" "}{students} Student
+                        {/* Tradução: Student para Alunos */}
+                        {" "}{students} Alunos
                     </span>
                 </div>
                 <div className="tp-dashboard-btn d-flex align-items-center justify-content-between">
