@@ -7,24 +7,22 @@ import BannerArea from "@/components/banner/banner-area";
 
 
 export const metadata: Metadata = {
-    title: "Course With Filter - Acadia",
+    // Nacionalização do título da aba do navegador para SEO
+    title: "Catálogo de Cursos - Tutor360",
 }
 
 export default function CourseWithFilterPage() {
     return (
         <CourseFilterProvider initialCourses={all_courses}>
 
-            {/* course banner area start */}
+            {/* banner de cabeçalho da vitrine */}
             <CourseFilterBanner/>
-            {/* course banner area end */}
 
-            {/* course filter area */}
+            {/* área principal com filtros e listagem de cursos */}
             <CourseFilterArea/>
-            {/* course filter area */}
 
-            {/* banner area start */}
+            {/* banner de conversão inferior */}
             <BannerArea/>
-            {/* banner area end */}
 
         </CourseFilterProvider>
     )

@@ -5,7 +5,7 @@ import BannerArea from "@/components/banner/banner-area";
 
 
 export const metadata: Metadata = {
-    title: "Course Categories - Acadia",
+    title: "Categorias de Cursos - Tutor360",
 }
 
 export default function CourseCategoriesPage() {

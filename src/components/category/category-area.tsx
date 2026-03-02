@@ -21,7 +21,8 @@ export default function CategoryArea() {
   }
 
   return (
-    <section className="category-area mb-80 mt-95">
+    // Tática de Design: Injeção de style inline para forçar o descolamento (paddingTop e marginTop)
+    <section className="category-area mb-80" style={{ paddingTop: '80px', marginTop: '60px' }}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-xl-8 col-lg-10">
@@ -34,7 +35,7 @@ export default function CategoryArea() {
               <h3 className="tp-section-3-title">
                 Categorias mais{" "}
                 <span>
-                  demandadas
+                  concorridas
                   <Image
                     className="tp-underline-shape-5 wow bounceIn"
                     data-wow-duration="1.5s"

@@ -19,27 +19,48 @@ type IProps = {
 export default function HeaderTwo({ inner = false, transparent }: IProps) {
   return (
     <>
-      {/* Adição dinâmica das classes 'tp-header-inner' e 'header-inner' baseadas na prop inner */}
-      <header className={`header-area p-relative ${inner ? 'tp-header-inner header-inner' : ''}`}>
-        <HeaderStickyWrapper cls={`tp-header-2 ${inner ? 'tp-header-inner' : ''} ${transparent ? 'tp-header-transparent' : ''}`}>
+      {/* 🚀 TÁTICA DA BOMBA NUCLEAR: Estilo injetado diretamente no DOM do cabeçalho interno.
+          Isso esmaga a herança de cores brancas do template e garante legibilidade total. */}
+      <style dangerouslySetInnerHTML={{__html: `
+        .header-blindado-t360 .main-menu ul li > a {
+          color: #1A1A1A !important;
+          font-weight: 600 !important;
+        }
+        .header-blindado-t360 .main-menu ul li:hover > a {
+          color: #0055FF !important;
+        }
+        .header-blindado-t360 .tp-submenu li > a {
+          color: #4F4F4F !important;
+        }
+      `}} />
+
+      {/* Adição dinâmica das classes originais + 'header-blindado-t360' e fundo branco forçado */}
+      <header className={`header-area p-relative header-blindado-t360 ${inner ? 'tp-header-inner header-inner' : ''}`} style={{ backgroundColor: '#FFFFFF', borderBottom: '1px solid #E5E7EB', zIndex: 9999 }}>
+        
+        {/* Tática de Choque: Removida a interpolação que ativava o 'tp-header-transparent'. 
+            O fundo será SEMPRE sólido e branco nas páginas internas. */}
+        <HeaderStickyWrapper cls={`tp-header-2 ${inner ? 'tp-header-inner' : ''}`}>
           <div className="container custom-container-larg">
             <div className="row align-items-center">
               <div className="col-xxl-3 col-xl-3 col-lg-6 col-6">
                 <div className="tp-header-2-right d-flex align-items-center">
                   <div className="tp-header-inner-logo tp-header-logo">
                     <Link href="/">
-                      {/* Trava de segurança no estilo: maxWidth de 160px para impedir que a imagem empurre o menu */}
+                      {/* Trava de segurança no estilo para o logo escuro */}
                       <Image src={logo} alt="logo Tutor360" priority style={{ maxWidth: '160px', height: 'auto' }} />
                     </Link>
                   </div>
                   <HeaderCategoryArea />
                 </div>
               </div>
+              
+              {/* ONDE A MÁGICA ACONTECE: O menu renderizado aqui agora obedece ao estilo blindado */}
               <div className="col-xxl-6 col-xl-7 col-lg-6 d-none d-xl-block">
                 <div className="main-menu text-xl-center d-none d-xl-block">
                   <NavbarMenusTwo />
                 </div>
               </div>
+              
               <div className="col-xxl-3 col-xl-2 col-lg-6 col-6">
                 <div className="tp-header-2-contact d-flex align-items-center justify-content-end">
                   <div className="tp-header-inner-search">
@@ -49,7 +70,6 @@ export default function HeaderTwo({ inner = false, transparent }: IProps) {
                     <CartButton/>
                   </div>
                   <div className={`tp-header-inner-btn ${inner ? '' : 'home-2'} d-none d-xxl-block`}>
-                    {/* Tradução do CTA */}
                     <Link className="tp-btn-inner" href="/course-with-filter">
                       Matricule-se
                     </Link>

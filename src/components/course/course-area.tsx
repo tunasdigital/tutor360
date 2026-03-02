@@ -8,7 +8,7 @@ import CourseProvider from "../provider/course-provider";
 import CourseTabBtn from "./course-tab-btn";
 import CourseItems from "./course-items";
 
-// Tradução das abas de navegação
+// Tradução das abas de navegação para alinhamento com o catálogo nacionalizado
 const tab_navs = ["Todos", "Tendências", "Populares", "Destaques"];
 
 export default function CourseArea() {
@@ -58,7 +58,7 @@ export default function CourseArea() {
               </div>
             </div>
             
-            {/* Ajustamos a coluna das abas para col-xl-7 para dar mais espaço horizontal */}
+            {/* Coluna das abas com largura otimizada para evitar quebra de linha */}
             <div className="col-xxl-7 col-xl-7 col-lg-6">
               <div className="tp-course-tab d-flex justify-content-lg-end mb-40">
                 <nav>
@@ -67,9 +67,9 @@ export default function CourseArea() {
                     id="nav-tab" 
                     role="tablist"
                     style={{ 
-                        flexWrap: 'nowrap', // Impede a quebra de linha forçada
+                        flexWrap: 'nowrap', 
                         whiteSpace: 'nowrap',
-                        fontSize: '14px' // Redução sutil para caber tudo
+                        fontSize: '14px' 
                     }}
                   >
                     {tab_navs.map((tab) => (
@@ -85,6 +85,7 @@ export default function CourseArea() {
             <div className="col-lg-12">
               <div className="tab-content wow fadeInUp" data-wow-delay=".3s">
                 <div className="row">
+                  {/* Este componente renderiza os cards individuais que buscam os dados do course-data.ts */}
                   <CourseItems />
                 </div>
               </div>

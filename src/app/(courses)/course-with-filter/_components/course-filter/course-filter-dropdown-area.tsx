@@ -9,27 +9,32 @@ export default function CourseFilterDropdownArea() {
     return (
         <div className="row row-cols-lg-5 row-cols-md-3 row-cols-sm-2 row-cols-1">
             <div className="col">
-                <h4 className="tp-filter-widget-title">Sort by</h4>
+                {/* Tradução: Sort by -> Ordenar por */}
+                <h4 className="tp-filter-widget-title">Ordenar por</h4>
                 <FilterSortBy />
             </div>
 
             <div className="col">
-                <h4 className="tp-filter-widget-title">All categories</h4>
+                {/* Tradução: All categories -> Categorias */}
+                <h4 className="tp-filter-widget-title">Categorias</h4>
                 <FilterCategory />
             </div>
 
             <div className="col">
-                <h4 className="tp-filter-widget-title">Instructors</h4>
+                {/* Tradução: Instructors -> Mentores */}
+                <h4 className="tp-filter-widget-title">Mentores</h4>
                 <FilterInstructor />
             </div>
 
             <div className="col">
-                <h4 className="tp-filter-widget-title">Price</h4>
+                {/* Tradução: Price -> Preço */}
+                <h4 className="tp-filter-widget-title">Preço</h4>
                 <FilterPrice />
             </div>
 
             <div className="col">
-                <h4 className="tp-filter-widget-title">Language</h4>
+                {/* Tradução: Language -> Idioma */}
+                <h4 className="tp-filter-widget-title">Idioma</h4>
                 <FilterLanguage />
             </div>
         </div>

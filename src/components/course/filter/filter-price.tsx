@@ -14,6 +14,16 @@ export default function FilterPrice({cls="filter"}: IProps) {
         dispatch({ type: FilterActionTypes.SET_PRICE, payload: price });
     }
     
+    // Tática de Nacionalização: Mapeamento de termos para exibição
+    const getPriceLabel = (price: string) => {
+        switch(price) {
+            case 'all': return 'Todos';
+            case 'free': return 'Gratuitos';
+            case 'paid': return 'Premium';
+            default: return price;
+        }
+    };
+    
     return (
         <div className={`tp-${cls}-widget-content`}>
             <div className={`tp-${cls}-widget-radio`}>
@@ -30,7 +40,8 @@ export default function FilterPrice({cls="filter"}: IProps) {
                                     readOnly
                                 />
                                 <label onClick={() => handlePrice(price)} className="form-check-label" htmlFor={price}>
-                                    {price} ({price === 'all' ? state.courses.length : price === 'free' ? state.courses.filter((course) => course.price === 0).length : state.courses.filter((course) => course.price > 0).length})
+                                    {/* Exibindo a etiqueta em português com o contador dinâmico */}
+                                    {getPriceLabel(price)} ({price === 'all' ? state.courses.length : price === 'free' ? state.courses.filter((course) => course.price === 0).length : state.courses.filter((course) => course.price > 0).length})
                                 </label>
                             </div>
                         </li>

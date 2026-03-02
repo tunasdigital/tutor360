@@ -1,6 +1,6 @@
 import { ICourseDT } from "@/types/course-d-t";
 
-// 1. DADOS TUTOR360 - O curso mestre de validação
+// 1. DADOS TUTOR360 - O curso mestre de validação e onboarding
 export const tutor360_course_data: ICourseDT[] = [
   {
     id: 101,
@@ -16,17 +16,17 @@ export const tutor360_course_data: ICourseDT[] = [
     students: 100,
     total_rating: 5,
     language: "Português",
-    video_id: "dQw4w9WgXcQ", 
+    video_id: "dQw4w9WgXcQ", // ID de teste: Substitua pelo vídeo de boas-vindas oficial
   }
 ];
 
-// 2. DADOS DOS ESPECIALISTAS (100% Sincronizados com as novas capas)
+// 2. DADOS DOS ESPECIALISTAS (Sincronizados com Mentores Reais)
 export const online_courses_data: ICourseDT[] = [
   {
     id: 1,
     author_img: "/assets/img/teacher/teacher-5.png",
     author_name: "Diego Rafael",
-    title: "Empreendedor de <br /> Sucesso",
+    title: "Empreendedor de Sucesso",
     thumbnail: "/assets/img/course/course-thumb-1.jpg",
     category: "Empreendedorismo",
     price: 84,
@@ -36,12 +36,13 @@ export const online_courses_data: ICourseDT[] = [
     students: 145,
     total_rating: 5,
     language: "Português",
+    video_id: "dQw4w9WgXcQ", // Substitua pelo ID real do vídeo do Diego Rafael
   },
   {
     id: 2,
     author_img: "/assets/img/teacher/teacher-2.png",
     author_name: "Sheyla Sabino",
-    title: "Oratória e <br/> Comunicação",
+    title: "Oratória e Comunicação",
     thumbnail: "/assets/img/course/course-thumb-5.jpg",
     category: "Comunicação",
     price: 54,
@@ -51,12 +52,13 @@ export const online_courses_data: ICourseDT[] = [
     students: 220,
     total_rating: 10,
     language: "Português",
+    video_id: "dQw4w9WgXcQ", // Substitua pelo ID real do vídeo da Sheyla Sabino
   },
   {
     id: 3,
     author_img: "/assets/img/teacher/teacher-3.png",
     author_name: "Francielle Colla",
-    title: "5 Pilares do Empreendedorismo <br/> Eficaz",
+    title: "5 Pilares do Empreendedorismo Eficaz",
     thumbnail: "/assets/img/course/course-thumb-2.jpg",
     category: "Empreendedorismo",
     price: 92,
@@ -66,12 +68,13 @@ export const online_courses_data: ICourseDT[] = [
     students: 152,
     total_rating: 15,
     language: "Português",
+    video_id: "dQw4w9WgXcQ", // Substitua pelo ID real do vídeo da Francielle Colla
   },
   {
     id: 4,
     author_img: "/assets/img/teacher/teacher-5.png",
     author_name: "Milena Kremer",
-    title: "Inteligência Emocional e <br/> Relações Interpessoais",
+    title: "Inteligência Emocional e Relações Interpessoais",
     thumbnail: "/assets/img/course/course-thumb-4.jpg",
     category: "Desenvolvimento",
     price: 45,
@@ -81,12 +84,13 @@ export const online_courses_data: ICourseDT[] = [
     students: 160,
     total_rating: 12,
     language: "Português",
+    video_id: "dQw4w9WgXcQ", // Substitua pelo ID real do vídeo da Milena Kremer
   },
   {
     id: 5,
     author_img: "/assets/img/teacher/teacher-4.png",
     author_name: "Patrick Dauer",
-    title: "O Guia Completo para <br/> Formalizar um MEI",
+    title: "O Guia Completo para Formalizar um MEI",
     thumbnail: "/assets/img/course/course-thumb-3.jpg",
     category: "Negócios",
     price: 65,
@@ -96,12 +100,13 @@ export const online_courses_data: ICourseDT[] = [
     students: 168,
     total_rating: 4,
     language: "Português",
+    video_id: "dQw4w9WgXcQ", // Substitua pelo ID real do vídeo do Patrick Dauer
   },
   {
     id: 6,
     author_img: "/assets/img/teacher/teacher-6.png",
     author_name: "Antônio Mendes",
-    title: "Estratégias de Vendas de <br/> Alta Performance",
+    title: "Estratégias de Vendas de Alta Performance",
     thumbnail: "/assets/img/course/course-thumb-6.jpg",
     category: "Vendas",
     price: 75,
@@ -111,13 +116,14 @@ export const online_courses_data: ICourseDT[] = [
     students: 200,
     total_rating: 10,
     language: "Português",
+    video_id: "dQw4w9WgXcQ", // Substitua pelo ID real do vídeo do Antônio Mendes
   },
 ];
 
 export const gym_course_data: ICourseDT[] = [];
 export const high_school_course_data: ICourseDT[] = [];
 
-// 3. UNIÃO E EXPORTAÇÃO
+// 3. UNIÃO E EXPORTAÇÃO DA FONTE DA VERDADE
 export const all_courses = [
   ...tutor360_course_data,
   ...online_courses_data,

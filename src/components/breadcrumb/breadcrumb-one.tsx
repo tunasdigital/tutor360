@@ -9,7 +9,7 @@ type IProps = {
     pages?: boolean;
 };
 
-export default function BreadcrumbOne({ subtitle, title,color='',pages}: IProps) {
+export default function BreadcrumbOne({ subtitle, title, color='', pages }: IProps) {
   return (
     <section className="tp-breadcrumb__area pt-60 pb-60 p-relative z-index-1 fix">
       <div
@@ -26,7 +26,8 @@ export default function BreadcrumbOne({ subtitle, title,color='',pages}: IProps)
                     <HomeSvg/>
                   </Link>
                 </span>
-                {pages && <span>Pages</span>}
+                {/* Tradução do termo estrutural de navegação */}
+                {pages && <span>Páginas</span>}
                 <span className={color}>{subtitle}</span>
               </div>
               <h3 className="tp-breadcrumb__title white">{title}</h3>

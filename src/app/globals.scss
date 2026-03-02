@@ -167,13 +167,13 @@ main > section:first-of-type{ margin-top: 0 !important; }
 /* caret ↓ */
 .main-menu ul li.has-dropdown > a::after,
 .main-menu ul li.menu-item-has-children > a::after{
-  content: "\f107";                   /* Font Awesome */
+  content: "\f107";                  /* Font Awesome */
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
   margin-left: 5px;
   font-size: 14px;
   display: inline-block;
-  color: #000 !important;             /* PRETO */
+  color: #000 !important;            /* PRETO */
   line-height: 1;
 }
 

@@ -8,6 +8,7 @@ interface PageProps {
   };
 }
 
+// Tática de Mentor: Decodificação segura para slugs com caracteres especiais ou espaços
 function safeDecode(v: string) {
   try {
     return decodeURIComponent(v);
@@ -16,6 +17,7 @@ function safeDecode(v: string) {
   }
 }
 
+// Detecção inteligente de provedor de vídeo
 function isProbablyYoutube(url: string) {
   const u = url.toLowerCase();
   return u.includes("youtube.com") || u.includes("youtu.be");
@@ -26,6 +28,7 @@ function isProbablyVimeo(url: string) {
   return u.includes("vimeo.com");
 }
 
+// Transformação de link comum em URL de Embed (essencial para o Player)
 function youtubeEmbedUrl(url: string) {
   try {
     const u = new URL(url);
@@ -57,7 +60,7 @@ export default async function AulaSlugPage({ params }: PageProps) {
 
   if (!courseSlug || !lessonSlug) return notFound();
 
-  // 1) Acha o curso por slug
+  // 1) Acha o curso por slug para validar a hierarquia
   const course = await prisma.course.findFirst({
     where: { slug: courseSlug },
     select: { id: true },
@@ -66,7 +69,7 @@ export default async function AulaSlugPage({ params }: PageProps) {
   if (!course) return notFound();
 
   // 2) Acha a aula por (courseId + slug)
-  //    ✅ Não depende de constraint unique agora; findFirst já resolve.
+  // ✅ Garante que o aluno está acessando a aula do curso correto
   const aula = await prisma.lesson.findFirst({
     where: {
       courseId: course.id,
@@ -79,49 +82,42 @@ export default async function AulaSlugPage({ params }: PageProps) {
 
   if (!aula) return notFound();
 
-  const courseLabel =
-    (aula.course as any)?.name ??
-    (aula.course as any)?.title ??
-    "Curso Localizado";
-
+  // Tratamento dinâmico de labels para evitar erros de propriedade indefinida
+  const courseLabel = (aula.course as any)?.name ?? (aula.course as any)?.title ?? "Curso Tutor360";
   const aulaTitle = (aula as any)?.name ?? (aula as any)?.title ?? "Aula";
-
   const videoUrl = String((aula as any)?.videoUrl || "").trim();
 
+  // Processamento do player
   const youtube = videoUrl && isProbablyYoutube(videoUrl) ? youtubeEmbedUrl(videoUrl) : "";
   const vimeo = videoUrl && isProbablyVimeo(videoUrl) ? vimeoEmbedUrl(videoUrl) : "";
 
   return (
     <main
       style={{
-        maxWidth: "900px",
+        maxWidth: "1000px",
         margin: "0 auto",
         padding: "2rem",
-        fontFamily: "sans-serif",
+        fontFamily: "var(--tp-ff-heading, sans-serif)",
       }}
     >
-      <header style={{ marginBottom: "1.5rem" }}>
+      <header style={{ marginBottom: "2rem" }}>
         <span
           style={{
-            backgroundColor: "#e8f5e9",
-            color: "#2e7d32",
-            padding: "4px 12px",
-            borderRadius: "20px",
-            fontSize: "0.75rem",
-            fontWeight: "bold",
+            backgroundColor: "rgba(0, 85, 255, 0.1)",
+            color: "#0055FF",
+            padding: "6px 16px",
+            borderRadius: "50px",
+            fontSize: "0.8rem",
+            fontWeight: "700",
           }}
         >
           {courseLabel}
         </span>
 
-        <h1 style={{ fontSize: "2.2rem", marginTop: "1rem" }}>{aulaTitle}</h1>
-
-        <div style={{ marginTop: "0.75rem", color: "#666", fontSize: "0.85rem" }}>
-          <strong>Rota:</strong>{" "}
-          <code>/curso/{courseSlug}/aula/{lessonSlug}</code>
-        </div>
+        <h1 style={{ fontSize: "2.5rem", marginTop: "1.5rem", color: "#1A1A1A" }}>{aulaTitle}</h1>
       </header>
 
+      {/* Tática de Cinema: Container 16:9 Black para o Player de Vídeo */}
       <section
         style={{
           backgroundColor: "#000",
@@ -129,10 +125,11 @@ export default async function AulaSlugPage({ params }: PageProps) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          borderRadius: "12px",
+          borderRadius: "16px",
           color: "#fff",
           flexDirection: "column",
           overflow: "hidden",
+          boxShadow: "0 20px 40px rgba(0,0,0,0.15)"
         }}
       >
         {vimeo ? (
@@ -152,50 +149,28 @@ export default async function AulaSlugPage({ params }: PageProps) {
             allowFullScreen
           />
         ) : (
-          <>
-            <div style={{ fontSize: "4rem" }}>🎬</div>
-            <p style={{ marginTop: "15px", textAlign: "center", padding: "0 16px" }}>
-              {videoUrl || "URL de vídeo não cadastrada"}
+          <div style={{ textAlign: "center", padding: "40px" }}>
+            <div style={{ fontSize: "4rem" }}>🔐</div>
+            <p style={{ marginTop: "15px", fontWeight: "600" }}>
+              {videoUrl ? "Processando Vídeo..." : "Conteúdo exclusivo para alunos matriculados."}
             </p>
-          </>
+          </div>
         )}
       </section>
 
+      {/* Metadados Técnicos - Visíveis apenas para o Professor/Admin (Opcional ocultar no futuro) */}
       <footer
         style={{
-          marginTop: "3rem",
+          marginTop: "4rem",
           borderTop: "1px solid #eee",
-          paddingTop: "1.5rem",
+          paddingTop: "2rem",
           color: "#999",
-          fontSize: "0.8rem",
+          fontSize: "0.85rem",
         }}
       >
-        <p>
-          <strong>Course ID:</strong>{" "}
-          <code style={{ color: "#1976d2" }}>{(aula as any).courseId}</code>
-        </p>
-        <p>
-          <strong>Lesson ID:</strong>{" "}
-          <code style={{ color: "#d32f2f" }}>{aula.id}</code>
-        </p>
-        <p>
-          <strong>WP ID:</strong> {(aula as any).wpId}
-        </p>
-        <p>
-          <strong>Slug da Aula:</strong> {(aula as any).slug}
-        </p>
+        <p><strong>Rota Ativa:</strong> <code>/curso/{courseSlug}/aula/{lessonSlug}</code></p>
+        <p><strong>Lesson ID:</strong> <code style={{ color: "#0055FF" }}>{aula.id}</code></p>
       </footer>
     </main>
   );
 }
-
-/**
- * O que alterei:
- * - Criei uma nova rota amigável por slug:
- *   /curso/[courseSlug]/aula/[lessonSlug]
- * - Busca Course por slug e Lesson por (courseId + slug), sem depender de unique composto.
- * - Renderiza título e vídeo (Vimeo/YouTube embed quando reconhecido).
- *
- * O que esperar:
- * - Você conseguirá abrir aulas por slug, respeitando a hierarquia curso → aula.
- */

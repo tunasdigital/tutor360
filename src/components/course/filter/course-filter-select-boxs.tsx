@@ -13,14 +13,14 @@ export function SelectFilterSortBy() {
     return (
         <NiceSelect
             options={[
-                { value: "", label: "Filter Sort" },
-                { value: "rating", label: "Trending" },
-                { value: "low", label: "Price : low to high" },
-                { value: "high", label: "Price : high to low" },
+                { value: "", label: "Ordenar por" },
+                { value: "rating", label: "Mais Relevantes" },
+                { value: "low", label: "Preço: Menor para Maior" },
+                { value: "high", label: "Preço: Maior para Menor" },
             ]}
             defaultCurrent={0}
             cls="wide"
-            placeholder="Default"
+            placeholder="Padrão"
             onChange={handleSortBy}
             name="SortBy"
         />
@@ -34,17 +34,17 @@ export function SelectFilterCategory() {
     }
     return (
         <div className="tp-course-grid-select">
-            <p>SHORT BY CATEGORY</p>
+            <p>FILTRAR POR CATEGORIA</p>
             <NiceSelect
                 options={[
-                    { value: "", label: "Select category" },
+                    { value: "", label: "Selecionar categoria" },
                     ...courseCategories.map((c) => (
                         { value: c.category, label: c.category }
                     ))
                 ]}
                 defaultCurrent={0}
                 cls="wide"
-                placeholder="Default"
+                placeholder="Padrão"
                 onChange={handleCategory}
                 name="Category"
             />
@@ -59,17 +59,17 @@ export function SelectFilterAuthor() {
     }
     return (
         <div className="tp-course-grid-select">
-            <p>SHORT BY AUTHOR</p>
+            <p>FILTRAR POR MENTOR</p>
             <NiceSelect
                 options={[
-                    { value: "", label: "Select author" },
+                    { value: "", label: "Selecionar mentor" },
                     ...courseInstructors.map((i) => (
                         { value: i.instructor, label: i.instructor }
                     ))
                 ]}
                 defaultCurrent={0}
                 cls="wide"
-                placeholder="Default"
+                placeholder="Padrão"
                 onChange={handleInstructor}
                 name="Instructor"
             />
@@ -84,17 +84,17 @@ export function SelectFilterLanguage() {
     }
     return (
         <div className="tp-course-grid-select">
-            <p>SHORT BY LANGUAGE</p>
+            <p>FILTRAR POR IDIOMA</p>
             <NiceSelect
                 options={[
-                    { value: "", label: "Select language" },
+                    { value: "", label: "Selecionar idioma" },
                     ...courseLanguages.map((l) => (
                         { value: l.language, label: l.language }
                     ))
                 ]}
                 defaultCurrent={0}
                 cls="wide"
-                placeholder="Default"
+                placeholder="Padrão"
                 onChange={handleLang}
                 name="Language"
             />
@@ -108,7 +108,7 @@ export default function CourseFilterSelectBox() {
             <div className="col-lg-12">
                 <div className="tp-course-grid-categories d-flex">
                     <div className="tp-course-grid-select">
-                        <p>SHORT BY</p>
+                        <p>ORDENAR POR</p>
                         <SelectFilterSortBy />
                     </div>
                     <SelectFilterCategory />

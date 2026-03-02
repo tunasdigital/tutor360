@@ -7,7 +7,7 @@ type IProps = {
     admission?: boolean;
 }
 
-export default function BreadcrumbTwo({ title, subtitle,admission }: IProps) {
+export default function BreadcrumbTwo({ title, subtitle, admission }: IProps) {
   return (
     <section className="tp-breadcrumb__area pt-160 pb-150 p-relative z-index-1 fix">
       <div
@@ -24,7 +24,8 @@ export default function BreadcrumbTwo({ title, subtitle,admission }: IProps) {
                     <HomeSvg/>
                   </Link>
                 </span>
-                {admission && <span className="white">Admission</span>}
+                {/* Tradução estratégica: de "Admission" para "Matrícula" ou "Inscrição" */}
+                {admission && <span className="white">Inscrição</span>}
                 <span className="white">{subtitle}</span>
               </div>
               <h3 className="tp-breadcrumb__title color">

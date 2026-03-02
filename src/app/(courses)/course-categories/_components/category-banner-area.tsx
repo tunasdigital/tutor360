@@ -19,16 +19,18 @@ export default function CategoryBannerArea() {
                <div className="col-lg-4 d-none d-md-block"></div>
                <div className="col-lg-7 col-12">
                   <div className="tp-course-banner-heading">
-                     <h3 className="tp-course-banner-title">All Categories</h3>
-                     <p>Grow your skill with the most reliable online courses and certifications</p>
+                     {/* Títulos nacionalizados e alinhados ao manifesto Tutor360 */}
+                     <h3 className="tp-course-banner-title">Todas as Categorias</h3>
+                     <p>Transforme aprendizado em ação com os melhores cursos e certificações.</p>
                      <div className="tp-course-banner-search">
                         <form action="#">
                            <div className="tp-footer-newsletter-wrapper tp-footer-inner-input mb-30">
                               <div className="tp-footer-newsletter-input">
-                                 <input type="email" placeholder="Search Courses..." />
+                                 {/* Correção de Bug do Template: de type="email" para type="text" */}
+                                 <input type="text" placeholder="Buscar cursos..." />
                               </div>
                               <div className="tp-footer-5-newsletter-submit">
-                                 <button className="tp-btn-inner">Search</button>
+                                 <button className="tp-btn-inner">Buscar</button>
                               </div>
                            </div>
                         </form>
