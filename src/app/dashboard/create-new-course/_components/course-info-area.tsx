@@ -102,11 +102,11 @@ export default function CourseInfoArea() {
                      <div className="tpd-input-box d-flex">
                         <div className="tpd-input">
                            <label>Preço Regular (R$)</label>
-                           <input type="text" placeholder="0.00" />
+                           <input type="text" placeholder="R$ 0,00" />
                         </div>
                         <div className="tpd-input">
                            <label>Preço com Desconto (R$)</label>
-                           <input type="number" placeholder="0.00" />
+                           <input type="text" placeholder="R$ 0,00" />
                         </div>
                      </div>
                      <div className="tpd-input course-file">

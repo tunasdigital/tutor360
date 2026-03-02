@@ -1,20 +1,21 @@
+'use client';
 import { CalenderThreeSvg, CheckTwoSvg, DeleteSvg, DotsTwoSvg, EmailFour, SearchSvg } from "@/components/svg";
 import DatePicker from "@/components/ui/date-picker";
 import useClickOutside from "@/hooks/use-click-outside";
 import Image from "next/image";
 import { useState } from "react";
 
-// student q-a data
+// Dados de Perguntas e Respostas (Q&A) nacionalizados - Tutor360
 const studentQaData = [
    {
       id: 1,
       student: {
          name: "Hanson Deck",
-         date: "June 11, 2021 at 6:01 am",
+         date: "11 de Junho de 2021 às 06:01",
          profileImg: "/assets/img/dashboard/profile/reviews-profile-1.png"
       },
-      question: "Hello! Could you explain the last lesson?",
-      course: "New Course",
+      question: "Olá! Você poderia explicar a última aula?",
+      course: "Novo Curso",
       replies: 2,
       status: "pending",
       statusIcon: <CheckTwoSvg />,
@@ -23,11 +24,11 @@ const studentQaData = [
       id: 2,
       student: {
          name: "Indigo Violet",
-         date: "June 12, 2021 at 2:15 pm",
+         date: "12 de Junho de 2021 às 14:15",
          profileImg: "/assets/img/dashboard/profile/reviews-profile-2.png"
       },
-      question: "I'm struggling with the assignment.",
-      course: "Advanced Math",
+      question: "Estou tendo dificuldades com a tarefa proposta.",
+      course: "Matemática Avançada",
       replies: 3,
       status: "complete",
       statusIcon: <CheckTwoSvg />,
@@ -38,6 +39,7 @@ export default function InstructorAnalyticsStudentArea() {
    const [date, setDate] = useState(new Date());
    const [openActionId, setOpenActionId] = useState<number | null>(null);
    const actionButtonRef = useClickOutside(setOpenActionId);
+
    function toggleAction(id: number) {
       if (openActionId === id) {
          setOpenActionId(null);
@@ -45,6 +47,7 @@ export default function InstructorAnalyticsStudentArea() {
          setOpenActionId(id);
       }
    }
+
    return (
       <>
          <div className="row">
@@ -52,7 +55,8 @@ export default function InstructorAnalyticsStudentArea() {
                <div className="tpd-dashboard-search">
                   <div className="tp-header-2-search">
                      <form action="#">
-                        <input type="text" placeholder="Search for Courses..." />
+                        {/* Placeholder Nacionalizado */}
+                        <input type="text" placeholder="Buscar Cursos..." />
                         <button className="tp-header-2-search-btn" type="submit">
                            <span>
                               <SearchSvg />
@@ -79,14 +83,15 @@ export default function InstructorAnalyticsStudentArea() {
                   <ul>
                      <li className="tpd-table-head">
                         <div className="tpd-table-row">
+                           {/* Cabeçalhos Traduzidos */}
                            <div className="tpd-instructor-qa-student">
-                              <h4 className="tpd-table-title">Student</h4>
+                              <h4 className="tpd-table-title">Aluno</h4>
                            </div>
                            <div className="tpd-instructor-qa-question">
-                              <h4 className="tpd-table-title">Question</h4>
+                              <h4 className="tpd-table-title">Pergunta</h4>
                            </div>
                            <div className="tpd-instructor-qa-reply">
-                              <h4 className="tpd-table-title">Reply</h4>
+                              <h4 className="tpd-table-title">Respostas</h4>
                            </div>
                            <div className="tpd-instructor-qa-status">
                               <h4 className="tpd-table-title">Status</h4>
@@ -113,7 +118,7 @@ export default function InstructorAnalyticsStudentArea() {
                               <div className="tpd-instructor-qa-question">
                                  <h4 className="tpd-common-text">{item.question}</h4>
                                  <div className="tpd-course-wrap">
-                                    <span className="tpd-course-name">Course:</span>
+                                    <span className="tpd-course-name">Curso:</span>
                                     <span className="tpd-course-title">{item.course}</span>
                                  </div>
                               </div>
@@ -126,7 +131,7 @@ export default function InstructorAnalyticsStudentArea() {
                                  </div>
                               </div>
                               <div className="tpd-instructor-qa-btn">
-                                 <a className="tpd-border-btn" href="#">Details</a>
+                                 <a className="tpd-border-btn" href="#">Detalhes</a>
                               </div>
                               <div className="tpd-instructor-qa-action" ref={actionButtonRef}>
                                  <div className={`tpd-action-inexact-btn ${openActionId === item.id ? 'active' : ''}`}>
@@ -134,17 +139,18 @@ export default function InstructorAnalyticsStudentArea() {
                                        <DotsTwoSvg />
                                     </button>
                                     <div className="tpd-action-click-tooltip">
+                                       {/* Menus de ação traduzidos */}
                                        <button>
                                           <span>
                                              <EmailFour />
                                           </span>
-                                          Mark as Unread
+                                          Marcar como não lida
                                        </button>
                                        <button>
                                           <span>
                                              <DeleteSvg />
                                           </span>
-                                          Delete
+                                          Excluir
                                        </button>
                                     </div>
                                  </div>

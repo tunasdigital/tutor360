@@ -55,11 +55,27 @@ export default function DashboardEnrollCourseItem({ course }: IProps) {
             </div>
           </div>
         </div>
-        <div className="tp-dashboard-course-btn">
-          <Link className="tpd-btn-border w-100" href="/dashboard/instructor-certificate">
-            Baixar Certificado
-          </Link>
+        
+        {/* Lógica Dinâmica do Botão: Certificado vs Continuar Curso */}
+        <div className="tp-dashboard-course-btn mt-15">
+          {progressValue >= 100 ? (
+            <a 
+              className="tp-btn w-100 text-center" 
+              href="/assets/img/dashboard/bg/certificate.png" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ backgroundColor: '#10B981', border: 'none', padding: '8px 0', fontSize: '14px', borderRadius: '5px' }}
+            >
+              <i className="fa-solid fa-award" style={{ marginRight: '8px' }}></i>
+              Baixar Certificado
+            </a>
+          ) : (
+            <Link className="tpd-btn-border w-100 text-center" href={`/course-details/${id}`}>
+              Continuar Curso
+            </Link>
+          )}
         </div>
+
       </div>
     </div>
   );

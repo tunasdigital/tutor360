@@ -1,18 +1,18 @@
 'use client';
 import React from "react";
 
-// Dados de perfil traduzidos para a realidade da Tutor360
+// Dados de perfil estrategicamente preenchidos com os dados do CEO para a apresentação
 const profileData = [
-  { label: 'Data de Registro', value: '06 de Outubro, 2024 8:30 am' },
-  { label: 'Nome', value: 'Indigo' },
-  { label: 'Sobrenome', value: 'Violet' },
-  { label: 'Nome de Usuário', value: 'instrutor' },
-  { label: 'E-mail', value: 'exemplo@gmail.com' },
+  { label: 'Data de Registro', value: '01 de Março, 2026 08:30' },
+  { label: 'Nome', value: 'Edvaldo (Tunas)' },
+  { label: 'Sobrenome', value: 'Ferreira' },
+  { label: 'Nome de Usuário', value: 'ceo.tunas' },
+  { label: 'E-mail', value: 'tunas@tutor360.com.br' },
   { label: 'Telefone', value: '+55 (47) 98466-2948' },
-  { label: 'Especialidade / Ocupação', value: 'Desenvolvedor Full Stack' },
+  { label: 'Especialidade / Ocupação', value: 'CEO & Full Stack Developer' },
   {
     label: 'Biografia',
-    value: 'Especialista em criar soluções digitais de alto impacto com Next.js, TypeScript e Laravel.',
+    value: 'Ex-professor e arquiteto de soluções digitais. Especialista na criação de ecossistemas educacionais escaláveis com Next.js, TypeScript, PostgreSQL e Prisma. Focado na expansão e governança da Tutor360.',
   },
 ];
 
@@ -51,5 +51,5 @@ export default function InstructorProfileArea() {
         </div>
       </div>
     </div>
-  );
+  ); 
 }

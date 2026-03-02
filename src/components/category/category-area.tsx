@@ -1,22 +1,14 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import Image from "next/image";
 import { category_data } from "@/data/category-data"; 
 import shape_line from "@/assets/img/shape/bottom-line/line-2-category.svg";
-import category_shape from "@/assets/img/shape/category-2-shape-1.png";
-
-// Componente para simular o carregamento (skeleton) - omitido para foco na correção
 
 // Componente principal
 export default function CategoryArea() {
-  const { t } = useTranslation();
-  // Corrigimos a importação de category_data para ser uma importação nomeada, por isso o { category_data }
-  // O layout é o original que você nos forneceu.
-  
-  // Condicional de Skeleton (mantive simples para este teste)
+  // Condicional de Skeleton 
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const timer = setTimeout(() => { setIsLoading(false); }, 2000);
@@ -24,10 +16,9 @@ export default function CategoryArea() {
   }, []);
 
   if (isLoading) {
-    // Retorna o skeleton (que você pode ajustar depois)
+    // Retorna o skeleton
     return <div style={{height: '500px', backgroundColor: '#f0f0f0', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>Carregando...</div>; 
   }
-
 
   return (
     <section className="category-area mb-80 mt-95">
@@ -38,11 +29,12 @@ export default function CategoryArea() {
               className="tp-section mb-40 text-center wow fadeInUp"
               data-wow-delay=".4s"
             >
-              <h5 className="tp-section-3-subtitle">{t('categories.subtitle')}</h5>
+              {/* Títulos chumbados em Português para blindar a apresentação */}
+              <h5 className="tp-section-3-subtitle">ESTUDE NO SEU RITMO</h5>
               <h3 className="tp-section-3-title">
-                {t('categories.title_part1')}{" "}
+                Categorias mais{" "}
                 <span>
-                  {t('categories.title_part2')}
+                  demandadas
                   <Image
                     className="tp-underline-shape-5 wow bounceIn"
                     data-wow-duration="1.5s"
@@ -75,14 +67,14 @@ export default function CategoryArea() {
                   </span>
                 </div>
                 <div className="tp-category-content">
-                  <h4 className="tp-category-title">{t(`categories.items.${item.key}.name`)}</h4>
-                  <span>{t(`categories.items.${item.key}.description`)}</span>
+                  {/* Tática de Choque: Injeção direta da nossa matriz de dados */}
+                  <h4 className="tp-category-title">{item.title}</h4>
+                  <span>{item.description}</span>
                 </div>
               </Link>
             </div>
           ))}
         </div>
-        {/* Banner area aqui... */}
       </div>
     </section>
   );

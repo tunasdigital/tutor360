@@ -12,7 +12,8 @@ export default function ProgressEarningsGraph () {
     return (
         <section className="tp-progress-wrapper">
             <div className="tp-dashboard-section">
-                <h2 className="tp-dashboard-title">Earnings Graph</h2>
+                {/* Título Principal Nacionalizado */}
+                <h2 className="tp-dashboard-title">Gráfico de Receitas</h2>
             </div>
             <div className="row">
                 <div className="col-lg-7">
@@ -29,7 +30,8 @@ export default function ProgressEarningsGraph () {
                                     aria-selected="true"
                                 >
                                     <span className="tpd-redio-style-span"></span>
-                                    <span>Today</span>
+                                    {/* Tradução: Today -> Hoje */}
+                                    <span>Hoje</span>
                                 </button>
                             </li>
                             <li className="nav-item p-relative" role="presentation">
@@ -43,7 +45,8 @@ export default function ProgressEarningsGraph () {
                                     aria-selected="false"
                                 >
                                     <span className="tpd-redio-style-span"></span>
-                                    <span>Monthly</span>
+                                    {/* Tradução: Monthly -> Mensal */}
+                                    <span>Mensal</span>
                                 </button>
                             </li>
                             <li className="nav-item p-relative" role="presentation">
@@ -57,7 +60,8 @@ export default function ProgressEarningsGraph () {
                                     aria-selected="false"
                                 >
                                     <span className="tpd-redio-style-span"></span>
-                                    <span>Yearly</span>
+                                    {/* Tradução: Yearly -> Anual */}
+                                    <span>Anual</span>
                                 </button>
                             </li>
                         </ul>
@@ -77,24 +81,29 @@ export default function ProgressEarningsGraph () {
                     <div className="tpd-dashboard-progress-box">
                         <div className="tpd-dashboard-progress-heading d-flex">
                             <div className="tpd-dashboard-progress-item">
-                                <span>Total Earning</span>
-                                <p>$0.00</p>
+                                {/* Tradução e Moeda Local */}
+                                <span>Receita Total</span>
+                                <p>R$ 0,00</p>
                             </div>
                             <div className="tpd-dashboard-progress-item">
-                                <span>Course Enrolled</span>
+                                {/* Tradução */}
+                                <span>Matrículas</span>
                                 <p>35</p>
                             </div>
                             <div className="tpd-dashboard-progress-item">
-                                <span>Total Refund</span>
+                                {/* Tradução */}
+                                <span>Total Reembolsado</span>
                                 <p>35</p>
                             </div>
                             <div className="tpd-dashboard-progress-item">
-                                <span>Total Discount</span>
+                                {/* Tradução */}
+                                <span>Descontos Aplicados</span>
                                 <p>35</p>
                             </div>
                         </div>
                         <div className="tpd-dashboard-progress-body">
-                            <h4>Earnings Graph</h4>
+                            {/* Subtítulo do Gráfico Nacionalizado */}
+                            <h4>Evolução de Receitas</h4>
                             <div className="tpd-dashboard-progress-graph">
                                 <AnalyticsProgressChart/>
                             </div>

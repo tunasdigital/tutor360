@@ -7,13 +7,13 @@ import CourseInstructor from "./course-instructor";
 import CourseIntroVideo from "./course-intro-video";
 import CoursePrerequisites from "./course-prerequisites";
 
-// Dicas de Upload de Curso traduzidas para o português
+// Dicas de Upload de Curso (Refinadas para o ecossistema Tutor360)
 const listData = [
     "Configure a opção de Preço do Curso ou defina-o como gratuito.",
     "O tamanho padrão para a miniatura (thumbnail) do curso é 700x430 pixels.",
-    "A seção de Vídeo controla o vídeo de apresentação (overview) do curso.",
-    "O Construtor de Cursos é onde você cria e organiza toda a estrutura do seu conteúdo.",
-    "Adicione Tópicos no Construtor para criar lições, questionários (quizzes) e tarefas.",
+    "A seção de Vídeo controla o vídeo de apresentação (pitch) do curso.",
+    "O Construtor de Cursos é onde você cria e organiza toda a estrutura do conteúdo.",
+    "Adicione Tópicos no Construtor para criar aulas em vídeo, quizzes e tarefas.",
 ];
 
 export default function CreateNewCourseArea() {
@@ -71,7 +71,7 @@ export default function CreateNewCourseArea() {
                             <div className="col-lg-4">
                                 <div className="tpd-course-enroll-list">
                                     {/* Título lateral traduzido */}
-                                    <h2 className="tp-dashboard-title">Dicas para o Upload</h2>
+                                    <h2 className="tp-dashboard-title">Dicas para Publicação</h2>
                                     <ul>
                                         {listData.map((tip, index) => (
                                             <li key={index}>

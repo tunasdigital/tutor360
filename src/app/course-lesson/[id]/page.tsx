@@ -100,53 +100,94 @@ function normalizeEmbed(input: string): string {
 export default async function CourseLessonDynamicPage({ params }: Props) {
   const { id } = await params;
 
+  // Busca turbinada: Procura pelo ID ou pelo Slug no banco de dados
   const lesson = await prisma.lesson.findFirst({
-    where: { id: String(id) },
+    where: {
+      OR: [
+        { id: String(id) },
+        { slug: String(id) }
+      ]
+    },
   });
 
   if (!lesson) {
     return (
-      <main className="tp-dashboard-body-bg">
-        <div className="container pt-120 pb-120">
-          <h3>Aula não encontrada: {String(id)}</h3>
+      <main className="tp-dashboard-body-bg pt-100 pb-100">
+        <div className="container text-center">
+          <div className="p-5 bg-white rounded-3 shadow-sm border border-danger">
+            <h3 className="text-danger mb-3">Erro de Navegação</h3>
+            <p>A aula solicitada não foi encontrada no banco de dados.</p>
+            <p className="text-muted small">ID ou Slug buscado: {String(id)}</p>
+          </div>
         </div>
       </main>
     );
   }
 
-  const title = safeString((lesson as any).title, "Aula");
+  const title = safeString((lesson as any).title, "Aula sem título");
   const rawUrl = safeString((lesson as any).videoUrl, "");
 
   const embed = rawUrl ? normalizeEmbed(rawUrl) : "";
 
   return (
-    <main className="tp-dashboard-body-bg">
-      <div className="container pt-80 pb-80">
+    // Transformação para o layout premium "Modo Cinema"
+    <main className="pt-80 pb-100" style={{ backgroundColor: '#0f172a', minHeight: '100vh' }}>
+      <div className="container">
+        
+        {/* Header da Aula */}
+        <div className="row justify-content-center mb-30">
+          <div className="col-xl-10">
+            <div className="d-flex justify-content-between align-items-center">
+                <h2 className="text-white mb-0" style={{ fontSize: '28px', fontWeight: '600' }}>
+                    {title}
+                </h2>
+                {/* Botão para simular retorno ao painel ou curso */}
+                <a href="/dashboard/student-dashboard" className="tp-btn-inner" style={{ padding: '8px 20px', borderRadius: '5px' }}>
+                    Voltar ao Curso
+                </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Área do Player (Palco Principal) */}
         <div className="row justify-content-center">
           <div className="col-xl-10">
-            <h2 className="mb-20">{title}</h2>
-
             {!embed ? (
-              <div className="p-4 bg-white rounded-3">
-                <p className="mb-0">Esta aula não possui vídeo configurado no banco ainda.</p>
+              <div className="p-5 text-center rounded-3" style={{ backgroundColor: '#1e293b', border: '1px solid #334155' }}>
+                <i className="fa-regular fa-video-slash text-muted mb-3" style={{ fontSize: '40px' }}></i>
+                <h4 className="text-white">Conteúdo Indisponível</h4>
+                <p className="text-muted mb-0">O instrutor ainda não disponibilizou o vídeo para esta aula.</p>
               </div>
             ) : isLikelyIframeHtml(embed) ? (
               <div
-                className="ratio ratio-16x9 bg-white rounded-3 overflow-hidden"
+                className="ratio ratio-16x9 rounded-3 overflow-hidden shadow-lg"
+                style={{ border: '4px solid #1e293b', backgroundColor: '#000' }}
                 dangerouslySetInnerHTML={{ __html: embed }}
               />
             ) : (
-              <div className="ratio ratio-16x9 bg-white rounded-3 overflow-hidden">
+              <div className="ratio ratio-16x9 rounded-3 overflow-hidden shadow-lg" style={{ border: '4px solid #1e293b', backgroundColor: '#000' }}>
                 <iframe
                   src={embed}
                   title={title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
+                  style={{ width: '100%', height: '100%', border: 'none' }}
                 />
               </div>
             )}
           </div>
         </div>
+
+        {/* Área de Descrição Inferior */}
+        <div className="row justify-content-center mt-30">
+            <div className="col-xl-10">
+                <div className="p-4 rounded-3" style={{ backgroundColor: '#1e293b' }}>
+                    <h5 className="text-white mb-10">Detalhes da Aula</h5>
+                    <p className="text-muted mb-0">Assista com atenção e certifique-se de completar todas as tarefas propostas no material complementar.</p>
+                </div>
+            </div>
+        </div>
+
       </div>
     </main>
   );

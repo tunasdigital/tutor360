@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import DashboardBanner from "@/components/dashboard/dashboard-banner";
+// Importação do DashboardBanner foi removida estrategicamente
 import AdminDashboardArea from "./_components/admin-dashboard-area";
 
 export const metadata:Metadata = {
@@ -8,13 +8,10 @@ export const metadata:Metadata = {
 
 export default function AdminDashboardPage() {
   return (
-    <main className="tp-dashboard-body-bg">
-        
-        {/* Início da área do banner do dashboard */}
-        <DashboardBanner/>
-        {/* Fim da área do banner do dashboard */}
+    // Adicionado pt-50 para garantir que o conteúdo não fique colado no cabeçalho superior (Header) após a remoção do banner
+    <main className="tp-dashboard-body-bg pt-50">
 
-        {/* Início da área de conteúdo principal do admin */}
+        {/* Início da área de conteúdo principal do admin - Visão Direta aos Dados */}
         <AdminDashboardArea/>
         {/* Fim da área de conteúdo principal do admin */}
 

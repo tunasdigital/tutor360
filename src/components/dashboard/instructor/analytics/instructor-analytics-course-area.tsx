@@ -6,11 +6,11 @@ import Pagination from "@/components/ui/pagination";
 import { formatPrice } from "@/lib/format-price";
 
 
-// analytics course data
+// Dados analíticos de cursos (Matriz Nacionalizada para visualização)
 const analyticsCourseData = [
    {
       id: 1,
-      courseName: "Product Design",
+      courseName: "Design de Produto",
       learners: 4,
       earnings: 0.00,
       rating: 1,
@@ -20,7 +20,7 @@ const analyticsCourseData = [
    },
    {
       id: 2,
-      courseName: "Graphic Design Masterclass",
+      courseName: "Masterclass de Design Gráfico",
       learners: 2,
       earnings: 0.00,
       rating: 1,
@@ -30,7 +30,7 @@ const analyticsCourseData = [
    },
    {
       id: 3,
-      courseName: "Design System in Figma",
+      courseName: "Design System no Figma",
       learners: 2,
       earnings: 0.00,
       rating: 1,
@@ -40,7 +40,7 @@ const analyticsCourseData = [
    },
    {
       id: 4,
-      courseName: "3D Motion Design",
+      courseName: "Motion Design 3D",
       learners: 2,
       earnings: 0.00,
       rating: 1,
@@ -50,7 +50,7 @@ const analyticsCourseData = [
    },
    {
       id: 5,
-      courseName: "App Development",
+      courseName: "Desenvolvimento de Apps",
       learners: 4,
       earnings: 0.00,
       rating: 1,
@@ -60,7 +60,7 @@ const analyticsCourseData = [
    },
    {
       id: 6,
-      courseName: "Web Development Bootcamp",
+      courseName: "Bootcamp de Desenvolvimento Web",
       learners: 5,
       earnings: 100.00,
       rating: 4,
@@ -70,7 +70,7 @@ const analyticsCourseData = [
    },
    {
       id: 7,
-      courseName: "UI/UX Design Fundamentals",
+      courseName: "Fundamentos de UI/UX Design",
       learners: 3,
       earnings: 50.00,
       rating: 3,
@@ -80,7 +80,7 @@ const analyticsCourseData = [
    },
    {
       id: 8,
-      courseName: "Python Programming",
+      courseName: "Programação Python",
       learners: 7,
       earnings: 150.00,
       rating: 5,
@@ -90,7 +90,7 @@ const analyticsCourseData = [
    },
    {
       id: 9,
-      courseName: "React Development",
+      courseName: "Desenvolvimento React",
       learners: 6,
       earnings: 200.00,
       rating: 5,
@@ -100,7 +100,7 @@ const analyticsCourseData = [
    },
    {
       id: 10,
-      courseName: "Digital Marketing",
+      courseName: "Marketing Digital",
       learners: 4,
       earnings: 75.00,
       rating: 3,
@@ -122,7 +122,8 @@ export default function InstructorAnalyticsCourseArea() {
             <div className="tpd-dashboard-search">
                <div className="tp-header-2-search">
                   <form action="#">
-                     <input type="text" placeholder="Search for Courses..."/>
+                     {/* Placeholder Nacionalizado */}
+                     <input type="text" placeholder="Buscar Cursos..."/>
                      <button className="tp-header-2-search-btn" type="submit">
                         <SearchSvg/>
                      </button>
@@ -133,9 +134,9 @@ export default function InstructorAnalyticsCourseArea() {
                <div className="tp-course-filter-select">
                   <NiceSelect
                      options={[
-                        { value: "default", label: "Free" },
-                        { value: "latest", label: "Newest" },
-                        { value: "popularity", label: "Oldest" },
+                        { value: "default", label: "Grátis" },
+                        { value: "latest", label: "Mais Recentes" },
+                        { value: "popularity", label: "Mais Antigos" },
                      ]}
                      defaultCurrent={0}
                      cls="wide"
@@ -150,17 +151,18 @@ export default function InstructorAnalyticsCourseArea() {
             <ul>
                <li className="tpd-table-head">
                   <div className="tpd-table-row">
+                     {/* Cabeçalhos Traduzidos */}
                      <div className="tpd-assign-info analytic">
-                        <h4 className="tpd-table-title">Course Name</h4>
+                        <h4 className="tpd-table-title">Nome do Curso</h4>
                      </div>
                      <div className="tpd-assign-mark analytic">
-                        <h4 className="tpd-table-title">Learners</h4>
+                        <h4 className="tpd-table-title">Alunos</h4>
                      </div>
                      <div className="tpd-assign-submit analytic">
-                        <h4 className="tpd-table-title">Earnings</h4>
+                        <h4 className="tpd-table-title">Ganhos</h4>
                      </div>
                      <div className="tpd-assign-details">
-                        <h4 className="tpd-table-title">Rating</h4>
+                        <h4 className="tpd-table-title">Avaliação</h4>
                      </div>
                   </div>
                </li>
@@ -170,14 +172,15 @@ export default function InstructorAnalyticsCourseArea() {
                         <div className="tpd-assign-info analytic">
                            <h4 className="tpd-assign-title">{course.courseName}</h4>
                            <div className="tpd-student-info">
+                              {/* Labels de detalhes traduzidas */}
                               <p>
-                                 Lesson: <span>{course.lessons}</span>
+                                 Aula: <span>{course.lessons}</span>
                               </p>
                               <p>
-                                 Assignment: <span>{course.assignments}</span>
+                                 Tarefa: <span>{course.assignments}</span>
                               </p>
                               <p>
-                                 Quiz <span>{course.quizzes}</span>
+                                 Teste: <span>{course.quizzes}</span>
                               </p>
                            </div>
                         </div>
@@ -185,11 +188,12 @@ export default function InstructorAnalyticsCourseArea() {
                            <span className="tpd-common-text">{course.learners}</span>
                         </div>
                         <div className="tpd-assign-submit analytic">
+                           {/* formatPrice garante a moeda correta (R$) conforme configuramos anteriormente */}
                            <h4 className="tpd-table-title">{formatPrice(course.earnings, true)}</h4>
                         </div>
                         <div className="tpd-assign-details analytic">
                            <a className="tpd-border-btn" href="#">
-                              Details
+                              Detalhes
                            </a>
                            <button>
                               <RefreshSvg />

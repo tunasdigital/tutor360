@@ -11,11 +11,19 @@ export default function CourseInstructor() {
         <div className="accordion-item">
             <h2 className="accordion-header">
                 <button className="accordion-button collapsed tpd-new-course-heading-title" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
-                    Instrutores
+                    Instrutores e Especialistas
                 </button>
             </h2>
             <div id="panelsStayOpen-collapseFour" className="accordion-collapse collapse">
                 <div className="accordion-body">
+                    
+                    {/* Texto de apoio (UX Copy) para agregar valor na apresentação */}
+                    <div className="mb-20">
+                        <p className="text-muted" style={{ fontSize: '14px' }}>
+                            Defina o especialista principal ou adicione co-autores para este treinamento.
+                        </p>
+                    </div>
+
                     <div className="tpd-new-course-instructor">
                         <div className="tpd-new-course-instructor-user d-flex align-items-center">
                             <Image src={profile_img} alt="Imagem de perfil do instrutor" style={{height:'auto'}} />

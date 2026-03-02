@@ -1,32 +1,31 @@
-
 const popularCoursesData = [
     {
         id: 1,
-        name: 'Product Design',
+        name: 'Design de Produto',
         enroll: 45,
         rating: 5,
     },
     {
         id: 2,
-        name: 'Graphic Design Masterclass',
+        name: 'Masterclass de Design Gráfico',
         enroll: 12,
         rating: 3,
     },
     {
         id: 3,
-        name: 'Fundamentals of Business Analysis',
+        name: 'Fundamentos de Análise de Negócios',
         enroll: 22,
         rating: 2,
     },
     {
         id: 4,
-        name: 'Design System in Figma',
+        name: 'Design System no Figma',
         enroll: 30,
         rating: 5,
     },
     {
         id: 5,
-        name: '3D Motion Design',
+        name: 'Motion Design 3D',
         enroll: 8,
         rating: 5,
     },
@@ -36,7 +35,8 @@ export default function InstructorAnalyticsPopularCourses() {
     return (
         <section className="tp-dashboard-course-wrapper">
             <div className="tp-dashboard-section">
-                <h2 className="tp-dashboard-title">Most Popular Courses</h2>
+                {/* Tradução do título da seção */}
+                <h2 className="tp-dashboard-title">Cursos Mais Populares</h2>
             </div>
             <div className="tp-dashboard-course-list">
                 <ul>
@@ -47,10 +47,11 @@ export default function InstructorAnalyticsPopularCourses() {
                                     <h5 className="tp-dashboard-course-name-title">{course.name}</h5>
                                 </div>
                                 <div className="tp-dashboard-course-enroll">
+                                    {/* Número de matrículas */}
                                     <span>{course.enroll}</span>
                                 </div>
                                 <div className="tp-dashboard-course-rating">
-                                    {/* Render stars based on the course rating */}
+                                    {/* Renderização das estrelas baseada na avaliação */}
                                     {[...Array(5)].map((_, i) => (
                                         <i
                                             key={i}

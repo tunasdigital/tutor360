@@ -68,11 +68,38 @@ export default function InstructorEnrollCourseArea() {
          {/* Início da área de listagem de cursos */}
          <div className="course-area">
             <div className="row">
-               {currentItems.map((course, index) => (
-                  <div className="col-xl-4 col-md-6" key={index}>
-                     <DashboardEnrollCourseItem course={course} />
-                  </div>
-               ))}
+               {currentItems.map((course, index) => {
+                  
+                  // 🔥 TÁTICA DE CHOQUE (GOD MODE): Forçando o 1º curso a ficar 100% concluído para a apresentação
+                  const isFirstCourse = index === 0 && activeTab === 'enroll';
+                  const displayCourse = isFirstCourse ? { ...course, progress: 100, isCompleted: true } : course;
+
+                  return (
+                     <div className="col-xl-4 col-md-6 mb-20" key={index}>
+                        {/* Renderiza o card do curso (se ele ler "progress", já vai renderizar cheio) */}
+                        <DashboardEnrollCourseItem course={displayCourse} />
+                        
+                        {/* Botão injetado magicamente no primeiro curso para o Gran Finale */}
+                        {isFirstCourse && (
+                           <div className="text-center mt-10 p-3 rounded-3" style={{ backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0' }}>
+                              <p className="text-success mb-2" style={{ fontSize: '13px', fontWeight: 'bold' }}>
+                                 <i className="fa-solid fa-circle-check" style={{ marginRight: '5px' }}></i> 
+                                 Parabéns! Você concluiu 100%
+                              </p>
+                              <a 
+                                 href="/assets/img/dashboard/bg/certificate.png" 
+                                 target="_blank" 
+                                 className="tp-btn w-100" 
+                                 style={{ backgroundColor: '#10B981', border: 'none', borderRadius: '5px', padding: '8px 0', fontSize: '14px' }}
+                              >
+                                 <i className="fa-solid fa-award" style={{ marginRight: '8px' }}></i> 
+                                 Emitir Certificado
+                              </a>
+                           </div>
+                        )}
+                     </div>
+                  )
+               })}
             </div>
          </div>
          {/* Fim da área de listagem */}

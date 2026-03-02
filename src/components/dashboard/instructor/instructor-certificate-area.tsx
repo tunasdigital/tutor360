@@ -26,7 +26,7 @@ const certificateData = [
    },
    {
       id: 4,
-      title: "Mestrado em Design Gráfico",
+      title: "Masterclass em Design Gráfico",
       status: "Publicado",
       isPublished: true,
       image: null,
@@ -48,9 +48,10 @@ export default function InstructorCertificateArea() {
          <div className="section-area">
             <div className="row">
                <div className="col-lg-6">
-                  <div className="tp-dashboard-section">
+                  <div className="tp-dashboard-section mb-20">
                      {/* Nacionalização do título */}
-                     <h2 className="tp-dashboard-title">Todos os Certificados</h2>
+                     <h2 className="tp-dashboard-title">Galeria de Certificados</h2>
+                     <p className="text-muted" style={{ fontSize: '14px' }}>Gerencie os modelos de certificados disponíveis para emissão aos alunos.</p>
                   </div>
                </div>
             </div>
@@ -70,7 +71,7 @@ export default function InstructorCertificateArea() {
                                     <div className="tpd-certificate-info d-flex align-items-center">
                                        {certificate.image && (
                                           <div className="tpd-certificate-img mr-15">
-                                             <Image src={certificate.image} alt="Certificado" width={90} height={64} />
+                                             <Image src={certificate.image} alt="Certificado" width={90} height={64} style={{ borderRadius: '4px', border: '1px solid #eee' }} />
                                           </div>
                                        )}
                                        <h4 className="tpd-certificate-title">{certificate.title}</h4>
@@ -94,7 +95,6 @@ export default function InstructorCertificateArea() {
                                           <div className="tpd-action-inexact-btn">
                                              <button>
                                                 <PenSvg />
-                                                {/* Tooltip de edição traduzido */}
                                                 <span className="tpd-action-tooltip">Editar</span>
                                              </button>
                                           </div>
@@ -103,7 +103,8 @@ export default function InstructorCertificateArea() {
                                           <div className="tpd-action-inexact-btn">
                                              <button className="border-bg">
                                                 <DeleteSvg />
-                                                {/* Sugestão de melhoria: adicionar tooltip de exclusão aqui também, se desejar */}
+                                                {/* Tooltip de exclusão adicionado para padronização de UX */}
+                                                <span className="tpd-action-tooltip">Excluir</span>
                                              </button>
                                           </div>
                                        </div>

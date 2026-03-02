@@ -1,26 +1,28 @@
 'use client';
 import { useState } from "react";
 import Image from "next/image";
-import InstructorAnalyticsTopArea from "./instructor-analytics-top-area";
-import ProgressEarningsGraph from "./instructor-analytics-progress-area";
-import InstructorAnalyticsPopularCourses from "./instructor-analytics-popular-courses";
-import InstructorAnalyticsRecentReviews from "./instructor-analytics-recent-reviews";
-import InstructorAnalyticsCourseArea from "./instructor-analytics-course-area";
-import InstructorAnalyticsEarningArea from "./instructor-analytics-earning-area";
-import InstructorAnalyticsStatementArea from "./instructor-analytics-statement-area";
-import InstructorAnalyticsStudentArea from "./instructor-analytics-student-area";
+
+// O caminho aqui (../instructor) funciona perfeitamente quando o arquivo está isolado na pasta 'admin'
+import InstructorAnalyticsTopArea from "../instructor/analytics/instructor-analytics-top-area";
+import ProgressEarningsGraph from "../instructor/analytics/instructor-analytics-progress-area";
+import InstructorAnalyticsPopularCourses from "../instructor/analytics/instructor-analytics-popular-courses";
+import InstructorAnalyticsRecentReviews from "../instructor/analytics/instructor-analytics-recent-reviews";
+import InstructorAnalyticsCourseArea from "../instructor/analytics/instructor-analytics-course-area";
+import InstructorAnalyticsEarningArea from "../instructor/analytics/instructor-analytics-earning-area";
+import InstructorAnalyticsStatementArea from "../instructor/analytics/instructor-analytics-statement-area";
+import InstructorAnalyticsStudentArea from "../instructor/analytics/instructor-analytics-student-area";
 import no_data_bg from '@/assets/img/dashboard/bg/withdrawal-bg.png';
 
-// Dicionário de abas nacionalizado - Tutor360
+// Dicionário de abas nacionalizado para a governança do Admin
 const tabData = ['Visão Geral', 'Cursos', 'Receitas', 'Extratos', 'Alunos', 'Exportar'];
 
-export default function InstructorAnalyticsArea() {
+export default function AdminAnalyticsArea() {
    const [activeTab, setActiveTab] = useState(tabData[0]);
    
    return (
       <>
          <div className="tp-dashboard-tab mb-60">
-            <h2 className="tp-dashboard-tab-title">Análise de Dados</h2>
+            <h2 className="tp-dashboard-tab-title">Análise de Plataforma (Global)</h2>
             <div className="tp-dashboard-tab-list">
                <ul>
                   {tabData.map((tab) => (
@@ -36,16 +38,9 @@ export default function InstructorAnalyticsArea() {
 
          {activeTab === 'Visão Geral' && (
             <>
-               {/* Área superior de métricas */}
                <InstructorAnalyticsTopArea />
-               
-               {/* Gráfico de progresso de receitas */}
                <ProgressEarningsGraph />
-
-               {/* Cursos populares */}
                <InstructorAnalyticsPopularCourses />
-
-               {/* Avaliações recentes */}
                <InstructorAnalyticsRecentReviews />
             </>
          )}
@@ -69,7 +64,7 @@ export default function InstructorAnalyticsArea() {
          {activeTab === 'Exportar' && (
             <div className="tpd-withdraw-bg text-center mt-100">
                <Image src={no_data_bg} alt="sem-dados" style={{ height: 'auto' }} />
-               <p>Nenhum dado disponível para exportação nesta seção.</p>
+               <p>Nenhum dado disponível para exportação no momento.</p>
             </div>
          )}
       </>
