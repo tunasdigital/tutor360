@@ -4,13 +4,13 @@ import LoginForm from "@/components/form/login-form";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-   title: "Login - Acadia",
+   title: "Acesso Restrito - Tutor 360",
+   description: "Portal de autenticação da PHD Tecnologia",
 };
 
 export default function LoginPage() {
    return (
       <main>
-
          {/* login area start */}
          <section className="tp-login-area">
             <div className="tp-login-register-box d-flex align-items-center">
@@ -18,18 +18,18 @@ export default function LoginPage() {
                <div className="tp-login-register-wrapper d-flex justify-content-center align-items-center">
                   <div className="tp-login-from-box">
                      <div className="tp-login-from-heading text-center">
-                        <h4 className="tp-login-from-title">Sign in</h4>
-                        <p>Dont have an account? <Link href="/register">Create Now</Link></p>
+                        <h4 className="tp-login-from-title">Acesso à Plataforma</h4>
+                        <p>Área segura. Não tem uma conta? <Link href="/register">Criar Agora</Link></p>
                      </div>
-                     {/* login form start */}
+                     
+                     {/* 🚀 O MOTOR DE AUTENTICAÇÃO: Os campos de digitação estão aqui dentro */}
                      <LoginForm />
-                     {/* login form end */}
+                     
                   </div>
                </div>
             </div>
          </section>
          {/* login area end */}
-
       </main>
    );
 }

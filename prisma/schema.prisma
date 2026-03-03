@@ -7,6 +7,19 @@ datasource db {
   // Removida a linha 'url' para respeitar a arquitetura do Prisma 7.4.1 do seu projeto
 }
 
+// 🚀 NOVA GAVETA ROOT: A Sala de Comando (Usuários e Administradores)
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("ADMIN")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
 model Course {
   id            String   @id @default(cuid())
   title         String

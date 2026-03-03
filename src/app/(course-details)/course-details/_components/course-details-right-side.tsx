@@ -20,21 +20,23 @@ export default function CourseDetailsRightSide({ course }: IProps) {
    return (
       <aside className="tp-course-details-2-widget">
          
-         {/* 🎬 CAIXA DE VÍDEO BLINDADA (Proporção 16:9 forçada via CSS) */}
-         <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '25px', borderRadius: '12px', overflow: 'hidden', backgroundColor: '#000', boxShadow: '0px 10px 20px rgba(0,0,0,0.1)' }}>
-            <iframe
-               style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-               src={`https://www.youtube.com/embed/${video_id}?rel=0&modestbranding=1`}
-               title="Vídeo de Amostra"
-               frameBorder="0"
-               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-               allowFullScreen
-            ></iframe>
+         {/* 🚀 O PULO DO GATO: A classe '-thumb' é obrigatória no template para o topo não sumir */}
+         <div className="tp-course-details-2-widget-thumb p-relative w-100" style={{ marginBottom: '25px', borderRadius: '12px', overflow: 'hidden', backgroundColor: '#000', boxShadow: '0px 10px 20px rgba(0,0,0,0.1)' }}>
+            <div className="ratio ratio-16x9">
+               <iframe
+                  src={`https://www.youtube.com/embed/${video_id}?rel=0&modestbranding=1`}
+                  title="Vídeo de Amostra"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-100 h-100"
+               ></iframe>
+            </div>
          </div>
 
          <div className="tp-course-details-2-widget-content">
             
-            {/* 💰 ÁREA DE PREÇO (HTML Puro para não sumir) */}
+            {/* 💰 ÁREA DE PREÇO (HTML Puro mantido para destaque) */}
             <div style={{ paddingBottom: '20px', marginBottom: '20px', borderBottom: '1px solid #EAEAEA', textAlign: 'center' }}>
                {price > 0 ? (
                   <h3 style={{ margin: 0, fontSize: '32px', fontWeight: '800', color: '#0055FF' }}>

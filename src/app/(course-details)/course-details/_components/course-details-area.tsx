@@ -3,7 +3,7 @@ import React from "react";
 import { ICourseDT } from "@/types/course-d-t";
 import { Lesson } from "@prisma/client";
 
-// TÁTICA DE CHOQUE: Importando o componente que contém o vídeo e o checkout
+// Componente que contém o vídeo e o checkout
 import CourseDetailsRightSide from "./course-details-right-side";
 
 // Importações dos componentes de conteúdo da esquerda
@@ -23,8 +23,8 @@ export default function CourseDetailsArea({ course, lessons }: IProps) {
       <section className="tp-course-details-2-area pt-50 pb-80">
          <div className="container">
             <div className="row">
-               {/* COLUNA DA ESQUERDA (Conteúdo Principal) */}
-               <div className="col-lg-8">
+               {/* 🚀 COLUNA DA ESQUERDA: Proporções adaptativas (XL e LG) para não quebrar o layout */}
+               <div className="col-xl-8 col-lg-7">
                   <div className="tp-course-details-2-main-inner pr-70">
                      <CourseDetailsNav />
                      
@@ -51,10 +51,9 @@ export default function CourseDetailsArea({ course, lessons }: IProps) {
                   </div>
                </div>
 
-               {/* COLUNA DA DIREITA (Onde o vídeo DEVE aparecer) */}
-               <div className="col-lg-4">
-                  {/* Tática de Visibilidade: Envolvendo em uma div de classe widget para forçar o CSS do template */}
-                  <div className="tp-course-details-2-sidebar">
+               {/* 🚀 COLUNA DA DIREITA: Ajustada com as proporções seguras e preparada para flutuar (sticky) */}
+               <div className="col-xl-4 col-lg-5">
+                  <div className="tp-course-details-sidebar tp-course-sidebar-sticky">
                      <CourseDetailsRightSide course={course} />
                   </div>
                </div>

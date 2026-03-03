@@ -3,6 +3,8 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+// 🚀 O MOTOR DE EJEÇÃO: Importação obrigatória do Next-Auth para o lado do cliente
+import { signOut } from "next-auth/react"; 
 import { DashboardSvg } from "@/components/svg";
 import { AnalyticSvg, AnnouncementSvg, AssignmentSvg, BundleSvg, CalenderSvg, CertificateSvg, CourseSvg, EnrolledCourseSvg, LogoutSvg, OrderHistorySvg, ProfileSvg, QuestionAnswerSvg, QuizAttemptsSvg, QuizAttemptsTwoSvg, ReviewSvg, SettingSvg, WishlistSvg, WithdrawalSvg } from "@/components/svg/dashboard-icons";
 import user_banner from "@/assets/img/dashboard/icon/menu/menu-shape.png";
@@ -35,7 +37,7 @@ const adminDashboardMenuData = [
     {
         section: "SISTEMA", items: [
             { title: "Configurações Globais", icon: <SettingSvg />, href: "/dashboard/admin-settings" },
-            { title: "Sair", icon: <LogoutSvg />, href: "/" }
+            { title: "Sair", icon: <LogoutSvg />, href: "#" } // O href aqui não importa mais, o onClick vai assumir o controle
         ]
     }
 ];
@@ -56,10 +58,18 @@ export default function AdminDashboardSidebar() {
                                     <ul>
                                         {menuSection.items.map((item, index) => (
                                             <li key={index}>
-                                                <Link className={item.href === pathname ? "active" : ""} href={item.href}>
-                                                    <span>{item.icon}</span>
-                                                    {item.title}
-                                                </Link>
+                                                {/* 🚀 INTERCEPTADOR: Se for o botão Sair, aplica a função de destruição de sessão */}
+                                                {item.title === "Sair" ? (
+                                                    <a onClick={() => signOut({ callbackUrl: '/login' })} style={{ cursor: 'pointer' }}>
+                                                        <span>{item.icon}</span>
+                                                        {item.title}
+                                                    </a>
+                                                ) : (
+                                                    <Link className={item.href === pathname ? "active" : ""} href={item.href}>
+                                                        <span>{item.icon}</span>
+                                                        {item.title}
+                                                    </Link>
+                                                )}
                                             </li>
                                         ))}
                                     </ul>
