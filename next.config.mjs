@@ -2,16 +2,23 @@
 const nextConfig = {
   images: {
     remotePatterns: [
+      // 1. MANTIDO: Suas capas vindas do YouTube
       {
         protocol: 'https',
         hostname: 'img.youtube.com',
-        pathname: '/**', // Permite qualquer imagem do YouTube
+        pathname: '/**', 
       },
-      // 🚀 A CREDENCIAL DA VERCEL: Liberando o armazém público
+      // 2. MANTIDO (A CREDENCIAL DA VERCEL): O motor de upload que configuramos
       {
         protocol: 'https',
         hostname: '*.public.blob.vercel-storage.com',
-        pathname: '/**', // Permite as imagens salvas no seu Vercel Blob
+        pathname: '/**', 
+      },
+      // 3. ADICIONADO: Para curar o erro da página 07 (Fotos da migração)
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**',
       },
     ],
   },

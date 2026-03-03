@@ -1,5 +1,6 @@
 import { Metadata } from "next";
-import prisma from "@/lib/prisma"; // TÁTICA DE MESTRE: O Motor do Banco na Home
+import Link from "next/link";
+import prisma from "@/lib/prisma"; 
 import BrandArea from "@/components/brand/brand-area";
 import CategoryArea from "@/components/category/category-area";
 import CourseArea from "@/components/course/course-area";
@@ -13,66 +14,111 @@ export const metadata: Metadata = {
   description: "Evolua sua carreira com os melhores cursos e transmissões ao vivo.",
 };
 
-export default async function HomeOnlineCoursePage() {
-  // 1. BUSCA DE ELITE: Traz os cursos e conta as aulas simultaneamente
-  const dbCourses = await prisma.course.findMany({
-    include: {
-      _count: {
-        select: { lessons: true } // Mágica do Prisma: Retorna a quantidade de aulas vinculadas
-      }
-    },
-    orderBy: {
-      createdAt: 'desc' // Lista os cursos mais novos primeiro
-    }
-  });
+interface IProps {
+  searchParams: Promise<{ page?: string }>;
+}
 
-  // 2. ADAPTADOR VISUAL: Converte os dados crus do banco para o padrão do Template
+export default async function HomeOnlineCoursePage({ searchParams }: IProps) {
+  const params = await searchParams;
+  const currentPage = Number(params.page) || 1;
+  const limit = 9; 
+  const skip = (currentPage - 1) * limit;
+
+  const [dbCourses, totalCourses] = await Promise.all([
+    prisma.course.findMany({
+      where: {
+        lessons: { some: {} },
+        NOT: [
+          { title: { contains: "Breve" } },
+          { title: { contains: "Em breve" } }
+        ]
+      },
+      include: { _count: { select: { lessons: true } } },
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+      skip: skip,
+    }),
+    prisma.course.count({
+      where: {
+        lessons: { some: {} },
+        NOT: [
+          { title: { contains: "Breve" } },
+          { title: { contains: "Em breve" } }
+        ]
+      }
+    })
+  ]);
+
+  const pageCount = Math.ceil(totalCourses / limit);
+
   const formattedCourses = dbCourses.map((course) => ({
     id: course.id,
     title: course.title,
     description: course.description || "O melhor conteúdo para alavancar a sua carreira.",
-    // Se não tiver categoria definida, colocamos "Tendências" para testar as abas
-    category: course.category || "Tendências", 
-    price: 97.00, // Preço provisório até incluirmos a coluna de preço no seu painel
-    discount: 0,
-    thumbnail: course.thumbnail || "/assets/img/course/course-1.jpg", // Fallback seguro
-    video_id: "go7QYaQR494",
-    lessons: course._count.lessons, // Conta real vinda do banco de dados!
+    category: course.level || "Tendências", 
+    price: course.price || 97.00,
+    discount: course.discountPrice ? (course.price - course.discountPrice) : 0,
+    thumbnail: course.thumbnail || "/assets/img/course/course-1.jpg", 
+    lessons: course._count.lessons,
     students: 150,
-    language: "Português",
     mentorName: "Equipe Tutor360"
   }));
 
+  const buttonStyle: React.CSSProperties = {
+    backgroundColor: '#0055FF', 
+    color: '#FFFFFF', 
+    borderRadius: '50px', 
+    padding: '8px 24px',
+    display: 'inline-flex',
+    alignItems: 'center',
+    fontWeight: '600',
+    fontSize: '13px',
+    textDecoration: 'none',
+    border: '0',
+    outline: '0',
+    boxShadow: 'none'
+  };
+
   return (
     <main>
-      {/* hero area start */}
+      {/* 🚀 TÁTICA ANTI-TEIMOSIA: Forçamos o sumiço do banner indesejado via CSS Injetado */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        .tp-pagination-wrapper .row:has(.tp-category-banner),
+        .tp-category-banner, 
+        .tp-category-banner-content { display: none !important; }
+      `}} />
+
       <HeroAreaTwo />
-      {/* hero area end */}
-
-      {/* category area */}
       <CategoryArea />
-      {/* category area */}
-
-      {/* fun fact area start */}
       <FunFactArea/>
-      {/* fun fact area end */}
-
-      {/* course area start */}
-      {/* LIGANDO A CHAVE: Injetando os 38 cursos reais dentro da Vitrine! */}
-      <CourseArea courses={formattedCourses} />
-      {/* course area end */}
-
-      {/* course live area start */}
+      
+      {/* 🎯 ANCORAGEM: ID para evitar o salto para o topo no clique da paginação */}
+      <section id="vitrine-cursos" className="course-area pb-120" style={{ scrollMarginTop: '100px' }}>
+        <div className="container">
+          <CourseArea courses={formattedCourses} />
+          
+          {/* NAVEGAÇÃO PURA COM FOCO LOCAL */}
+          {pageCount > 1 && (
+            <div className="d-flex justify-content-center gap-3 mt-80">
+               {currentPage > 1 && (
+                 <Link href={`/?page=${currentPage - 1}#vitrine-cursos`} style={buttonStyle}>
+                   <i className="fa-light fa-arrow-left mr-8"></i> Anterior
+                 </Link>
+               )}
+               
+               {currentPage < pageCount && (
+                 <Link href={`/?page=${currentPage + 1}#vitrine-cursos`} style={buttonStyle}>
+                   Próxima <i className="fa-light fa-arrow-right ml-8"></i>
+                 </Link>
+               )}
+            </div>
+          )}
+        </div>
+      </section>
+      
       <CourseLiveArea/>
-      {/* course live area end */}
-
-      {/* testimonial area start */}
       <TestimonialTwo/>
-      {/* testimonial area end */}
-
-      {/* brand area start */}
       <BrandArea/>
-      {/* brand area end */}
     </main>
   );
 }
