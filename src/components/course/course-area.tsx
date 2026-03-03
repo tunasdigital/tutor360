@@ -8,12 +8,19 @@ import CourseProvider from "../provider/course-provider";
 import CourseTabBtn from "./course-tab-btn";
 import CourseItems from "./course-items";
 
-// Tradução das abas de navegação para alinhamento com o catálogo nacionalizado
+// Tradução das abas de navegação
 const tab_navs = ["Todos", "Tendências", "Populares", "Destaques"];
 
-export default function CourseArea() {
+// TÁTICA DE MESTRE: Criamos a prop "courses" para receber a carga do Prisma
+type IProps = {
+  courses?: any[];
+};
+
+// O componente agora recebe os cursos da página pai
+export default function CourseArea({ courses = [] }: IProps) {
   return (
-    <CourseProvider>
+    // E repassa essa carga para o Gerente de Estoque (Provider)
+    <CourseProvider courses={courses}>
       <section className="course-area tp-course-wrapper mt-100 mb-100">
         <div className="container">
           <div className="row align-items-end">
@@ -58,7 +65,6 @@ export default function CourseArea() {
               </div>
             </div>
             
-            {/* Coluna das abas com largura otimizada para evitar quebra de linha */}
             <div className="col-xxl-7 col-xl-7 col-lg-6">
               <div className="tp-course-tab d-flex justify-content-lg-end mb-40">
                 <nav>
@@ -85,7 +91,7 @@ export default function CourseArea() {
             <div className="col-lg-12">
               <div className="tab-content wow fadeInUp" data-wow-delay=".3s">
                 <div className="row">
-                  {/* Este componente renderiza os cards individuais que buscam os dados do course-data.ts */}
+                  {/* Os cards visuais continuam aqui, mas agora bebem da fonte do Provider atualizado */}
                   <CourseItems />
                 </div>
               </div>

@@ -4,18 +4,30 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  // Removida a linha 'url' para respeitar a arquitetura do Prisma 7.4.1 do seu projeto
 }
 
 model Course {
-  id          String   @id @default(cuid())
-  title       String
-  slug        String   @unique
-  description String?
-  thumbnail   String?
-  category    String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  lessons     Lesson[]
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  description   String?  @db.Text
+  thumbnail     String?
+  category      String?
+  
+  // 🚀 NOVAS GAVETAS COMERCIAIS (Mapeadas do WordPress antigo)
+  price         Float?   @default(0)     // Preço Regular (ex: 199.00)
+  discountPrice Float?   @default(0)     // Preço com Desconto (ex: 157.00)
+  level         String?  @default("Iniciante") // Nível de Dificuldade
+  isPublic      Boolean  @default(false) // Trava de Curso Público
+  hasQnA        Boolean  @default(false) // Trava de Seção de Perguntas
+  maxStudents   Int?     @default(0)     // Limite de Alunos (0 = ilimitado)
+  duration      String?                  // Duração Total (ex: "1h 19m")
+  introVideoUrl String?                  // URL do vídeo de Pitch/Venda
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  lessons       Lesson[]
 
   @@map("courses")
 }

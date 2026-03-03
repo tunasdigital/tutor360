@@ -16,7 +16,12 @@ const listData = [
     "Adicione Tópicos no Construtor para criar aulas em vídeo, quizzes e tarefas.",
 ];
 
-export default function CreateNewCourseArea() {
+// TÁTICA DE MESTRE: Criamos a prop para receber os dados do Prisma vindos do page.tsx
+type IProps = {
+    courseToEdit?: any; 
+}
+
+export default function CreateNewCourseArea({ courseToEdit }: IProps) {
     return (
         <main className="tp-dashboard-body-bg p-relative">
             <div className="tpd-dashboard-wrap-bg" style={{ backgroundImage: "url(/assets/img/dashboard/bg/dashboard-bg-shape-1.jpg)" }}>
@@ -32,7 +37,8 @@ export default function CreateNewCourseArea() {
                                         <div className="accordion" id="accordionPanelsStayOpenExample">
 
                                             {/* Início da área de informações básicas */}
-                                            <CourseInfoArea />
+                                            {/* A MÃO RECEBENDO O BASTÃO: Repassamos os dados reais para o formulário */}
+                                            <CourseInfoArea courseToEdit={courseToEdit} />
                                             {/* Fim da área de informações básicas */}
 
                                             {/* Vídeo de introdução do curso */}

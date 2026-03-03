@@ -3,59 +3,70 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import DashboardCourseItemThree from "@/components/course/single/dashboard/dashboard-course-item-3";
 import Pagination from "@/components/ui/pagination";
-import { online_courses_data } from "@/data/course-data"; // Futuramente será trocado por uma API Call que busca TODOS os cursos
 import usePagination from "@/hooks/use-pagination";
 import no_found_img from '@/assets/img/dashboard/bg/withdrawal-bg.png';
 
 // Abas de curadoria do Admin
 const admin_tab_lists = [
-   { id: 'publish', title: 'Ativos' },
+   { id: 'publish', title: 'Todos os Migrados' }, // Ajustei o título para fazer mais sentido agora
    { id: 'pending', title: 'Aguardando Aprovação' },
    { id: 'draft', title: 'Rascunhos (Inativos)' },
 ]
 
 type IProps = {
    bundleCourse?:boolean;
+   courses?: any[]; // TÁTICA DE MESTRE: A porta de entrada dos dados do Servidor
 }
-export default function AdminAllCoursesArea({bundleCourse}:IProps) {
-   const limit = 6
+
+export default function AdminAllCoursesArea({bundleCourse, courses = []}:IProps) {
+   const limit = 6;
    const [activeTab, setActiveTab] = useState(bundleCourse ? admin_tab_lists[2].id : admin_tab_lists[0].id);
-   const [allCourses, setAllCourses] = useState([...online_courses_data]);
+   
+   // 1. BLINDAGEM VISUAL: Garantimos que o card do Admin tenha as propriedades básicas para não quebrar
+   const safeCourses = courses.map((c: any) => ({
+      ...c,
+      price: c.price || 0,
+      lessons: c._count?.lessons || 0, // A mágica da contagem vinda do Prisma
+      thumbnail: c.thumbnail || "/assets/img/course/course-1.jpg", 
+   }));
+
+   // 2. Iniciamos o estado com os cursos blindados
+   const [allCourses, setAllCourses] = useState(safeCourses);
    const { currentItems, handlePageClick, pageCount } = usePagination(allCourses, limit);
 
    useEffect(() => {
-      // Lógica de filtragem simulada para o Admin
+      // Como migramos tudo de uma vez, consideramos todos como "publish" na vitrine do Admin por enquanto
       if (activeTab === 'publish') {
-         setAllCourses([...online_courses_data]);
+         setAllCourses(safeCourses);
       } else if (activeTab === 'pending') {
-         setAllCourses([]); // Cursos pendentes de revisão da moderação
+         setAllCourses([]); // Cursos pendentes (Futuro)
       } else if (activeTab === 'draft') {
-         setAllCourses([...online_courses_data].slice(3, 6)); // Cursos bloqueados ou inativos
+         setAllCourses([]); // Cursos bloqueados (Futuro)
       }
-   }, [activeTab]);
+   }, [activeTab, courses]); // React re-renderiza se os cursos chegarem atrasados
 
    function handleCourseCount(tab: string) {
       let count = 0;
       switch (tab) {
          case 'publish':
-            count = [...online_courses_data].length;
+            count = safeCourses.length;
             break;
          case 'pending':
-            count = [].length;
+            count = 0;
             break;
          case 'draft':
-            count = [...online_courses_data].slice(3, 6).length;
+            count = 0;
             break;
       }
       return count;
    }
+
    return (
       <>
          {/* Início da área de abas do dashboard do Admin */}
          <div className="dashboader-area mb-30">
             <div className="tp-dashboard-tab">
-               {/* Título macro focado na gestão */}
-               <h2 className="tp-dashboard-tab-title">Gestão de Cursos (LMS Global)</h2>
+               <h2 className="tp-dashboard-tab-title">Gestão de Cursos Migrados (LMS Global)</h2>
                <div className="tp-dashboard-tab-list">
                   <ul>
                      {admin_tab_lists.map((tab) => (
@@ -79,7 +90,7 @@ export default function AdminAllCoursesArea({bundleCourse}:IProps) {
             <div className="row">
                {currentItems.map((course, index) => (
                   <div className="col-xl-4 col-md-6" key={index}>
-                     {/* Este componente renderiza o card do curso. Se houver ações de "Aprovar/Bloquear", elas serão inseridas aqui no futuro */}
+                     {/* O card que antes lia o Mock agora lê a variável course turbinada pelo Prisma */}
                      <DashboardCourseItemThree course={course} />
                   </div>
                ))}

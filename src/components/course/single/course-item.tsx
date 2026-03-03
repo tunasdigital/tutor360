@@ -33,9 +33,9 @@ export default function CourseItem({ course, removeTag }: IProps) {
     video_id,
   } = course;
 
-  const courseLink = video_id 
-    ? `https://www.youtube.com/watch?v=${video_id}` 
-    : `/course-details/${id}`;
+  // CORREÇÃO ESTRATÉGICA: O link do card AGORA SEMPRE aponta para a página de detalhes do curso.
+  // Isso mantém o aluno dentro da Tutor360 para que ele veja os cadeados e o botão de compra.
+  const courseLink = `/course-details/${id}`;
 
   const isExternalImage = thumbnail.startsWith('http');
 
@@ -44,7 +44,7 @@ export default function CourseItem({ course, removeTag }: IProps) {
       <div className="tp-course-teacher mb-15">
         <span>
           {author_img && (
-            <Image src={author_img} alt={author_name || "author"} width={30} height={30} />
+            <Image src={author_img} alt={author_name || "mentor"} width={30} height={30} style={{ borderRadius: '50%' }} />
           )}
           {author_name}
         </span>
@@ -54,12 +54,13 @@ export default function CourseItem({ course, removeTag }: IProps) {
       </div>
 
       <div className="tp-course-thumb p-relative">
-        <Link href={courseLink} target={video_id ? "_blank" : "_self"}>
+        {/* Agora o clique na imagem também leva para a página de vendas interna */}
+        <Link href={courseLink}>
           {isExternalImage ? (
             <img
               src={thumbnail}
               alt={title}
-              style={{ width: '352px', height: '200px', objectFit: 'cover' }}
+              style={{ width: '100%', height: '200px', objectFit: 'cover' }}
               className="course-lightblue"
             />
           ) : (
@@ -70,6 +71,7 @@ export default function CourseItem({ course, removeTag }: IProps) {
               width={352}
               height={200}
               priority={id === 101}
+              style={{ objectFit: 'cover' }}
             />
           )}
           
@@ -81,7 +83,7 @@ export default function CourseItem({ course, removeTag }: IProps) {
               transform: 'translate(-50%, -50%)',
               fontSize: '45px',
               color: '#FF0000',
-              backgroundColor: 'rgba(255,255,255,0.8)',
+              backgroundColor: 'rgba(255,255,255,0.9)',
               borderRadius: '50%',
               width: '60px',
               height: '60px',
@@ -98,13 +100,12 @@ export default function CourseItem({ course, removeTag }: IProps) {
 
       <div className="tp-course-content">
         <div className="tp-course-tag mb-10">
-          <span>{category}</span>
-          {video_id && (
-            <span className="ml-10" style={{ backgroundColor: '#FF0000', color: '#fff', padding: '2px 8px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold' }}>
-              TUTOR 360
-            </span>
-          )}
+          <span style={{ backgroundColor: '#EEF4FF', color: '#0055FF' }}>{category}</span>
+          <span className="ml-10" style={{ backgroundColor: '#0055FF', color: '#fff', padding: '2px 8px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold' }}>
+            TUTOR 360
+          </span>
         </div>
+
         <div className="tp-course-meta">
           <span>
             <span><LessonsSvg /></span>
@@ -115,12 +116,13 @@ export default function CourseItem({ course, removeTag }: IProps) {
             {" "}{students} {students === 1 ? 'Aluno' : 'Alunos'}
           </span>
         </div>
+
         <h4 className="tp-course-title">
           <Link href={courseLink}
-            target={video_id ? "_blank" : "_self"}
             dangerouslySetInnerHTML={{ __html: removeTag ? title.replace(/(<([^>]+)>)/gi, "") : title }}
           ></Link>
         </h4>
+
         <div className="tp-course-rating d-flex align-items-end justify-content-between">
           <div className="tp-course-rating-star">
             <p>
@@ -128,11 +130,9 @@ export default function CourseItem({ course, removeTag }: IProps) {
               <span> /{total_rating}</span>
             </p>
             <div className="tp-course-rating-icon">
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
-              <FontAwesomeIcon icon={faStar} />
+              {[...Array(5)].map((_, i) => (
+                <FontAwesomeIcon key={i} icon={faStar} color={i < Math.floor(avg_rating) ? "#FFB600" : "#E5E7EB"} />
+              ))}
             </div>
           </div>
           <div className="tp-course-pricing home-2">
@@ -140,9 +140,11 @@ export default function CourseItem({ course, removeTag }: IProps) {
           </div>
         </div>
       </div>
+
       <div className="tp-course-btn home-2">
-        <Link href={courseLink} target={video_id ? "_blank" : "_self"}>
-          {video_id ? "Assistir no YouTube" : "Ver Detalhes do Curso"}
+        {/* BOTÃO CORRIGIDO: Agora aponta para a página interna, garantindo que o aluno veja o funil de vendas */}
+        <Link href={courseLink}>
+          Conhecer Curso
         </Link>
       </div>
     </div>

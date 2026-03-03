@@ -2,10 +2,12 @@ import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
+import * as fs from "fs";
+import * as path from "path";
 
 /**
- * Tutor360 — Prisma Seed (Prisma ORM v7.4.1)
- * Focado em estabilidade e compatibilidade com Driver Adapters.
+ * Tutor360 — Prisma Seed de Migração Oficial (Prisma ORM v7)
+ * Focado em estabilidade com Driver Adapters e injeção massiva via JSON.
  */
 
 // 1. Validação de Ambiente
@@ -16,91 +18,91 @@ if (!DATABASE_URL) {
   process.exit(1);
 }
 
-// 2. Configuração do Adaptador (Requisito Prisma 7 para Postgres)
+// 2. Configuração do Adaptador (Requisito Prisma 7 para Postgres Edge)
 const pool = new Pool({ connectionString: DATABASE_URL });
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
-// 3. Estrutura de Dados Demo
-const COURSE_DEMO = {
-  title: "Tutor360 — Curso Demo (Seed)",
-  slug: "tutor360-curso-demo",
-  description: "Curso de demonstração para validar a nova arquitetura do Tutor360.",
-  thumbnail: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200",
-  category: "Demonstração",
-  lessons: [
-    {
-      title: "Boas-vindas ao Tutor360",
-      slug: "boas-vindas",
-      videoUrl: "https://player.vimeo.com/video/76979871",
-      duration: "02:10",
-      order: 1,
-      wpId: 1001,
-    },
-    {
-      title: "Arquitetura Prisma 7",
-      slug: "arquitetura-prisma-7",
-      videoUrl: "https://player.vimeo.com/video/22439234",
-      duration: "08:45",
-      order: 2,
-      wpId: 1002,
-    },
-    {
-      title: "Estratégia de Migração WordPress",
-      slug: "estrategia-migracao",
-      videoUrl: "https://player.vimeo.com/video/146022717",
-      duration: "05:30",
-      order: 3,
-      wpId: 1003,
-    },
-  ],
-};
-
 async function main() {
-  console.log("🌱 Iniciando Seed Tutor360...");
+  console.log("🌱 Iniciando Seed Tutor360 (Ponte de Migração)...");
   const start = Date.now();
 
   try {
-    // Upsert do Curso (Idempotente)
-    const course = await prisma.course.upsert({
-      where: { slug: COURSE_DEMO.slug },
-      update: {
-        title: COURSE_DEMO.title,
-        description: COURSE_DEMO.description,
-        thumbnail: COURSE_DEMO.thumbnail,
-        category: COURSE_DEMO.category,
-      },
-      create: {
-        title: COURSE_DEMO.title,
-        slug: COURSE_DEMO.slug,
-        description: COURSE_DEMO.description,
-        thumbnail: COURSE_DEMO.thumbnail,
-        category: COURSE_DEMO.category,
-      },
-    });
+    // 3. Carregamento e Leitura do JSON Extraído
+    const dataPath = path.join(__dirname, 'lessons_extracted.json');
+    
+    if (!fs.existsSync(dataPath)) {
+      console.error(`❌ Erro: Arquivo não encontrado no caminho: ${dataPath}`);
+      console.log("👉 Certifique-se de que o arquivo 'lessons_extracted.json' está dentro da pasta 'prisma'.");
+      process.exit(1);
+    }
 
-    // Limpeza de lições antigas do curso demo (para evitar duplicidade no seed)
-    await prisma.lesson.deleteMany({
-      where: { courseId: course.id },
-    });
+    const rawData = fs.readFileSync(dataPath, "utf-8");
+    const aulasBrutas = JSON.parse(rawData);
 
-    // Criação das Lições
-    await prisma.lesson.createMany({
-      data: COURSE_DEMO.lessons.map((lesson) => ({
-        ...lesson,
-        courseId: course.id,
-      })),
-    });
+    // 4. Filtro de Inteligência: Remove lixo do banco antigo
+    const aulasValidas = aulasBrutas.filter((aula: any) => aula.courseId !== "CURSO_INDETERMINADO");
+    console.log(`📦 Processando ${aulasValidas.length} aulas válidas do JSON...`);
 
-    console.log(`✅ Seed finalizado com sucesso em ${Date.now() - start}ms`);
-    console.log(`• Curso: ${course.title}`);
-    console.log(`• Lições: ${COURSE_DEMO.lessons.length}`);
+    // 5. Descobrir Cursos Únicos para criar as Chaves Estrangeiras (Cascas)
+    const cursosIds = [...new Set(aulasValidas.map((a: any) => a.courseId))];
+    console.log(`🏗️ Garantindo a existência estrutural de ${cursosIds.length} cursos...`);
+
+    for (const cId of cursosIds) {
+      const idString = String(cId);
+      // O Upsert garante que não vamos duplicar ou apagar cursos que já existam
+      await prisma.course.upsert({
+        where: { id: idString }, // O seu schema usa String para o ID do curso
+        update: {}, 
+        create: {
+          id: idString,
+          title: `Curso em Migração (ID: ${idString})`,
+          slug: `curso-${idString}-migrado`, // Slug único provisório
+          category: "Geral",
+          description: "Dados completos do curso sendo atualizados...",
+        },
+      });
+    }
+
+    console.log(`🚀 Injetando aulas na tabela 'lessons'...`);
+
+    // 6. Injeção Idempotente das Lições
+    let inseridas = 0;
+    for (const aula of aulasValidas) {
+      const wpIdNum = Number(aula.wpId);
+      const urlFinal = aula.videoUrl === "SEM_VIDEO" ? "" : aula.videoUrl;
+
+      // Usamos o wpId como chave única (conforme seu índice CREATE UNIQUE INDEX "lessons_wpId_key")
+      await prisma.lesson.upsert({
+        where: { wpId: wpIdNum },
+        update: {
+          title: aula.title,
+          slug: aula.slug,
+          videoUrl: urlFinal,
+          courseId: String(aula.courseId),
+        },
+        create: {
+          title: aula.title,
+          slug: aula.slug,
+          videoUrl: urlFinal,
+          courseId: String(aula.courseId),
+          wpId: wpIdNum,
+          order: inseridas + 1, // Organização sequencial de chegada
+        },
+      });
+      inseridas++;
+    }
+
+    console.log(`✅ Seed de Migração finalizado com sucesso em ${Date.now() - start}ms!`);
+    console.log(`• Cursos verificados/criados: ${cursosIds.length}`);
+    console.log(`• Lições injetadas no banco: ${inseridas}`);
 
   } catch (error) {
-    console.error("❌ Erro durante a execução do seed:");
+    console.error("❌ Erro catastrófico durante a execução do seed:");
     console.error(error);
     process.exit(1);
   } finally {
+    // 7. Fechamento seguro das conexões
     await prisma.$disconnect();
     await pool.end();
   }

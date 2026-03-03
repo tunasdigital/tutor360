@@ -1,30 +1,37 @@
 'use client';
 import React, { useState, useEffect } from "react";
 import { CourseContext } from "@/context/course-context";
-import { ICourseDT } from "@/types/course-d-t";
-import { all_courses } from "@/data/course-data";
+
+// Deletamos a importação criminosa: import { all_courses } from "@/data/course-data";
 
 type IPropType = {
   children: React.ReactNode;
+  // TÁTICA DE MESTRE: Criamos uma "Porta de Entrada" para os cursos reais do Prisma
+  courses?: any[]; 
 };
 
-export default function CourseProvider({ children }: IPropType) {
-  const [activeTab, setActiveTab] = useState<string>("All Courses");
+export default function CourseProvider({ children, courses = [] }: IPropType) {
+  // Ajuste fino para o padrão nacionalizado da sua plataforma
+  const [activeTab, setActiveTab] = useState<string>("Todos");
   
   // Iniciamos com um array vazio e preenchemos no useEffect para evitar erro de hidratação (SSR)
-  const [filterCourse, setFilterCourse] = useState<ICourseDT[]>([]);
+  const [filterCourse, setFilterCourse] = useState<any[]>([]);
 
   useEffect(() => {
-    // Verificação de segurança: se all_courses não existir, não quebra o site
-    if (!all_courses) return;
-
-    if (activeTab === "All Courses") {
-      setFilterCourse(all_courses);
-    } else {
-      const filtered = all_courses.filter(course => course.category === activeTab);
-      setFilterCourse(filtered.length > 0 ? filtered : all_courses);
+    // Defesa anti-quebra: Se os dados do Prisma ainda não chegaram, não fazemos nada
+    if (!courses || courses.length === 0) {
+      setFilterCourse([]);
+      return;
     }
-  }, [activeTab]);
+
+    if (activeTab === "Todos") {
+      setFilterCourse(courses);
+    } else {
+      // Inteligência de Filtro: Varre a categoria do curso real do PostgreSQL
+      const filtered = courses.filter(course => course.category === activeTab);
+      setFilterCourse(filtered.length > 0 ? filtered : courses);
+    }
+  }, [activeTab, courses]);
 
   return (
     <CourseContext.Provider value={{ activeTab, setActiveTab, filterCourse }}>

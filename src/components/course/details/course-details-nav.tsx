@@ -2,8 +2,8 @@
 import useScrollSpy from "@/hooks/use-scroll-spy";
 
 export default function CourseDetailsNav() {
-    // IMPORTANTE: Não traduzimos as strings do array abaixo. 
-    // Elas são os IDs âncora que ligam a aba ao conteúdo da página.
+    // Tática de Mentor: Mantemos os IDs originais ("info", "curriculum", etc.) 
+    // para não quebrar a funcionalidade de âncora do CSS e do ScrollSpy.
     const sections = ["info", "curriculum", "instructors", "reviews"];
     const activeSection = useScrollSpy(sections);
     

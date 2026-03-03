@@ -1,10 +1,32 @@
+'use client'; 
+import { useState } from "react"; // 🚀 TÁTICA NOVA: Importando a memória de estado do React
 import Image from "next/image";
 import file_icon from '@/assets/img/dashboard/bg/select-file-icon.png';
 import { InfoTwoSvg, PenThreeSvg, SettingTwoSvg } from "@/components/svg";
 import CourseInfoSelectCategory from "./course-info-select-category";
 
+// Importação da Action
+import { publishCourseAction } from "@/actions/course-actions"; 
 
-export default function CourseInfoArea() {
+type IProps = {
+   courseToEdit?: any; 
+}
+
+export default function CourseInfoArea({ courseToEdit }: IProps) {
+   // Desestruturando os dados, incluindo a 'thumbnail' que já possa existir no banco
+   const { id, title, slug, description, price, discountPrice, level, maxStudents, thumbnail } = courseToEdit || {};
+
+   // 🚀 O MOTOR DE PREVIEW: Guarda a foto atual do banco ou a nova foto selecionada
+   const [previewUrl, setPreviewUrl] = useState<string | null>(thumbnail || null);
+
+   // 🚀 O GERADOR DE HOLOGRAMA: Lê o arquivo local e mostra na tela antes do upload
+   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) {
+         setPreviewUrl(URL.createObjectURL(file));
+      }
+   };
+
    return (
       <div className="accordion-item">
          <h2 className="accordion-header">
@@ -14,116 +36,104 @@ export default function CourseInfoArea() {
          </h2>
          <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse show">
             <div className="accordion-body">
-               <div className="tpd-new-course-box-1">
-                  <div className="tpd-input">
-                     <label>Título do Curso</label>
-                     <input type="text" placeholder="Nome do seu novo curso" />
-                  </div>
-                  <div className="tpd-input">
-                     <label>Slug do Curso (URL)</label>
-                     <input type="text" placeholder="nome-do-curso" />
-                  </div>
-                  <p>Link Permanente: <a href="#">https://tutor360.com.br/curso/novo-curso</a></p>
-                  <div className="tpd-input about-height">
-                     <label>Sobre o Curso</label>
-                     <textarea placeholder="Descreva brevemente o que os alunos aprenderão"></textarea>
-                  </div>
-               </div>
-               <div className="tpd-new-course-box-2">
-                  <h4 className="tpd-new-course-setting-title">Configurações do Curso</h4>
-                  <div className="tp-dashboard-tab-list">
-                     <ul>
-                        <li>
-                           <a className="active" href="#"><span><SettingTwoSvg /></span> Geral</a>
-                        </li>
-                        <li>
-                           <a href="#"><span><PenThreeSvg /></span> Liberação Gradual (Drip)</a>
-                        </li>
-                     </ul>
-                  </div>
-                  <div className="tpd-input">
-                     <label>Limite Máximo de Alunos</label>
-                     <input type="number" placeholder="ex: 100" />
-                     <p><span><InfoTwoSvg /></span>Número de alunos que podem se matricular. Defina 0 para ilimitado.</p>
-                  </div>
-                  <div className="tpd-input">
-                     <label>Nível de Dificuldade</label>
-                     <input type="text" placeholder="Iniciante, Intermediário ou Avançado" />
-                     <p><span><InfoTwoSvg /></span>Nível de conhecimento exigido para o curso.</p>
-                  </div>
-                  <div className="tpd-input">
-                     <label>Curso Público</label>
-                     <div className="switcher">
-                        <label htmlFor="toggle-0">
-                           <input type="checkbox" id="toggle-0" />
-                           <span><small></small></span>
-                        </label>
+               
+               <form id="course-publish-form" action={publishCourseAction}>
+                  <input type="hidden" name="courseId" value={id || ""} />
+
+                  <div className="tpd-new-course-box-1">
+                     <div className="tpd-input">
+                        <label>Título do Curso</label>
+                        <input type="text" name="title" placeholder="Nome do seu novo curso" defaultValue={title || ""} required />
                      </div>
-                     <p><span><InfoTwoSvg /></span>Torna o curso público. Nenhuma matrícula será exigida para assistir.</p>
+                     <div className="tpd-input">
+                        <label>Slug do Curso (URL)</label>
+                        <input type="text" name="slug" placeholder="nome-do-curso" defaultValue={slug || ""} required />
+                     </div>
+                     <p>Link Permanente: <a href="#">https://tutor360.com.br/curso/{slug || "novo-curso"}</a></p>
+                     
+                     <div className="tpd-input about-height">
+                        <label>Sobre o Curso</label>
+                        <textarea name="description" placeholder="Descreva brevemente o que os alunos aprenderão" defaultValue={description || ""} />
+                     </div>
                   </div>
-                  <div className="tpd-input">
-                     <label>Seção de Perguntas e Respostas (Q&A)</label>
-                     <div className="switcher">
-                        <label htmlFor="toggle-1">
-                           <input type="checkbox" id="toggle-1" />
-                           <span><small></small></span>
-                        </label>
+
+                  <div className="tpd-new-course-box-2">
+                     <h4 className="tpd-new-course-setting-title">Configurações do Curso</h4>
+                     <div className="tpd-input">
+                        <label>Nível de Dificuldade</label>
+                        <input type="text" name="level" placeholder="Iniciante, Intermediário ou Avançado" defaultValue={level || ""} />
                      </div>
-                     <p className="m-0"><span><InfoTwoSvg /></span>Habilita a seção de dúvidas para os alunos do curso.</p>
                   </div>
-               </div>
-               <div className="tpd-new-course-box-3">
-                  <div className="tpd-new-course-categories">
-                     <div className="tpd-new-course-select2">
-                        <div className="tpd-input">
-                           <label>Escolha uma Categoria</label>
-                           <CourseInfoSelectCategory/>
-                        </div>
-                     </div>
-                     <div className="tpd-input mt-35">
-                        <label className="font">Preço do Curso</label>
-                        <div className="tpd-order-filter tpd-redio-style tmy-tab">
-                           <ul className="nav nav-tabs" id="myTab" role="tablist">
-                              <li className="nav-item p-relative" role="presentation">
-                                 <button className="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-selected="false" tabIndex={-1}>
-                                    <span className="tpd-redio-style-span"></span>
-                                    <span>Gratuito</span>
-                                 </button>
-                              </li>
-                              <li className="nav-item p-relative" role="presentation">
-                                 <button className="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-selected="false" tabIndex={-1}>
-                                    <span className="tpd-redio-style-span"></span>
-                                    <span>Pago</span>
-                                 </button>
-                              </li>
-                           </ul>
-                        </div>
-                     </div>
-                     <div className="tpd-input-box d-flex">
-                        <div className="tpd-input">
-                           <label>Preço Regular (R$)</label>
-                           <input type="text" placeholder="R$ 0,00" />
-                        </div>
-                        <div className="tpd-input">
-                           <label>Preço com Desconto (R$)</label>
-                           <input type="text" placeholder="R$ 0,00" />
-                        </div>
-                     </div>
-                     <div className="tpd-input course-file">
-                        <label>Miniatura do Curso (Thumbnail)</label>
-                        <div className="tpd-new-course-file-content text-center" style={{ backgroundImage: "url(/assets/img/dashboard/bg/select-file.png)" }}>
-                           <div className="tpd-new-course-file-thumb mb-15">
-                              <Image src={file_icon} alt="Ícone de arquivo" />
+
+                  <div className="tpd-new-course-box-3">
+                     <div className="tpd-new-course-categories">
+                        <div className="tpd-input-box d-flex mt-35">
+                           <div className="tpd-input">
+                              <label>Preço Regular (R$)</label>
+                              <input type="number" step="0.01" name="price" placeholder="ex: 199.00" defaultValue={price || ""} />
                            </div>
-                           <span className="upload-btn">
-                              <input id="tpd-new-course-file-input" type="file" accept="image/png, image/jpeg" />
-                              <label htmlFor="tpd-new-course-file-input">Escolha uma imagem para enviar</label>
-                           </span>
-                           <p>Tamanho sugerido: 700x430 pixels</p>
+                           <div className="tpd-input">
+                              <label>Preço com Desconto (R$)</label>
+                              <input type="number" step="0.01" name="discountPrice" placeholder="ex: 157.00" defaultValue={discountPrice || ""} />
+                           </div>
                         </div>
+                        
+                        {/* 🖼️ ÁREA DA FOTO COM PREVIEW VISUAL */}
+                        <div className="tpd-input course-file mt-35">
+                           <label>Miniatura do Curso (Thumbnail)</label>
+                           
+                           <div 
+                              className="tpd-new-course-file-content text-center" 
+                              style={{ 
+                                 backgroundImage: previewUrl ? 'none' : "url(/assets/img/dashboard/bg/select-file.png)",
+                                 position: 'relative',
+                                 minHeight: '220px',
+                                 display: 'flex',
+                                 flexDirection: 'column',
+                                 justifyContent: 'center',
+                                 alignItems: 'center',
+                                 overflow: 'hidden',
+                                 border: previewUrl ? '2px dashed #e0e0e0' : 'none',
+                                 borderRadius: '8px'
+                              }}
+                           >
+                              {/* O Espelho: Mostra a imagem de fundo preenchendo o espaço se ela existir */}
+                              {previewUrl ? (
+                                 <img 
+                                    src={previewUrl} 
+                                    alt="Preview da Capa" 
+                                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }}
+                                 />
+                              ) : (
+                                 <div className="tpd-new-course-file-thumb mb-15">
+                                    <Image src={file_icon} alt="Ícone de arquivo" />
+                                 </div>
+                              )}
+
+                              {/* O Botão de Upload: Fica por cima da imagem */}
+                              <span className="upload-btn" style={{ position: 'relative', zIndex: 10 }}>
+                                 <input 
+                                    id="tpd-new-course-file-input" 
+                                    type="file" 
+                                    name="thumbnail" 
+                                    accept="image/png, image/jpeg, image/webp"
+                                    onChange={handleImageChange} // Gatilho do Preview
+                                 />
+                                 <label 
+                                    htmlFor="tpd-new-course-file-input" 
+                                    style={previewUrl ? { backgroundColor: 'rgba(0,0,0,0.7)', color: '#fff', border: '1px solid #fff' } : {}}
+                                 >
+                                    {previewUrl ? "Trocar Imagem da Capa" : "Escolha uma imagem para enviar"}
+                                 </label>
+                              </span>
+                              {!previewUrl && <p>Tamanho sugerido: 700x430 pixels</p>}
+                           </div>
+                        </div>
+
                      </div>
                   </div>
-               </div>
+               </form>
+
             </div>
          </div>
       </div>

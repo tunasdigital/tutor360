@@ -3,7 +3,6 @@ import Image from "next/image";
 import logo from "@/assets/img/logo/logo-black.png";
 import { CloseFiveSvg } from "../svg";
 
-
 export default function HeaderEight() {
    return (
       <header className="header-area">
@@ -25,7 +24,16 @@ export default function HeaderEight() {
                            {/* Tradução dos comandos de ação do topo */}
                            <a className="draft" href="#">Salvar como Rascunho</a>
                            <a className="preview" href="#">Visualizar</a>
-                           <a className="pulish" href="#">Publicar</a>
+                           
+                           {/* 🚀 O CONTROLE REMOTO: Transformamos o link falso num botão de disparo real */}
+                           <button 
+                              type="submit" 
+                              form="course-publish-form" 
+                              className="pulish"
+                              style={{ border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
+                           >
+                              Publicar
+                           </button>
                         </div>
                         <span>
                            {/* Botão de fechar redirecionando para o painel principal */}
