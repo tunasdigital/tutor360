@@ -12,47 +12,51 @@ interface PageProps {
 export default async function CourseDetailsPage({ params }: PageProps) {
   const { id } = params;
 
-  // 1. BUSCA DE ELITE (CURSO): Procura o curso migrado diretamente no PostgreSQL
+  // 1. BUSCA DE ELITE (CURSO): Recupera todos os campos reais do PostgreSQL
   const dbCourse = await prisma.course.findUnique({
     where: { id: id }
   });
 
-  // Se não existir no banco de dados novo, joga para 404
+  // 🛡️ QVA: Se não existir no banco, 404 imediato para evitar ReferenceError
   if (!dbCourse) {
     return notFound();
   }
 
-  // 2. BUSCA DE ELITE (AULAS): Pega as centenas de aulas migradas, na ordem certa
+  // 2. BUSCA DE ELITE (AULAS): Pega a contagem real para o Widget
   const realLessons = await prisma.lesson.findMany({
-    where: {
-      courseId: id, 
-    },
-    orderBy: {
-      order: 'asc', // Tática de Mestre: Usa a coluna 'order' que criamos no Seed!
-    }
+    where: { courseId: id },
+    orderBy: { order: 'asc' }
   });
 
-  // 3. TRADUTOR DE INTERFACE (Adapter): 
-  // Pega os dados crus do banco e formata para a interface visual não quebrar.
-  // Conforme você for editando a "Casca" do curso no painel, esses dados ficarão reais.
+  // 3. TRADUTOR DE INTERFACE (Adapter) 3.0: 
+  // 🚀 HABILITAÇÃO TOTAL: Conectando os campos da página de edição (image_e864fe.png)
   const courseViewData = {
     id: dbCourse.id,
     title: dbCourse.title,
     description: dbCourse.description || "Este curso está sendo formatado.",
-    category: dbCourse.category || "Negócios",
-    price: 97.00, // Fallback visual
-    discount: 0,
+    category: dbCourse.category || "Geral",
+    
+    // 💵 FINANCEIRO: Preços dinâmicos da sua curadoria
+    price: dbCourse.price ? Number(dbCourse.price) : 199.90, 
+    discountPrice: dbCourse.discountPrice ? Number(dbCourse.discountPrice) : null,
+    
+    // 🖼️ VISUAL: Thumbnail do Vercel Blob
     thumbnail: dbCourse.thumbnail || "/assets/img/course/details/course.jpg",
-    video_id: "go7QYaQR494",
-    lessons: realLessons.length, // Conta automaticamente as aulas do banco!
-    students: 150,
-    language: "Português",
-    mentorName: "Tutor360"
+    
+    // 🎥 VÍDEO: Agora puxa o link dinâmico da sua edição (image_e864fe.png)
+    video_id: dbCourse.videoId || "go7QYaQR494", 
+    
+    // 📊 METADADOS: Sincronizados com os ícones do Modelo M02
+    lessons: realLessons.length, 
+    level: dbCourse.level || "Iniciante",
+    language: dbCourse.language || "Português",
+    mentorName: dbCourse.mentorName || "Tutor360",
+    duration: dbCourse.duration || "Acesso Vitalício",
   };
 
   return (
     <main>
-      {/* O Orquestrador agora recebe 100% de dados vivos do PostgreSQL */}
+      {/* O Orquestrador recebe o objeto validado e sem erros de referência */}
       <CourseDetailsArea course={courseViewData as any} lessons={realLessons} />
     </main>
   );

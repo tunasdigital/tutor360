@@ -1,98 +1,72 @@
 'use client';
-import React from "react";
-import { CertificateSvg, DeadLineSvg, DurationSvg, LanguageSvg, LectureSvg, ShareSvg, SkillLevelSvg } from "@/components/svg";
+import Image from "next/image";
+import { CertificateSvg, DeadLineSvg, DurationSvg, LanguageSvg, LectureSvg, PlayTwoSvg, ShareSvg, SkillLevelSvg } from "@/components/svg";
+import VideoProvider from "@/components/video/video-provider";
 import { ICourseDT } from "@/types/course-d-t";
+import CoursePrice from "../../../../components/course/course-price";
 import Link from "next/link";
+import course_img_default from '@/assets/img/course/details/course.jpg';
 
 type IProps = {
    course: ICourseDT;
 };
 
 export default function CourseDetailsRightSide({ course }: IProps) {
-   // Prevenção total de quebra: Valores padrão caso o course venha vazio
-   const id = course?.id || 1;
-   const discount = course?.discount || 0;
-   const price = course?.price || 0;
-   const video_id = course?.video_id || "go7QYaQR494";
-   const lessons = course?.lessons || "A definir";
-   const language = course?.language || "Português";
+   const { discountPrice, price, thumbnail, lessons, level, language, video_id, duration } = course || {};
+
+   // 🎥 TÁTICA DE EXTRAÇÃO: Limpa a URL (image_e864fe.png) para pegar apenas o ID que o Player entende
+   const extractVideoId = (url: string) => {
+      if (!url) return "go7QYaQR494"; 
+      const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*|vimeo\.com\/(\d+)/;
+      const match = url.match(regExp);
+      return (match && (match[7] || match[8])) ? (match[7] || match[8]) : url;
+   };
 
    return (
-      <aside className="tp-course-details-2-widget">
-         
-         {/* 🚀 O PULO DO GATO: A classe '-thumb' é obrigatória no template para o topo não sumir */}
-         <div className="tp-course-details-2-widget-thumb p-relative w-100" style={{ marginBottom: '25px', borderRadius: '12px', overflow: 'hidden', backgroundColor: '#000', boxShadow: '0px 10px 20px rgba(0,0,0,0.1)' }}>
-            <div className="ratio ratio-16x9">
-               <iframe
-                  src={`https://www.youtube.com/embed/${video_id}?rel=0&modestbranding=1`}
-                  title="Vídeo de Amostra"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-100 h-100"
-               ></iframe>
-            </div>
+      <div className="tp-course-details-2-widget" style={{ backgroundColor: '#fff', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.1)' }}>
+         <div className="tp-course-details-2-widget-thumb p-relative">
+            <Image 
+               src={thumbnail || course_img_default} 
+               alt={course.title || "Capa"} 
+               width={400} height={250} 
+               style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+            />
+            {/* Aceita links do Vimeo/YouTube colados na curadoria (image_e864fe.png) */}
+            <VideoProvider videoId={extractVideoId(video_id)}>
+               <span><PlayTwoSvg/></span>
+            </VideoProvider>
          </div>
 
          <div className="tp-course-details-2-widget-content">
-            
-            {/* 💰 ÁREA DE PREÇO (HTML Puro mantido para destaque) */}
-            <div style={{ paddingBottom: '20px', marginBottom: '20px', borderBottom: '1px solid #EAEAEA', textAlign: 'center' }}>
-               {price > 0 ? (
-                  <h3 style={{ margin: 0, fontSize: '32px', fontWeight: '800', color: '#0055FF' }}>
-                     R$ {price.toFixed(2).replace('.', ',')}
-                  </h3>
-               ) : (
-                  <h3 style={{ margin: 0, fontSize: '32px', fontWeight: '800', color: '#00BA55' }}>
-                     Gratuito
-                  </h3>
-               )}
+            <div className="tp-course-details-2-widget-price">
+               <CoursePrice discount={discountPrice} price={price} />
             </div>
-
-            {/* BOTÕES DE CHECKOUT */}
-            <div className="tp-course-details-2-widget-btn mb-25">
-               <Link className="tp-btn-2 w-100 text-center mb-15" href={`/checkout?id=${id}`} style={{ display: 'block', borderRadius: '8px' }}>
-                  Matricular-se Agora
-               </Link>
-               <Link className="tp-btn-3 w-100 text-center" href={`/cart?id=${id}`} style={{ display: 'block', borderRadius: '8px' }}>
-                  Adicionar ao Carrinho
-               </Link>
-               <p className="text-center mt-15" style={{ fontSize: '13px', color: '#666' }}>
-                  <i className="fa-solid fa-shield-check" style={{ color: '#0055FF' }}></i> Garantia de 30 dias para reembolso
-               </p>
+            <div className="tp-course-details-2-widget-btn">
+               <Link className="active" href="/cart">Matricular-se Agora</Link>
+               <Link href="/cart">Adicionar ao Carrinho</Link>
             </div>
-
-            {/* LISTA DE BENEFÍCIOS */}
             <div className="tp-course-details-2-widget-list">
-               <h5 className="mb-15">Este curso inclui:</h5>
+               <h5>Este curso inclui:</h5>
                <div className="tp-course-details-2-widget-list-item-wrapper">
                   <div className="tp-course-details-2-widget-list-item d-flex align-items-center justify-content-between">
                      <span> <LectureSvg /> Aulas</span>
-                     <span>{lessons}</span>
+                     <span>{lessons || 0}</span>
                   </div>
                   <div className="tp-course-details-2-widget-list-item d-flex align-items-center justify-content-between">
                      <span> <DurationSvg /> Duração</span>
-                     <span>12h 45m</span>
+                     <span>{duration || "Acesso Vitalício"}</span>
                   </div>
                   <div className="tp-course-details-2-widget-list-item d-flex align-items-center justify-content-between">
                      <span> <SkillLevelSvg /> Nível</span>
-                     <span>Iniciante ao Avançado</span>
+                     <span>{level}</span>
                   </div>
                   <div className="tp-course-details-2-widget-list-item d-flex align-items-center justify-content-between">
                      <span> <LanguageSvg /> Idioma</span>
                      <span>{language}</span>
                   </div>
-                  <div className="tp-course-details-2-widget-list-item d-flex align-items-center justify-content-between">
-                     <span> <DeadLineSvg /> Acesso</span>
-                     <span style={{ fontWeight: 'bold', color: '#0055FF' }}>Vitalício</span>
-                  </div>
-                  <div className="tp-course-details-2-widget-list-item d-flex align-items-center justify-content-between">
-                     <span> <CertificateSvg /> Certificado</span>
-                     <span>Sim, incluso</span>
-                  </div>
                </div>
             </div>
          </div>
-      </aside>
+      </div>
    );
 }
