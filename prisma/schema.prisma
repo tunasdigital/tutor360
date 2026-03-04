@@ -39,17 +39,39 @@ model Course {
   maxStudents   Int?      @default(0)
   duration      String?   
   
-  // 🎥 F05 - VÍDEO DE VENDAS: Unificado para bater com as Actions (image_e6841d.png)
+  // 🎥 F05 - VÍDEO DE VENDAS
   videoId       String?   
 
-  // 🚀 F04 - REPETIDOR DE APRENDIZADO: A gaveta de array que resolve o erro de 'Unknown argument'
+  // 🚀 F04 - REPETIDOR DE APRENDIZADO
   whatYouWillLearn String[] @default([]) 
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  lessons       Lesson[]
+  
+  // 🚀 F06 - HIERARQUIA ESTRUTURAL
+  modules       Module[]  // Um curso agora tem vários módulos
+  lessons       Lesson[]  // Mantido para legado/segurança das aulas antigas do WP
 
   @@map("courses")
+}
+
+// 📦 F06: A NOVA GAVETA INTERMEDIÁRIA (Módulos/Seções)
+model Module {
+  id          String   @id @default(cuid())
+  title       String
+  order       Int      @default(0) // Para ordenar (Módulo 1, Módulo 2)
+  
+  // Relação: A qual curso este módulo pertence?
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  
+  // Relação: Quais aulas estão dentro deste módulo?
+  lessons     Lesson[] 
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("modules")
 }
 
 // 📖 GAVETA DE CONTEÚDO: Lições e Aulas
@@ -60,11 +82,18 @@ model Lesson {
   videoUrl  String
   duration  String?
   order     Int      @default(0)
+  
+  // Relação Maior: Curso
   courseId  String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  // 🚀 F06: Relação Direta: Módulo (Opcional por enquanto para não quebrar as antigas)
+  moduleId  String?
+  module    Module?  @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
   wpId      Int?     @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@map("lessons")
 }

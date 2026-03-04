@@ -1,39 +1,41 @@
-import { Metadata } from "next";
-import prisma from "@/lib/prisma"; // TÁTICA DE MESTRE: Trazendo o motor de busca
+import React from "react";
+import prisma from "@/lib/prisma";
 import CreateNewCourseArea from "./_components/create-new-course-area";
 
-export const metadata: Metadata = {
-   // Atualizamos o título para refletir a dupla função (Criar/Editar)
-   title: "Criar ou Editar Curso - Tutor360",
-}
+// 🚀 O SEGREDO DO FLUXO: Força a página a sempre buscar dados novos, ignorando o cache
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
-// 1. O vigia agora recebe os parâmetros da URL (searchParams)
 interface PageProps {
-   searchParams: {
-      courseId?: string;
-   }
+  searchParams: Promise<{
+    courseId?: string;
+  }>;
 }
 
-// Transformamos em async para suportar a consulta ao banco
-export default async function CreateNewCoursePage({ searchParams }: PageProps) {
-   // 2. Captura o ID que o radar mandou pela URL
-   const courseId = searchParams.courseId;
-   
-   let dbCourse = null;
+export default async function CreateNewCoursePage(props: PageProps) {
+  // Aguarda os parâmetros da URL (Regra do Next.js 15)
+  const searchParams = await props.searchParams;
+  const courseId = searchParams.courseId;
 
-   // 3. Se houver um ID, faz a busca no PostgreSQL antes de carregar a tela
-   if (courseId) {
-      dbCourse = await prisma.course.findUnique({
-         where: { id: courseId },
-      });
-   }
+  let courseToEdit = null;
 
-   return (
-      <main className="tp-dashboard-body-bg">
+  if (courseId) {
+    // Busca o curso com módulos e lições inclusas
+    courseToEdit = await prisma.course.findUnique({
+      where: { id: courseId },
+      include: {
+        modules: {
+          orderBy: { order: 'asc' }
+        },
+        lessons: {
+          orderBy: { order: 'asc' }
+        }
+      }
+    });
+  }
 
-         {/* 4. A INJEÇÃO: Passamos o curso encontrado (ou null se for um curso novo) para o formulário */}
-         <CreateNewCourseArea courseToEdit={dbCourse} />
-
-      </main>
-   )
+  // Entrega o pacote completo para o Orquestrador
+  return (
+    <CreateNewCourseArea courseToEdit={courseToEdit} />
+  );
 }
