@@ -4,8 +4,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // 🚀 F04: Removida a linha 'url' para cumprir a regra do Prisma 7.4.1 (Erro P1012)
-  // A conexão agora é injetada automaticamente via process.env.DATABASE_URL
 }
 
 // 🔐 GAVETA ROOT: Gestão de Acesso
@@ -30,7 +28,7 @@ model Course {
   thumbnail     String?
   category      String?
   
-  // 💰 ATRIBUTOS COMERCIAIS (Mapeados da Curadoria)
+  // 💰 ATRIBUTOS COMERCIAIS
   price         Float?    @default(0)
   discountPrice Float?    @default(0)
   level         String?   @default("Iniciante")
@@ -49,8 +47,8 @@ model Course {
   updatedAt     DateTime  @updatedAt
   
   // 🚀 F06 - HIERARQUIA ESTRUTURAL
-  modules       Module[]  // Um curso agora tem vários módulos
-  lessons       Lesson[]  // Mantido para legado/segurança das aulas antigas do WP
+  modules       Module[]  
+  lessons       Lesson[]  
 
   @@map("courses")
 }
@@ -59,13 +57,11 @@ model Course {
 model Module {
   id          String   @id @default(cuid())
   title       String
-  order       Int      @default(0) // Para ordenar (Módulo 1, Módulo 2)
+  order       Int      @default(0)
   
-  // Relação: A qual curso este módulo pertence?
   courseId    String
   course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   
-  // Relação: Quais aulas estão dentro deste módulo?
   lessons     Lesson[] 
 
   createdAt   DateTime @default(now())
@@ -76,24 +72,26 @@ model Module {
 
 // 📖 GAVETA DE CONTEÚDO: Lições e Aulas
 model Lesson {
-  id        String   @id @default(cuid())
-  title     String
-  slug      String
-  videoUrl  String
-  duration  String?
-  order     Int      @default(0)
+  id          String   @id @default(cuid())
+  title       String
+  slug        String
+  videoUrl    String
   
-  // Relação Maior: Curso
-  courseId  String
-  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  // 🚀 F06 NÍVEL 4: O "PULO DO GATO" - Campo para o Texto da Aula
+  description String?  @db.Text 
+  
+  duration    String?
+  order       Int      @default(0)
+  
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
-  // 🚀 F06: Relação Direta: Módulo (Opcional por enquanto para não quebrar as antigas)
-  moduleId  String?
-  module    Module?  @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  moduleId    String?
+  module      Module?  @relation(fields: [moduleId], references: [id], onDelete: Cascade)
 
-  wpId      Int?     @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  wpId        Int?     @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@map("lessons")
 }

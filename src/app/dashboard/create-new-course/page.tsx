@@ -2,7 +2,7 @@ import React from "react";
 import prisma from "@/lib/prisma";
 import CreateNewCourseArea from "./_components/create-new-course-area";
 
-// 🚀 O SEGREDO DO FLUXO: Força a página a sempre buscar dados novos, ignorando o cache
+// 🚀 BLINDAGEM ANTI-CACHE: Garante que o Next.js busque dados frescos do banco em cada F5
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
@@ -13,28 +13,37 @@ interface PageProps {
 }
 
 export default async function CreateNewCoursePage(props: PageProps) {
-  // Aguarda os parâmetros da URL (Regra do Next.js 15)
+  // 🚀 REGRA NEXT.JS 15: Aguarda a chegada dos parâmetros da URL
   const searchParams = await props.searchParams;
   const courseId = searchParams.courseId;
 
   let courseToEdit = null;
 
   if (courseId) {
-    // Busca o curso com módulos e lições inclusas
+    // 🎯 A BUSCA PROFUNDA (Deep Fetch):
+    // Não buscamos apenas o curso, mas abrimos as gavetas de Módulos e, 
+    // dentro de cada módulo, buscamos as Aulas (lessons).
     courseToEdit = await prisma.course.findUnique({
       where: { id: courseId },
       include: {
         modules: {
-          orderBy: { order: 'asc' }
+          orderBy: { order: 'asc' },
+          include: {
+            lessons: { 
+              orderBy: { order: 'asc' } 
+            }
+          }
         },
+        // Mantemos a busca de lições soltas para compatibilidade com o legado WP
         lessons: {
+          where: { moduleId: null },
           orderBy: { order: 'asc' }
         }
       }
     });
   }
 
-  // Entrega o pacote completo para o Orquestrador
+  // Repassa o objeto completo (com toda a hierarquia) para o Orquestrador
   return (
     <CreateNewCourseArea courseToEdit={courseToEdit} />
   );

@@ -6,114 +6,112 @@ import { redirect } from "next/navigation";
 import { put } from "@vercel/blob"; 
 
 /**
- * 🎯 MANOBRA DO PENEIRÃO: Busca apenas cursos reais para a Home
+ * 🚀 EXTRATOR DE ID (Blindagem F05/F06)
  */
-export async function getValidCoursesAction() {
-  try {
-    const courses = await prisma.course.findMany({
-      where: {
-        AND: [
-          { title: { notContains: "Breve" } },
-          { title: { notContains: "Em breve" } },
-        ],
-      },
-      orderBy: { id: 'asc' },
-    });
-    return courses;
-  } catch (error) {
-    console.error("Erro ao buscar cursos válidos:", error);
-    return [];
-  }
-}
+const getYouTubeID = (url: string) => {
+    if (!url) return "";
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : url;
+};
 
-// 🚀 FUNÇÃO PRINCIPAL: Onde todo o salvamento acontece
 export async function publishCourseAction(formData: FormData) {
     const courseId = formData.get("courseId") as string;
-    
-    // Rastreador no terminal para garantir que o ID chegou
-    console.log("LOG DE PRODUÇÃO - ID DO CURSO RECEBIDO:", courseId); 
-
     const title = formData.get("title") as string;
     const slug = formData.get("slug") as string;
     const description = formData.get("description") as string;
     const level = formData.get("level") as string;
-
-    // TÁTICA F04: Benefícios
-    const learnItemsRaw = formData.getAll("whatYouWillLearn[]") as string[];
-    const whatYouWillLearn = learnItemsRaw.filter(item => item.trim() !== "");
-
-    // TÁTICA F05: Vídeo de Introdução
     const videoId = formData.get("videoId") as string;
 
-    // 🚀 TÁTICA F06: Captura dos Módulos
-    const moduleTitlesRaw = formData.getAll("moduleTitles[]") as string[];
-    const moduleTitles = moduleTitlesRaw.map(t => t.trim()).filter(t => t !== "");
+    const whatYouWillLearn = (formData.getAll("whatYouWillLearn[]") as string[]).filter(item => item.trim() !== "");
+    const moduleTitles = formData.getAll("moduleTitles[]") as string[];
 
     const price = parseFloat(formData.get("price") as string) || 0;
     const discountPrice = parseFloat(formData.get("discountPrice") as string) || 0;
-    const maxStudents = parseInt(formData.get("maxStudents") as string, 10) || 0;
 
     const thumbnailFile = formData.get("thumbnail") as File;
     let thumbnailUrl = undefined; 
 
     if (thumbnailFile && thumbnailFile.size > 0) {
-        const blob = await put(thumbnailFile.name, thumbnailFile, {
-            access: 'public', 
-        });
+        const blob = await put(thumbnailFile.name, thumbnailFile, { access: 'public' });
         thumbnailUrl = blob.url; 
     }
 
-    if (!courseId) {
-        throw new Error("ID do curso não fornecido para atualização.");
-    }
+    if (!courseId) throw new Error("ID do curso não fornecido.");
 
-    // 1. ATUALIZA O CURSO PRINCIPAL
+    // 1. ATUALIZA CURSO
     await prisma.course.update({
         where: { id: courseId },
         data: {
-            title,
-            slug,
-            description,
-            level,
-            price,
-            discountPrice,
-            maxStudents,
-            whatYouWillLearn: whatYouWillLearn, 
-            videoId: videoId || null,
+            title, slug, description, level, price, discountPrice,
+            whatYouWillLearn, videoId: getYouTubeID(videoId) || null,
             ...(thumbnailUrl && { thumbnail: thumbnailUrl })
         }
     });
 
-    // 2. 🚀 SINCRONIZADOR AGRESSIVO DE MÓDULOS (F06)
-    // Só executa se tivermos um curso válido e módulos enviados da tela
-    if (courseId && moduleTitles.length > 0) {
-        // Passo A: Limpa todos os módulos velhos deste curso para não haver duplicatas
-        await prisma.module.deleteMany({ 
-            where: { courseId: courseId } 
+    // 2. ⚡ SINCRONIZADOR DE MÓDULOS E AULAS (Multimodal)
+    await prisma.module.deleteMany({ where: { courseId } });
+
+    for (let i = 0; i < moduleTitles.length; i++) {
+        const mTitle = moduleTitles[i].trim();
+        if (!mTitle) continue;
+
+        const createdModule = await prisma.module.create({
+            data: {
+                title: mTitle,
+                order: i,
+                courseId: courseId
+            }
         });
-        
-        // Passo B: Cria todos os módulos novos exatamente na ordem da tela
-        await Promise.all(moduleTitles.map((moduleTitle, index) => {
-            return prisma.module.create({
-                data: {
-                    title: moduleTitle,
-                    order: index,
-                    courseId: courseId
-                }
-            });
-        }));
-    } else if (courseId && moduleTitles.length === 0) {
-        // Se o usuário excluiu todos os módulos na tela, limpamos o banco também
-        await prisma.module.deleteMany({ 
-            where: { courseId: courseId } 
-        });
+
+        // 🎯 O PONTO DE FALHA ESTAVA AQUI:
+        const lessonTitles = formData.getAll(`lessonTitles_${i}[]`) as string[];
+        const lessonVideos = formData.getAll(`lessonVideos_${i}[]`) as string[];
+        const lessonDescriptions = formData.getAll(`lessonDescriptions_${i}[]`) as string[]; // 🚀 CAPTURA O TEXTO
+
+        if (lessonTitles.length > 0) {
+            await Promise.all(lessonTitles.map((lTitle, lIndex) => {
+                const vUrlRaw = lessonVideos[lIndex] || "";
+                const lDesc = lessonDescriptions[lIndex] || ""; // 🚀 PEGA A DESCRIÇÃO DA AULA
+                
+                if (!lTitle.trim()) return null;
+
+                return prisma.lesson.create({
+                    data: {
+                        title: lTitle,
+                        videoUrl: getYouTubeID(vUrlRaw),
+                        description: lDesc, // 🚀 SALVA NO BANCO (Campo que criamos no Schema)
+                        slug: `${slug}-m${i}-l${lIndex}`,
+                        order: lIndex,
+                        courseId: courseId,
+                        moduleId: createdModule.id
+                    }
+                });
+            }));
+        }
     }
 
-    // 3. REVALIDAÇÃO DE CACHE E REDIRECIONAMENTO
     revalidatePath("/dashboard/admin-all-courses");
-    revalidatePath("/");
     revalidatePath(`/dashboard/create-new-course`); 
-    revalidatePath(`/course-details/${slug || courseId}`);
 
     redirect("/dashboard/admin-all-courses");
+}
+
+/**
+ * 🎯 BUSCA CURSOS
+ */
+export async function getValidCoursesAction() {
+    try {
+        return await prisma.course.findMany({
+            where: {
+                AND: [
+                    { title: { notContains: "Breve" } },
+                    { title: { notContains: "Em breve" } },
+                ],
+            },
+            orderBy: { id: 'asc' },
+        });
+    } catch (error) {
+        return [];
+    }
 }
