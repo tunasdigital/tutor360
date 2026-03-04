@@ -4,10 +4,11 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // Removida a linha 'url' para respeitar a arquitetura do Prisma 7.4.1 do seu projeto
+  // 🚀 F04: Removida a linha 'url' para cumprir a regra do Prisma 7.4.1 (Erro P1012)
+  // A conexão agora é injetada automaticamente via process.env.DATABASE_URL
 }
 
-// 🚀 NOVA GAVETA ROOT: A Sala de Comando (Usuários e Administradores)
+// 🔐 GAVETA ROOT: Gestão de Acesso
 model User {
   id        String   @id @default(cuid())
   name      String
@@ -20,31 +21,38 @@ model User {
   @@map("users")
 }
 
+// 🎓 GAVETA PRINCIPAL: O Coração do Curso
 model Course {
-  id            String   @id @default(cuid())
+  id            String    @id @default(cuid())
   title         String
-  slug          String   @unique
-  description   String?  @db.Text
+  slug          String    @unique
+  description   String?   @db.Text
   thumbnail     String?
   category      String?
   
-  // 🚀 NOVAS GAVETAS COMERCIAIS (Mapeadas do WordPress antigo)
-  price         Float?   @default(0)     // Preço Regular (ex: 199.00)
-  discountPrice Float?   @default(0)     // Preço com Desconto (ex: 157.00)
-  level         String?  @default("Iniciante") // Nível de Dificuldade
-  isPublic      Boolean  @default(false) // Trava de Curso Público
-  hasQnA        Boolean  @default(false) // Trava de Seção de Perguntas
-  maxStudents   Int?     @default(0)     // Limite de Alunos (0 = ilimitado)
-  duration      String?                  // Duração Total (ex: "1h 19m")
-  introVideoUrl String?                  // URL do vídeo de Pitch/Venda
+  // 💰 ATRIBUTOS COMERCIAIS (Mapeados da Curadoria)
+  price         Float?    @default(0)
+  discountPrice Float?    @default(0)
+  level         String?   @default("Iniciante")
+  isPublic      Boolean   @default(false)
+  hasQnA        Boolean   @default(false)
+  maxStudents   Int?      @default(0)
+  duration      String?   
   
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  // 🎥 F05 - VÍDEO DE VENDAS: Unificado para bater com as Actions (image_e6841d.png)
+  videoId       String?   
+
+  // 🚀 F04 - REPETIDOR DE APRENDIZADO: A gaveta de array que resolve o erro de 'Unknown argument'
+  whatYouWillLearn String[] @default([]) 
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   lessons       Lesson[]
 
   @@map("courses")
 }
 
+// 📖 GAVETA DE CONTEÚDO: Lições e Aulas
 model Lesson {
   id        String   @id @default(cuid())
   title     String

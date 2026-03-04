@@ -4,8 +4,9 @@ import CourseBuilderArea from "./course-builder-area";
 import CourseCertificate from "./course-certificate";
 import CourseInfoArea from "./course-info-area";
 import CourseInstructor from "./course-instructor";
-import CourseIntroVideo from "./course-intro-video";
+// ❌ REMOVIDO: import CourseIntroVideo from "./course-intro-video"; (A Sanfona duplicada foi eliminada)
 import CoursePrerequisites from "./course-prerequisites";
+import { publishCourseAction } from "@/actions/course-actions";
 
 // Dicas de Upload de Curso (Refinadas para o ecossistema Tutor360)
 const listData = [
@@ -16,7 +17,6 @@ const listData = [
     "Adicione Tópicos no Construtor para criar aulas em vídeo, quizzes e tarefas.",
 ];
 
-// TÁTICA DE MESTRE: Criamos a prop para receber os dados do Prisma vindos do page.tsx
 type IProps = {
     courseToEdit?: any; 
 }
@@ -34,49 +34,56 @@ export default function CreateNewCourseArea({ courseToEdit }: IProps) {
                                 <div className="tpd-new-course-wrap">
                                     <div className="tpd-new-course-box">
 
-                                        <div className="accordion" id="accordionPanelsStayOpenExample">
+                                        {/* 🚀 O FORMULÁRIO MESTRE: Repare no ID "master-course-form" */}
+                                        <form action={publishCourseAction} id="master-course-form">
+                                            
+                                            {/* ID do Curso Oculto */}
+                                            <input type="hidden" name="courseId" value={courseToEdit?.id || ""} />
 
-                                            {/* Início da área de informações básicas */}
-                                            {/* A MÃO RECEBENDO O BASTÃO: Repassamos os dados reais para o formulário */}
-                                            <CourseInfoArea courseToEdit={courseToEdit} />
-                                            {/* Fim da área de informações básicas */}
+                                            <div className="accordion" id="accordionPanelsStayOpenExample">
 
-                                            {/* Vídeo de introdução do curso */}
-                                            <CourseIntroVideo />
-                                            {/* Vídeo de introdução do curso */}
+                                                {/* Blocos 1, 2, 3 e 4 (Já inclui o Vídeo atualizado!) */}
+                                                <CourseInfoArea courseToEdit={courseToEdit} />
 
-                                            {/* Área do construtor de cursos (grade curricular) */}
-                                            <CourseBuilderArea />
-                                            {/* Área do construtor de cursos */}
+                                                {/* ❌ A Sanfona Velha de Vídeo foi deletada daqui para não duplicar */}
 
-                                            {/* Área de seleção de instrutores */}
-                                            <CourseInstructor />
-                                            {/* Área de seleção de instrutores */}
+                                                {/* 5. Área do construtor de cursos (grade curricular) */}
+                                                <CourseBuilderArea />
 
-                                            {/* Área de anexos do curso */}
-                                            <CourseAttachment />
-                                            {/* Área de anexos do curso */}
+                                                {/* 6. Área de seleção de instrutores */}
+                                                <CourseInstructor />
 
-                                            {/* Informações adicionais */}
-                                            <CourseAdditionalInfo />
-                                            {/* Informações adicionais */}
+                                                {/* 7. Área de anexos do curso */}
+                                                <CourseAttachment />
 
-                                            {/* Pré-requisitos do curso */}
-                                            <CoursePrerequisites />
-                                            {/* Pré-requisitos do curso */}
+                                                {/* 8. Informações adicionais */}
+                                                <CourseAdditionalInfo />
 
-                                            {/* Certificado do curso */}
-                                            <CourseCertificate />
-                                            {/* Certificado do curso */}
+                                                {/* 9. Pré-requisitos do curso */}
+                                                <CoursePrerequisites />
 
-                                        </div>
+                                                {/* 10. Certificado do curso */}
+                                                <CourseCertificate />
+
+                                            </div>
+
+                                            {/* 🚀 BOTÃO GLOBAL DE SALVAMENTO (O Único que Funciona Agora) */}
+                                            <div className="mt-40 text-center">
+                                                <button type="submit" className="tp-btn-13 w-100" style={{ height: '60px', fontSize: '18px' }}>
+                                                    Salvar e Atualizar Curso Completo
+                                                </button>
+                                                <p className="mt-15" style={{ fontSize: '13px', color: '#64748B' }}>
+                                                    Use este botão para garantir que todos os dados do formulário sejam gravados no banco.
+                                                </p>
+                                            </div>
+
+                                        </form>
 
                                     </div>
                                 </div>
                             </div>
                             <div className="col-lg-4">
                                 <div className="tpd-course-enroll-list">
-                                    {/* Título lateral traduzido */}
                                     <h2 className="tp-dashboard-title">Dicas para Publicação</h2>
                                     <ul>
                                         {listData.map((tip, index) => (

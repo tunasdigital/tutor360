@@ -12,52 +12,57 @@ interface PageProps {
 export default async function CourseDetailsPage({ params }: PageProps) {
   const { id } = params;
 
-  // 1. BUSCA DE ELITE (CURSO): Recupera todos os campos reais do PostgreSQL
-  const dbCourse = await prisma.course.findUnique({
-    where: { id: id }
+  // 1. BUSCA HÍBRIDA: Puxa o curso e as lições para contar a carga horária
+  const dbCourse = await prisma.course.findFirst({
+    where: {
+      OR: [
+        { id: id },
+        { slug: id }
+      ]
+    },
+    include: {
+      lessons: { orderBy: { order: 'asc' } },
+    }
   });
 
-  // 🛡️ QVA: Se não existir no banco, 404 imediato para evitar ReferenceError
-  if (!dbCourse) {
-    return notFound();
-  }
+  if (!dbCourse) return notFound();
 
-  // 2. BUSCA DE ELITE (AULAS): Pega a contagem real para o Widget
-  const realLessons = await prisma.lesson.findMany({
-    where: { courseId: id },
-    orderBy: { order: 'asc' }
-  });
-
-  // 3. TRADUTOR DE INTERFACE (Adapter) 3.0: 
-  // 🚀 HABILITAÇÃO TOTAL: Conectando os campos da página de edição (image_e864fe.png)
+  // 2. 🚀 ADAPTER 4.3 (Fidelidade Acadia): 
+  // Injetando as propriedades que faltavam na coluna da direita (image_e59783.png)
   const courseViewData = {
     id: dbCourse.id,
     title: dbCourse.title,
     description: dbCourse.description || "Este curso está sendo formatado.",
     category: dbCourse.category || "Geral",
     
-    // 💵 FINANCEIRO: Preços dinâmicos da sua curadoria
+    // 💰 FINANCEIRO & CUPOM
     price: dbCourse.price ? Number(dbCourse.price) : 199.90, 
     discountPrice: dbCourse.discountPrice ? Number(dbCourse.discountPrice) : null,
     
-    // 🖼️ VISUAL: Thumbnail do Vercel Blob
+    // 🎥 VÍDEO
+    video_id: dbCourse.videoId || "go7QYaQR494", 
     thumbnail: dbCourse.thumbnail || "/assets/img/course/details/course.jpg",
     
-    // 🎥 VÍDEO: Agora puxa o link dinâmico da sua edição (image_e864fe.png)
-    video_id: dbCourse.videoId || "go7QYaQR494", 
-    
-    // 📊 METADADOS: Sincronizados com os ícones do Modelo M02
-    lessons: realLessons.length, 
+    // 📊 METADADOS DO WIDGET (O que faltava no seu print image_e59f47.png)
+    lessons: dbCourse.lessons.length, 
+    duration: dbCourse.duration || "Acesso Vitalício", // "4h 50m" no modelo
     level: dbCourse.level || "Iniciante",
-    language: dbCourse.language || "Português",
-    mentorName: dbCourse.mentorName || "Tutor360",
-    duration: dbCourse.duration || "Acesso Vitalício",
+    language: "Português",
+    
+    // 🎓 CERTIFICADO E PRAZO (Solicitados pelo CEO)
+    hasCertificate: true, // Habilita a linha "Certificate: Yes"
+    deadline: "30 Nov 2026", // Data de validade do acesso ou oferta
+    
+    // 🚀 EXTRAS DE CONVERSÃO
+    whatYouWillLearn: dbCourse.whatYouWillLearn || [], 
+    mentorName: "Tutor360",
+    mentorRole: "Especialista Tutor360",
+    attachments: [] 
   };
 
   return (
     <main>
-      {/* O Orquestrador recebe o objeto validado e sem erros de referência */}
-      <CourseDetailsArea course={courseViewData as any} lessons={realLessons} />
+      <CourseDetailsArea course={courseViewData as any} lessons={dbCourse.lessons} />
     </main>
   );
 }

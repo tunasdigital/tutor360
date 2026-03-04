@@ -1,57 +1,57 @@
 'use client';
 import React from "react";
-import { MinusSvg, PlusThreeSvg } from "@/components/svg";
 import { ICourseDT } from "@/types/course-d-t";
 
-interface IProps {
-  course?: ICourseDT; // Recebe os dados do curso para sair do texto estático
-}
+type IProps = { 
+   course: ICourseDT; 
+};
 
 export default function CourseDetailsInfo({ course }: IProps) {
-  const [showMore, setShowMore] = React.useState(false);
+   const { description, whatYouWillLearn } = course || {};
 
-  return (
-    <div id="info">
-      <h4 className="tp-course-details-2-main-title">Sobre o Curso</h4>
-      <div className="tp-course-details-2-text mb-60">
-        <div className={`content ${showMore ? 'show' : ''}`}>
-          {/* Tática de Mentor: Se houver descrição no banco, usa ela. Senão, mantém o padrão elegante. */}
-          <p>
-            {course?.title ? `Este curso de ${course.category} é focado em resultados reais.` : 'Este curso é voltado para pessoas interessadas em desenvolver novas habilidades.'} 
-            Começaremos desde o básico e avançaremos passo a passo. Se você já tem alguma experiência na área, mas quer se atualizar e acelerar seus resultados, este curso é perfeito para você também!
-          </p>
-          <p>
-            Primeiro, vamos repassar os conceitos fundamentais e as melhores práticas do mercado. Veremos como aplicar o conhecimento em projetos do mundo real, aprenderemos sobre estruturação e como tirar o máximo de proveito das ferramentas disponíveis.
-          </p>
-        </div>
-        
-        <a 
-          style={{ cursor: 'pointer' }} 
-          onClick={() => setShowMore(!showMore)} 
-          className="tp-course-details-showmore show-more-button"
-        >
-          <span className="svg-icon">
-            {showMore ? <MinusSvg clr="#3C66F9" /> : <PlusThreeSvg clr="#3C66F9" />}
-          </span> 
-          {showMore ? 'Mostrar Menos' : 'Mostrar Mais'}
-        </a>
-      </div>
+   return (
+      <div className="tp-course-details-2-info">
+         {/* 📝 ÁREA SOBRE O CURSO */}
+         <div className="tp-course-details-2-text mb-40">
+            <h4 className="tp-course-details-2-main-title" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '15px', color: '#000' }}>
+               Sobre o Curso
+            </h4>
+            <div style={{ whiteSpace: 'pre-line', color: '#4F5E64', lineHeight: '1.7', fontSize: '16px' }}>
+               {description || "A descrição deste curso está sendo atualizada. Em breve mais detalhes."}
+            </div>
+         </div>
 
-      <h4 className="tp-course-details-2-main-title">O que você vai aprender?</h4>
-      <div className="tp-course-details-2-list">
-        <ul>
-          <li>Domine os conceitos essenciais de {course?.category || 'sua área'}.</li>
-          <li>Fundamentos práticos para iniciantes e avançados.</li>
-          <li>Aprenda a planejar e executar projetos do zero.</li>
-          <li>As ferramentas necessárias para os melhores resultados.</li>
-          <li>Como organizar suas ideias e criar estratégias sólidas.</li>
-          <li>Como utilizar materiais de apoio e templates prontos.</li>
-          <li>Diferenças entre as principais abordagens do mercado.</li>
-        </ul>
-        <p className="mt-20">
-          Com este curso, você também tem acesso a diversos recursos complementares, materiais de apoio e ferramentas extras para impulsionar o seu aprendizado de forma prática.
-        </p>
+         {/* 🚀 F04 - TÓPICOS DESEMBOLADOS (A Mágica do Grid e Flexbox) */}
+         <div className="tp-course-details-2-list mt-40 mb-40">
+            <h4 className="tp-course-details-2-main-title" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '25px', color: '#000' }}>
+               O que você vai aprender
+            </h4>
+            
+            {/* Usamos o sistema de Grid do Bootstrap (row) para organizar em colunas */}
+            <div className="row">
+               {whatYouWillLearn && whatYouWillLearn.length > 0 ? (
+                  whatYouWillLearn.map((item, index) => (
+                     // col-lg-6 divide a lista em 2 colunas em telas grandes. col-md-12 deixa 1 coluna no celular.
+                     <div className="col-lg-6 col-md-12 mb-20" key={index}>
+                        {/* d-flex align-items-start garante que o ícone fique no topo se o texto tiver 2 linhas */}
+                        <div className="d-flex align-items-start" style={{ gap: '12px' }}>
+                           <i 
+                              className="fa-regular fa-check" 
+                              style={{ color: '#1d4ed8', fontSize: '18px', marginTop: '4px', flexShrink: 0 }}
+                           ></i>
+                           <span style={{ color: '#4F5E64', fontSize: '15.5px', lineHeight: '1.6' }}>
+                              {item}
+                           </span>
+                        </div>
+                     </div>
+                  ))
+               ) : (
+                  <div className="col-12">
+                     <span style={{ color: '#4F5E64' }}>Conteúdo focado em resultados reais.</span>
+                  </div>
+               )}
+            </div>
+         </div>
       </div>
-    </div>
-  )
+   );
 }

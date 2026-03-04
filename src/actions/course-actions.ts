@@ -7,30 +7,19 @@ import { put } from "@vercel/blob";
 
 /**
  * 🎯 MANOBRA DO PENEIRÃO: Busca apenas cursos reais para a Home
- * Ignora cursos que contenham "Breve" no título ou que não possuam preço definido (opcional).
+ * Ignora cursos que contenham "Breve" no título.
  */
 export async function getValidCoursesAction() {
   try {
     const courses = await prisma.course.findMany({
       where: {
         AND: [
-          {
-            title: {
-              notContains: "Breve", // Descarta rascunhos do WP
-            },
-          },
-          {
-            title: {
-              notContains: "Em breve", // Segunda camada de segurança
-            },
-          },
+          { title: { notContains: "Breve" } },
+          { title: { notContains: "Em breve" } },
         ],
       },
-      orderBy: {
-        id: 'asc', // Mantém a ordem de migração
-      },
+      orderBy: { id: 'asc' },
     });
-
     return courses;
   } catch (error) {
     console.error("Erro ao buscar cursos válidos:", error);
@@ -45,6 +34,14 @@ export async function publishCourseAction(formData: FormData) {
     const slug = formData.get("slug") as string;
     const description = formData.get("description") as string;
     const level = formData.get("level") as string;
+
+    // 🚀 TÁTICA F04: Capturando a lista de "O que você vai aprender"
+    const learnItemsRaw = formData.getAll("whatYouWillLearn[]") as string[];
+    const whatYouWillLearn = learnItemsRaw.filter(item => item.trim() !== "");
+
+    // 🚀 TÁTICA F05: O ELO PERDIDO DO VÍDEO
+    // Agora a Action captura o que você digita no campo de Vídeo
+    const videoId = formData.get("videoId") as string;
 
     const price = parseFloat(formData.get("price") as string) || 0;
     const discountPrice = parseFloat(formData.get("discountPrice") as string) || 0;
@@ -64,6 +61,7 @@ export async function publishCourseAction(formData: FormData) {
         throw new Error("ID do curso não fornecido para atualização.");
     }
 
+    // Persistência no PostgreSQL via Prisma
     await prisma.course.update({
         where: { id: courseId },
         data: {
@@ -74,12 +72,18 @@ export async function publishCourseAction(formData: FormData) {
             price,
             discountPrice,
             maxStudents,
+            // 🚀 Gravando os dados que estavam sendo ignorados:
+            whatYouWillLearn: whatYouWillLearn, 
+            videoId: videoId || null, // Salva o link no banco
             ...(thumbnailUrl && { thumbnail: thumbnailUrl })
         }
     });
 
+    // Revalidação para atualizar o cache e refletir na vitrine e no painel
     revalidatePath("/dashboard/admin-all-courses");
     revalidatePath("/");
+    revalidatePath(`/dashboard/create-new-course`); // Força o painel a recarregar os dados novos
+    revalidatePath(`/course-details/${slug || courseId}`);
 
     redirect("/dashboard/admin-all-courses");
 }
