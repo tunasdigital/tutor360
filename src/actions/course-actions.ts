@@ -3,6 +3,51 @@
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+<<<<<<< HEAD
+import { put } from "@vercel/blob"; 
+
+const getYouTubeID = (url: string) => {
+    if (!url) return "";
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : url;
+};
+=======
+<<<<<<< HEAD
+import { put } from "@vercel/blob";
+>>>>>>> af7e357 (Config Acordeon - 04 - Certificados Ok)
+
+export async function publishCourseAction(formData: FormData) {
+    const courseId = formData.get("courseId") as string;
+    const title = formData.get("title") as string;
+    const slug = formData.get("slug") as string;
+    const description = formData.get("description") as string;
+    const level = formData.get("level") as string;
+    const videoId = formData.get("videoId") as string;
+    
+    // A-1: Captura dos novos campos das abas de mockup
+    const certificateTemplate = formData.get("certificateTemplate") as string || "template-1";
+    const instructors = formData.getAll("instructors[]") as string[];
+
+    const whatYouWillLearn = (formData.getAll("whatYouWillLearn[]") as string[]).filter(item => item.trim() !== "");
+    const moduleTitles = formData.getAll("moduleTitles[]") as string[];
+
+    const price = parseFloat(formData.get("price") as string) || 0;
+    const discountPrice = parseFloat(formData.get("discountPrice") as string) || 0;
+
+    const thumbnailFile = formData.get("thumbnail") as File;
+    let thumbnailUrl = undefined; 
+
+    if (thumbnailFile && thumbnailFile.size > 0) {
+        const blob = await put(thumbnailFile.name, thumbnailFile, { access: 'public' });
+        thumbnailUrl = blob.url; 
+    }
+
+<<<<<<< HEAD
+=======
+    // 🚀 O REDIRECIONAMENTO PARA O PAINEL DE COMANDO
+    // Este comando te leva exatamente para a página do seu print "image_af1375.jpg"
+=======
 import { put } from "@vercel/blob"; 
 
 const getYouTubeID = (url: string) => {
@@ -38,6 +83,7 @@ export async function publishCourseAction(formData: FormData) {
         thumbnailUrl = blob.url; 
     }
 
+>>>>>>> af7e357 (Config Acordeon - 04 - Certificados Ok)
     if (!courseId) throw new Error("ID do curso não fornecido.");
 
     // 1. ATUALIZA CURSO (A-2: Agora com Certificado e Instrutores)
@@ -96,5 +142,9 @@ export async function publishCourseAction(formData: FormData) {
 
     revalidatePath("/dashboard/admin-all-courses");
     revalidatePath(`/dashboard/create-new-course`); 
+<<<<<<< HEAD
+=======
+>>>>>>> b9550a5 (Config Acordeon - 04 - Certificados  - Ok)
+>>>>>>> af7e357 (Config Acordeon - 04 - Certificados Ok)
     redirect("/dashboard/admin-all-courses");
 }
