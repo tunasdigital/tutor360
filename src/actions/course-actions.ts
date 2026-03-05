@@ -21,9 +21,12 @@ export async function publishCourseAction(formData: FormData) {
     const level = formData.get("level") as string;
     const videoId = formData.get("videoId") as string;
     
-    // Captura dos campos do Certificado e Instrutores
+    // Captura dos campos das sanfonas anteriores
     const certificateTemplate = formData.get("certificateTemplate") as string || "1";
     const instructors = formData.getAll("instructors[]") as string[];
+
+    // A-1: A nova fiação dos Pré-requisitos
+    const prerequisites = formData.getAll("prerequisites[]") as string[];
 
     const whatYouWillLearn = (formData.getAll("whatYouWillLearn[]") as string[]).filter(item => item.trim() !== "");
     const moduleTitles = formData.getAll("moduleTitles[]") as string[];
@@ -42,15 +45,16 @@ export async function publishCourseAction(formData: FormData) {
     if (!courseId) throw new Error("ID do curso não fornecido.");
 
     // ==========================================
-    // 1. ATUALIZA DADOS MESTRES (Agora com as novas colunas)
+    // 1. ATUALIZA DADOS MESTRES
     // ==========================================
     await prisma.course.update({
         where: { id: courseId },
         data: {
             title, slug, description, level, price, discountPrice,
             whatYouWillLearn, 
-            instructors, // ✅ Fiação ligada!
-            certificateTemplate, // ✅ Fiação ligada!
+            instructors, 
+            certificateTemplate, 
+            prerequisites, // A-2: Fiação ligada no banco!
             videoId: getYouTubeID(videoId) || null,
             ...(thumbnailUrl && { thumbnail: thumbnailUrl })
         }
@@ -62,23 +66,20 @@ export async function publishCourseAction(formData: FormData) {
     const attachmentFiles = formData.getAll("attachments[]") as File[];
 
     if (attachmentFiles && attachmentFiles.length > 0) {
-        // Limpamos os antigos do banco nesta edição para evitar duplicatas
         await prisma.attachment.deleteMany({ where: { courseId } });
 
         for (const file of attachmentFiles) {
             if (file.size > 0) {
-                // Sobe o PDF/Planilha para a nuvem da Vercel
                 const blob = await put(`attachments/${file.name}`, file, {
                     access: 'public',
-                    addRandomSuffix: true // Evita que arquivos com mesmo nome deem conflito
+                    addRandomSuffix: true
                 });
 
-                // Salva o "recibo" (dados e URL) na nova tabela do banco
                 await prisma.attachment.create({
                     data: {
                         name: file.name,
                         url: blob.url,
-                        size: file.size / (1024 * 1024), // Converte bytes para MB
+                        size: file.size / (1024 * 1024),
                         courseId: courseId
                     }
                 });

@@ -47,6 +47,9 @@ model Course {
   instructors         String[] @default([])
   certificateTemplate String?  @default("1")
 
+  // 🎯 F09 - PRÉ-REQUISITOS (A nova gaveta!)
+  prerequisites       String[] @default([])
+
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   
@@ -63,9 +66,9 @@ model Course {
 // 📎 A NOVA GAVETA DE ANEXOS (Para os PDFs, Planilhas, etc)
 model Attachment {
   id        String   @id @default(cuid())
-  name      String   // Nome original do arquivo (ex: Gincana.pdf)
-  url       String   // O link real gerado pelo Vercel Blob
-  size      Float?   // Tamanho em MB para mostrar na interface
+  name      String   
+  url       String   
+  size      Float?   
   
   courseId  String
   course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
@@ -99,7 +102,6 @@ model Lesson {
   slug        String
   videoUrl    String
   
-  // 🚀 F06 NÍVEL 4: O "PULO DO GATO" - Campo para o Texto da Aula
   description String?  @db.Text 
   
   duration    String?
