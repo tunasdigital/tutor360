@@ -3,19 +3,15 @@
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-<<<<<<< HEAD
 import { put } from "@vercel/blob"; 
 
+// Extrator de ID vitorioso (para o player funcionar)
 const getYouTubeID = (url: string) => {
     if (!url) return "";
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
     return (match && match[2].length === 11) ? match[2] : url;
 };
-=======
-<<<<<<< HEAD
-import { put } from "@vercel/blob";
->>>>>>> af7e357 (Config Acordeon - 04 - Certificados Ok)
 
 export async function publishCourseAction(formData: FormData) {
     const courseId = formData.get("courseId") as string;
@@ -25,8 +21,8 @@ export async function publishCourseAction(formData: FormData) {
     const level = formData.get("level") as string;
     const videoId = formData.get("videoId") as string;
     
-    // A-1: Captura dos novos campos das abas de mockup
-    const certificateTemplate = formData.get("certificateTemplate") as string || "template-1";
+    // Captura dos campos do Certificado e Instrutores
+    const certificateTemplate = formData.get("certificateTemplate") as string || "1";
     const instructors = formData.getAll("instructors[]") as string[];
 
     const whatYouWillLearn = (formData.getAll("whatYouWillLearn[]") as string[]).filter(item => item.trim() !== "");
@@ -43,63 +39,56 @@ export async function publishCourseAction(formData: FormData) {
         thumbnailUrl = blob.url; 
     }
 
-<<<<<<< HEAD
-=======
-    // 🚀 O REDIRECIONAMENTO PARA O PAINEL DE COMANDO
-    // Este comando te leva exatamente para a página do seu print "image_af1375.jpg"
-=======
-import { put } from "@vercel/blob"; 
-
-const getYouTubeID = (url: string) => {
-    if (!url) return "";
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : url;
-};
-
-export async function publishCourseAction(formData: FormData) {
-    const courseId = formData.get("courseId") as string;
-    const title = formData.get("title") as string;
-    const slug = formData.get("slug") as string;
-    const description = formData.get("description") as string;
-    const level = formData.get("level") as string;
-    const videoId = formData.get("videoId") as string;
-    
-    // A-1: Captura dos novos campos das abas de mockup
-    const certificateTemplate = formData.get("certificateTemplate") as string || "template-1";
-    const instructors = formData.getAll("instructors[]") as string[];
-
-    const whatYouWillLearn = (formData.getAll("whatYouWillLearn[]") as string[]).filter(item => item.trim() !== "");
-    const moduleTitles = formData.getAll("moduleTitles[]") as string[];
-
-    const price = parseFloat(formData.get("price") as string) || 0;
-    const discountPrice = parseFloat(formData.get("discountPrice") as string) || 0;
-
-    const thumbnailFile = formData.get("thumbnail") as File;
-    let thumbnailUrl = undefined; 
-
-    if (thumbnailFile && thumbnailFile.size > 0) {
-        const blob = await put(thumbnailFile.name, thumbnailFile, { access: 'public' });
-        thumbnailUrl = blob.url; 
-    }
-
->>>>>>> af7e357 (Config Acordeon - 04 - Certificados Ok)
     if (!courseId) throw new Error("ID do curso não fornecido.");
 
-    // 1. ATUALIZA CURSO (A-2: Agora com Certificado e Instrutores)
+    // ==========================================
+    // 1. ATUALIZA DADOS MESTRES (Agora com as novas colunas)
+    // ==========================================
     await prisma.course.update({
         where: { id: courseId },
         data: {
             title, slug, description, level, price, discountPrice,
             whatYouWillLearn, 
-            instructors, // Salva os instrutores selecionados
-            certificateTemplate, // Salva o modelo do certificado
+            instructors, // ✅ Fiação ligada!
+            certificateTemplate, // ✅ Fiação ligada!
             videoId: getYouTubeID(videoId) || null,
             ...(thumbnailUrl && { thumbnail: thumbnailUrl })
         }
     });
 
-    // 2. ⚡ SINCRONIZADOR DE MÓDULOS E AULAS (Mantido Integralmente - A-3)
+    // ==========================================
+    // 📎 2. GESTÃO DE ANEXOS (UPLOAD PARA VERCEL BLOB)
+    // ==========================================
+    const attachmentFiles = formData.getAll("attachments[]") as File[];
+
+    if (attachmentFiles && attachmentFiles.length > 0) {
+        // Limpamos os antigos do banco nesta edição para evitar duplicatas
+        await prisma.attachment.deleteMany({ where: { courseId } });
+
+        for (const file of attachmentFiles) {
+            if (file.size > 0) {
+                // Sobe o PDF/Planilha para a nuvem da Vercel
+                const blob = await put(`attachments/${file.name}`, file, {
+                    access: 'public',
+                    addRandomSuffix: true // Evita que arquivos com mesmo nome deem conflito
+                });
+
+                // Salva o "recibo" (dados e URL) na nova tabela do banco
+                await prisma.attachment.create({
+                    data: {
+                        name: file.name,
+                        url: blob.url,
+                        size: file.size / (1024 * 1024), // Converte bytes para MB
+                        courseId: courseId
+                    }
+                });
+            }
+        }
+    }
+
+    // ==========================================
+    // ⚡ 3. SINCRONIZAÇÃO DE MÓDULOS E AULAS
+    // ==========================================
     await prisma.module.deleteMany({ where: { courseId } });
 
     for (let i = 0; i < moduleTitles.length; i++) {
@@ -107,11 +96,7 @@ export async function publishCourseAction(formData: FormData) {
         if (!mTitle) continue;
 
         const createdModule = await prisma.module.create({
-            data: {
-                title: mTitle,
-                order: i,
-                courseId: courseId
-            }
+            data: { title: mTitle, order: i, courseId: courseId }
         });
 
         const lessonTitles = formData.getAll(`lessonTitles_${i}[]`) as string[];
@@ -120,16 +105,12 @@ export async function publishCourseAction(formData: FormData) {
 
         if (lessonTitles.length > 0) {
             await Promise.all(lessonTitles.map((lTitle, lIndex) => {
-                const vUrlRaw = lessonVideos[lIndex] || "";
-                const lDesc = lessonDescriptions[lIndex] || "";
-                
                 if (!lTitle.trim()) return null;
-
                 return prisma.lesson.create({
                     data: {
                         title: lTitle,
-                        videoUrl: getYouTubeID(vUrlRaw),
-                        description: lDesc,
+                        videoUrl: getYouTubeID(lessonVideos[lIndex] || ""),
+                        description: lessonDescriptions[lIndex] || "",
                         slug: `${slug}-m${i}-l${lIndex}`,
                         order: lIndex,
                         courseId: courseId,
@@ -141,10 +122,6 @@ export async function publishCourseAction(formData: FormData) {
     }
 
     revalidatePath("/dashboard/admin-all-courses");
-    revalidatePath(`/dashboard/create-new-course`); 
-<<<<<<< HEAD
-=======
->>>>>>> b9550a5 (Config Acordeon - 04 - Certificados  - Ok)
->>>>>>> af7e357 (Config Acordeon - 04 - Certificados Ok)
+    revalidatePath(`/dashboard/create-new-course`);
     redirect("/dashboard/admin-all-courses");
 }

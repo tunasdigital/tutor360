@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // A-1: 🚀 A CHAVE DA PORTA: Libera o upload de arquivos pesados via Action
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '50mb',
+    },
+  },
   images: {
     remotePatterns: [
       // 1. MANTIDO: Suas capas vindas do YouTube
@@ -14,7 +20,7 @@ const nextConfig = {
         hostname: '*.public.blob.vercel-storage.com',
         pathname: '/**', 
       },
-      // 3. ADICIONADO: Para curar o erro da página 07 (Fotos da migração)
+      // 3. MANTIDO: Para curar o erro da página 07 (Fotos da migração)
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',

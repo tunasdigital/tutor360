@@ -43,6 +43,10 @@ model Course {
   // 🚀 F04 - REPETIDOR DE APRENDIZADO
   whatYouWillLearn String[] @default([]) 
 
+  // 👨‍🏫 F07 - INSTRUTORES E CERTIFICADO
+  instructors         String[] @default([])
+  certificateTemplate String?  @default("1")
+
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   
@@ -50,7 +54,25 @@ model Course {
   modules       Module[]  
   lessons       Lesson[]  
 
+  // 📎 F08 - ANEXOS E MATERIAIS COMPLEMENTARES
+  attachments   Attachment[]
+
   @@map("courses")
+}
+
+// 📎 A NOVA GAVETA DE ANEXOS (Para os PDFs, Planilhas, etc)
+model Attachment {
+  id        String   @id @default(cuid())
+  name      String   // Nome original do arquivo (ex: Gincana.pdf)
+  url       String   // O link real gerado pelo Vercel Blob
+  size      Float?   // Tamanho em MB para mostrar na interface
+  
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+
+  @@map("attachments")
 }
 
 // 📦 F06: A NOVA GAVETA INTERMEDIÁRIA (Módulos/Seções)

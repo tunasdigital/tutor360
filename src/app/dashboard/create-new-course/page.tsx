@@ -38,7 +38,9 @@ export default async function CreateNewCoursePage(props: PageProps) {
         lessons: {
           where: { moduleId: null },
           orderBy: { order: 'asc' }
-        }
+        },
+        // A-1: A Luz do Frontend! Busca os arquivos que subiram pro Vercel Blob
+        attachments: true 
       }
     });
   }
