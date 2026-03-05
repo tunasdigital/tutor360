@@ -1,12 +1,12 @@
 'use client';
 import { useState, useEffect } from "react";
-import { PlusFiveSvg } from "@/components/svg";
+import TutorRichEditor from "./tutor-rich-editor";
 
 type Lesson = {
     id: string;
     title: string;
     videoUrl: string;
-    description: string; // 🚀 NOVO: Campo de Texto/Descrição da Aula
+    description: string;
 };
 
 type Module = {
@@ -33,14 +33,13 @@ export default function CourseBuilderArea({ courseToEdit }: IProps) {
                     id: l.id,
                     title: l.title,
                     videoUrl: l.videoUrl || "",
-                    description: l.description || "" // Carrega a descrição do banco
+                    description: l.description || "" 
                 })) || []
             }));
             setModules(loadedModules);
         }
     }, [courseToEdit]);
 
-    // --- GESTÃO DE MÓDULOS ---
     const handleSaveModule = () => {
         if (newModuleTitle.trim() === "") return;
         setModules([...modules, { id: Date.now().toString(), title: newModuleTitle, lessons: [] }]);
@@ -52,7 +51,6 @@ export default function CourseBuilderArea({ courseToEdit }: IProps) {
         setModules(modules.filter(m => m.id !== idToRemove));
     };
 
-    // --- 🎥 GESTÃO DE AULAS MULTIMODAIS ---
     const handleAddLesson = (moduleId: string) => {
         const updatedModules = modules.map(mod => {
             if (mod.id === moduleId) {
@@ -93,17 +91,14 @@ export default function CourseBuilderArea({ courseToEdit }: IProps) {
         <div className="accordion-item mb-20">
             <h2 className="accordion-header">
                 <button className="accordion-button collapsed tpd-new-course-heading-title" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree">
-                    5. Grade Curricular (Construtor Multimodal)
+                    5. Grade Curricular (Editor Rico Ativado)
                 </button>
             </h2>
             <div id="panelsStayOpen-collapseThree" className="accordion-collapse collapse show">
                 <div className="accordion-body">
-                    
                     <div className="mb-30">
                         {modules.map((mod, modIndex) => (
                             <div key={mod.id} className="p-4 mb-20" style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px' }}>
-                                
-                                {/* CABEÇALHO DO MÓDULO */}
                                 <div className="d-flex justify-content-between align-items-center mb-20">
                                     <span style={{ fontWeight: '700', color: '#1E293B', fontSize: '16px' }}>
                                         📦 Módulo {modIndex + 1}: {mod.title}
@@ -114,12 +109,10 @@ export default function CourseBuilderArea({ courseToEdit }: IProps) {
                                     </button>
                                 </div>
 
-                                {/* 🎥 LISTA DE AULAS */}
                                 <div className="ml-20 pl-20" style={{ borderLeft: '2px solid #E2E8F0' }}>
                                     {mod.lessons.map((les, lesIndex) => (
                                         <div key={les.id} className="bg-white p-4 mb-15 rounded shadow-sm border">
                                             <div className="row g-3">
-                                                {/* Título e Vídeo */}
                                                 <div className="col-md-6">
                                                     <label style={{ fontSize: '12px', fontWeight: '600', color: '#64748B' }}>Título da Aula</label>
                                                     <input 
@@ -148,31 +141,18 @@ export default function CourseBuilderArea({ courseToEdit }: IProps) {
                                                     </button>
                                                 </div>
 
-                                                {/* 🚀 NOVO: CAMPO DE TEXTO DA AULA */}
+                                                {/* A-2: O NOVO EDITOR RICO AQUI */}
                                                 <div className="col-12 mt-10">
-                                                    <label style={{ fontSize: '12px', fontWeight: '600', color: '#64748B' }}>Texto de Apoio / Descrição da Aula</label>
-                                                    <textarea 
-                                                        name={`lessonDescriptions_${modIndex}[]`}
-                                                        className="form-control"
-                                                        rows={3}
-                                                        value={les.description}
-                                                        onChange={(e) => handleLessonChange(mod.id, les.id, 'description', e.target.value)}
-                                                        placeholder="Escreva aqui os pontos principais, links externos ou o resumo da aula..."
-                                                        style={{ fontSize: '14px' }}
+                                                    <label style={{ fontSize: '12px', fontWeight: '600', color: '#64748B' }}>Conteúdo da Aula (Texto e Imagens)</label>
+                                                    <TutorRichEditor 
+                                                        fieldName={`lessonDescriptions_${modIndex}[]`}
+                                                        content={les.description}
+                                                        onChange={(html) => handleLessonChange(mod.id, les.id, 'description', html)}
                                                     />
-                                                </div>
-
-                                                {/* NOTA SOBRE ANEXOS GLOBAIS */}
-                                                <div className="col-12">
-                                                    <p className="mb-0" style={{ fontSize: '11px', color: '#94A3B8' }}>
-                                                        <i className="fa-regular fa-paperclip mr-5"></i> 
-                                                        Anexos de arquivos podem ser gerenciados na sanfona "Materiais Complementares" abaixo para organização centralizada.
-                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
                                     ))}
-                                    
                                     <button type="button" onClick={() => handleAddLesson(mod.id)} className="mt-10" style={{ color: '#1D4ED8', background: 'none', border: 'none', fontSize: '14px', fontWeight: '600' }}>
                                         + Adicionar Aula ao Módulo
                                     </button>
@@ -181,7 +161,6 @@ export default function CourseBuilderArea({ courseToEdit }: IProps) {
                         ))}
                     </div>
 
-                    {/* BOTÃO ADICIONAR MÓDULO */}
                     {isAddingModule ? (
                         <div className="p-4" style={{ backgroundColor: '#EEF4FF', border: '1px dashed #1D4ED8', borderRadius: '8px' }}>
                             <input 

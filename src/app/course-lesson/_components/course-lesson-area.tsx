@@ -1,176 +1,133 @@
+'use client';
+
 import Link from "next/link";
-import Image from "next/image";
-import { CloseThreeSvg, DocumentTwo, NextArrowFive, PrevArrowFive, PrevArrowTwo, QuestionTwoSvg, VideoPlayerFourSvg } from "@/components/svg";
-import learning_bg from '@/assets/img/dashboard/bg/learning-bg.jpg';
+import { CloseThreeSvg, NextArrowFive, PrevArrowFive, PrevArrowTwo, VideoPlayerFourSvg } from "@/components/svg";
+import { useState, useMemo } from "react";
 
-// learning data
-const learningData = [
-    {
-        title: "Getting Started",
-        progress: "3/3",
-        lessons: [
-            { type: "document", title: "History of Design", time: "", completed: true },
-            { type: "video", title: "History of Design", time: "00:14", completed: false },
-            { type: "question", title: "History of Design", time: "", completed: false }
-        ]
-    },
-    {
-        title: "Design History",
-        progress: "2/3",
-        lessons: [
-            { type: "document", title: "Introduction to Design", time: "", completed: true },
-            { type: "video", title: "Design Overview", time: "00:20", completed: false },
-            { type: "question", title: "Quiz on Design", time: "", completed: false }
-        ]
-    },
-    {
-        title: "Typography Basics",
-        progress: "2/3",
-        lessons: [
-            { type: "document", title: "Introduction to Typography", time: "", completed: true },
-            { type: "video", title: "Typography Concepts", time: "00:25", completed: false },
-            { type: "question", title: "Typography Quiz", time: "", completed: false }
-        ]
-    },
-    {
-        title: "Color Theory",
-        progress: "3/3",
-        lessons: [
-            { type: "document", title: "Understanding Color", time: "", completed: true },
-            { type: "video", title: "Color Combinations", time: "00:18", completed: false },
-            { type: "question", title: "Color Theory Quiz", time: "", completed: true }
-        ]
-    },
-    {
-        title: "Design Principles",
-        progress: "1/2",
-        lessons: [
-            { type: "document", title: "Principles of Design", time: "", completed: true },
-            { type: "video", title: "Applying Design Principles", time: "00:30", completed: false }
-        ]
-    },
-    {
-        title: "User Interface Design",
-        progress: "2/3",
-        lessons: [
-            { type: "document", title: "UI Design Basics", time: "", completed: true },
-            { type: "video", title: "UI Components", time: "00:22", completed: false },
-            { type: "question", title: "UI Design Quiz", time: "", completed: false }
-        ]
-    },
-    {
-        title: "Responsive Design",
-        progress: "2/2",
-        lessons: [
-            { type: "document", title: "Introduction to Responsive Design", time: "", completed: true },
-            { type: "video", title: "Creating Responsive Layouts", time: "00:28", completed: false }
-        ]
-    },
-    {
-        title: "Advanced Design Techniques",
-        progress: "1/2",
-        lessons: [
-            { type: "document", title: "Design Optimization", time: "", completed: true },
-            { type: "video", title: "Advanced Design Strategies", time: "00:35", completed: false }
-        ]
-    }
-];
+interface IProps {
+    course: any;
+}
 
-export default function CourseLessonArea() {
-  return (
-    <div className="tpd-dashboard-wrap-bg" style={{ backgroundImage: "url(/assets/img/dashboard/bg/dashboard-bg-shape-1.jpg)" }}>
-    <div className="tpd-continue-learning-wrapper">
-        <div className="tpd-continue-learning-sidebar">
-            <div className="tpd-continue-learning-accordion">
-                <div className="accordion" id="accordionExample">
-                    {learningData.map((section, index) => (
-                        <div className="accordion-item" key={index}>
-                            <h2 className="accordion-header" id={`heading${index}`}>
-                                <button className={`accordion-button ${index === 0 ? "" : "collapsed"}`} type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded="true" aria-controls={`collapse${index}`}>
-                                    {section.title}
-                                    <span>{section.progress}</span>
-                                </button>
-                            </h2>
-                            <div id={`collapse${index}`} className={`accordion-collapse collapse ${index === 0 ? "show" : ""}`} aria-labelledby={`heading${index}`} data-bs-parent="#accordionExample">
-                                <div className="tpd-continue-learning-body">
-                                    <div className="tpd-continue-learning-body-item">
-                                        {section.lessons.map((lesson, lessonIndex) => (
-                                            <a href="#" className={lesson.completed ? "active" : ""} key={lessonIndex}>
-                                                <p>
-                                                    <span>
-                                                        {lesson.type === "document" && <DocumentTwo />}
-                                                        {lesson.type === "video" && <VideoPlayerFourSvg />}
-                                                        {lesson.type === "question" && <QuestionTwoSvg />}
-                                                    </span>
-                                                    {lesson.title}
-                                                </p>
-                                                {lesson.time && (
-                                                    <div className="time">
-                                                        <p>{lesson.time}</p>
-                                                        <i className="fa-solid fa-circle-check"></i>
-                                                    </div>
-                                                )}
-                                                {lesson.completed && <i className="fa-solid fa-circle-check"></i>}
-                                            </a>
-                                        ))}
+export default function CourseLessonArea({ course }: IProps) {
+    // 🚀 A-1: Cria uma fila única de todas as aulas para navegação linear
+    const allLessons = useMemo(() => {
+        if (!course?.modules) return [];
+        return course.modules.flatMap((module: any) => module.lessons || []);
+    }, [course]);
+
+    const [activeLesson, setActiveLesson] = useState<any>(allLessons[0] || null);
+
+    if (!course) return <div className="p-5 text-center">Curso não encontrado.</div>;
+
+    const currentVideoId = activeLesson?.videoUrl || course.videoId;
+    const currentTitle = activeLesson?.title || "Introdução ao Curso";
+    const currentDescription = activeLesson?.description || course.description;
+
+    // 🚀 A-2: Lógica de Salto (Próxima / Anterior)
+    const currentIndex = allLessons.findIndex((l: any) => l.id === activeLesson?.id);
+    
+    const goToNext = () => {
+        if (currentIndex < allLessons.length - 1) {
+            setActiveLesson(allLessons[currentIndex + 1]);
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // Sobe a página para o novo vídeo
+        }
+    };
+
+    const goToPrev = () => {
+        if (currentIndex > 0) {
+            setActiveLesson(allLessons[currentIndex - 1]);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
+
+    return (
+        <div className="tpd-dashboard-wrap-bg" style={{ backgroundImage: "url(/assets/img/dashboard/bg/dashboard-bg-shape-1.jpg)" }}>
+            <div className="tpd-continue-learning-wrapper">
+                {/* SIDEBAR MANTIDA */}
+                <div className="tpd-continue-learning-sidebar">
+                    <div className="tpd-continue-learning-accordion">
+                        <div className="accordion" id="accordionExample">
+                            {course.modules?.map((module: any, index: number) => (
+                                <div className="accordion-item" key={module.id}>
+                                    <h2 className="accordion-header" id={`heading${index}`}>
+                                        <button className={`accordion-button ${index === 0 ? "" : "collapsed"}`} type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`}>
+                                            {module.title} <span>{module.lessons?.length || 0} aulas</span>
+                                        </button>
+                                    </h2>
+                                    <div id={`collapse${index}`} className={`accordion-collapse collapse ${index === 0 ? "show" : ""}`} data-bs-parent="#accordionExample">
+                                        <div className="tpd-continue-learning-body">
+                                            <div className="tpd-continue-learning-body-item">
+                                                {module.lessons?.map((lesson: any) => (
+                                                    <button 
+                                                        key={lesson.id} 
+                                                        onClick={() => setActiveLesson(lesson)} 
+                                                        className={`w-100 border-0 bg-transparent text-start d-flex justify-content-between align-items-center p-2 ${activeLesson?.id === lesson.id ? "active" : ""}`}
+                                                    >
+                                                        <p className="m-0"><span><VideoPlayerFourSvg /></span>{lesson.title}</p>
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            ))}
                         </div>
-                    ))}
+                    </div>
+                </div>
+
+                <div className="tpd-continue-learning-main">
+                    <div className="tpd-continue-learning-popup d-flex justify-content-between align-items-center">
+                        <div className="tpd-continue-learning-popup-main d-flex align-items-center">
+                            <Link href="/dashboard/my-courses"><span className="close"><PrevArrowTwo cls="svg-1" /></span></Link>
+                            <p>{course.title}</p>
+                        </div>
+                        <div className="tpd-continue-learning-popup-main d-flex align-items-center">
+                            <p>Agora: {currentTitle}</p>
+                            <Link href="/dashboard/my-courses"><span className="crose"><CloseThreeSvg /></span></Link>
+                        </div>
+                    </div>
+
+                    <div className="tpd-continue-learning-about-bg">
+                        <div className="tpd-continue-learning-about-thumb mb-45" style={{ position: 'relative', paddingTop: '56.25%', backgroundColor: '#000', borderRadius: '12px', overflow: 'hidden' }}>
+                            {currentVideoId ? (
+                                <iframe style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} src={`https://www.youtube.com/embed/${currentVideoId}?rel=0&autoplay=1`} title={currentTitle} frameBorder="0" allowFullScreen></iframe>
+                            ) : (
+                                <div className="p-5 text-white text-center" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>Vídeo não configurado.</div>
+                            )}
+                        </div>
+
+                        <div className="tpd-continue-learning-about-wrapper">
+                            <h4>{activeLesson ? "Sobre a Aula" : "Sobre o Curso"}</h4>
+                            <div 
+                                className="tutor-html-content"
+                                dangerouslySetInnerHTML={{ __html: currentDescription || "" }}
+                                style={{ lineHeight: '1.6', fontSize: '15px', color: '#475569', marginTop: '15px' }}
+                            />
+                        </div>
+
+                        {/* A-3: 🎮 BOTÕES DE NAVEGAÇÃO ATIVADOS */}
+                        <div className="tpd-continue-learning-about-btn d-flex justify-content-center gap-3 mt-40">
+                            <button 
+                                onClick={goToPrev}
+                                disabled={currentIndex <= 0}
+                                className="btn btn-outline-primary d-flex align-items-center gap-2"
+                                style={{ padding: '12px 25px', borderRadius: '8px', fontWeight: '600', opacity: currentIndex <= 0 ? 0.5 : 1 }}
+                            >
+                                <span><PrevArrowFive /></span> Anterior
+                            </button>
+                            
+                            <button 
+                                onClick={goToNext}
+                                disabled={currentIndex >= allLessons.length - 1}
+                                className="btn btn-primary d-flex align-items-center gap-2 text-white"
+                                style={{ padding: '12px 25px', borderRadius: '8px', fontWeight: '600', opacity: currentIndex >= allLessons.length - 1 ? 0.5 : 1 }}
+                            >
+                                Próxima <span><NextArrowFive /></span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div className="tpd-continue-learning-main">
-            <div className="tpd-continue-learning-popup d-flex justify-content-between align-items-center">
-                <div className="tpd-continue-learning-popup-main d-flex align-items-center">
-                    <a href="#">
-                        <span className="close">
-                            <PrevArrowTwo cls="svg-1" />
-                        </span>
-                    </a>
-                    <p>Interior design concepts Masterclass</p>
-                </div>
-                <div className="tpd-continue-learning-popup-main d-flex align-items-center">
-                    <p>Your Progress: 8 of 10 (80%)</p>
-                    <Link href="/course-details/1">
-                        <span className="crose">
-                            <CloseThreeSvg />
-                        </span>
-                    </Link>
-                </div>
-            </div>
-
-            <div className="tpd-continue-learning-about-bg">
-                <div className="tpd-continue-learning-about-thumb mb-45">
-                    <Image src={learning_bg} alt="Lesson background" style={{height:"auto"}} />
-                </div>
-                <div className="tpd-continue-learning-about-wrapper">
-                    <h4>About Lesson</h4>
-                    <p>The five main components of language are phonemes, morphemes, lexemes, syntax, and context.</p>
-                </div>
-                <div className="tpd-continue-learning-about-btn d-flex justify-content-center">
-                    <div className="prv">
-                        <a href="#">
-                            <span>
-                                <PrevArrowFive />
-                            </span>{" "}
-                            Previous
-                        </a>
-                    </div>
-                    <div className="next">
-                        <a href="#">
-                            Next{" "}
-                            <span>
-                                <NextArrowFive />
-                            </span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-  )
+    );
 }
