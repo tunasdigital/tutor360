@@ -5,9 +5,6 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { put } from "@vercel/blob"; 
 
-/**
- * 🚀 EXTRATOR DE ID (Blindagem F05/F06)
- */
 const getYouTubeID = (url: string) => {
     if (!url) return "";
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
@@ -22,6 +19,10 @@ export async function publishCourseAction(formData: FormData) {
     const description = formData.get("description") as string;
     const level = formData.get("level") as string;
     const videoId = formData.get("videoId") as string;
+    
+    // A-1: Captura dos novos campos das abas de mockup
+    const certificateTemplate = formData.get("certificateTemplate") as string || "template-1";
+    const instructors = formData.getAll("instructors[]") as string[];
 
     const whatYouWillLearn = (formData.getAll("whatYouWillLearn[]") as string[]).filter(item => item.trim() !== "");
     const moduleTitles = formData.getAll("moduleTitles[]") as string[];
@@ -39,17 +40,20 @@ export async function publishCourseAction(formData: FormData) {
 
     if (!courseId) throw new Error("ID do curso não fornecido.");
 
-    // 1. ATUALIZA CURSO
+    // 1. ATUALIZA CURSO (A-2: Agora com Certificado e Instrutores)
     await prisma.course.update({
         where: { id: courseId },
         data: {
             title, slug, description, level, price, discountPrice,
-            whatYouWillLearn, videoId: getYouTubeID(videoId) || null,
+            whatYouWillLearn, 
+            instructors, // Salva os instrutores selecionados
+            certificateTemplate, // Salva o modelo do certificado
+            videoId: getYouTubeID(videoId) || null,
             ...(thumbnailUrl && { thumbnail: thumbnailUrl })
         }
     });
 
-    // 2. ⚡ SINCRONIZADOR DE MÓDULOS E AULAS (Multimodal)
+    // 2. ⚡ SINCRONIZADOR DE MÓDULOS E AULAS (Mantido Integralmente - A-3)
     await prisma.module.deleteMany({ where: { courseId } });
 
     for (let i = 0; i < moduleTitles.length; i++) {
@@ -64,15 +68,14 @@ export async function publishCourseAction(formData: FormData) {
             }
         });
 
-        // 🎯 O PONTO DE FALHA ESTAVA AQUI:
         const lessonTitles = formData.getAll(`lessonTitles_${i}[]`) as string[];
         const lessonVideos = formData.getAll(`lessonVideos_${i}[]`) as string[];
-        const lessonDescriptions = formData.getAll(`lessonDescriptions_${i}[]`) as string[]; // 🚀 CAPTURA O TEXTO
+        const lessonDescriptions = formData.getAll(`lessonDescriptions_${i}[]`) as string[];
 
         if (lessonTitles.length > 0) {
             await Promise.all(lessonTitles.map((lTitle, lIndex) => {
                 const vUrlRaw = lessonVideos[lIndex] || "";
-                const lDesc = lessonDescriptions[lIndex] || ""; // 🚀 PEGA A DESCRIÇÃO DA AULA
+                const lDesc = lessonDescriptions[lIndex] || "";
                 
                 if (!lTitle.trim()) return null;
 
@@ -80,7 +83,7 @@ export async function publishCourseAction(formData: FormData) {
                     data: {
                         title: lTitle,
                         videoUrl: getYouTubeID(vUrlRaw),
-                        description: lDesc, // 🚀 SALVA NO BANCO (Campo que criamos no Schema)
+                        description: lDesc,
                         slug: `${slug}-m${i}-l${lIndex}`,
                         order: lIndex,
                         courseId: courseId,
@@ -93,25 +96,5 @@ export async function publishCourseAction(formData: FormData) {
 
     revalidatePath("/dashboard/admin-all-courses");
     revalidatePath(`/dashboard/create-new-course`); 
-
     redirect("/dashboard/admin-all-courses");
-}
-
-/**
- * 🎯 BUSCA CURSOS
- */
-export async function getValidCoursesAction() {
-    try {
-        return await prisma.course.findMany({
-            where: {
-                AND: [
-                    { title: { notContains: "Breve" } },
-                    { title: { notContains: "Em breve" } },
-                ],
-            },
-            orderBy: { id: 'asc' },
-        });
-    } catch (error) {
-        return [];
-    }
 }

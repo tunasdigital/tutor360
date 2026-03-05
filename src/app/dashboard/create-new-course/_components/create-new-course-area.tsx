@@ -1,6 +1,6 @@
 'use client';
 
-import CourseAdditionalInfo from "./course-additional-info";
+import { useState, useTransition, useEffect } from "react";
 import CourseAttachment from "./course-attachment";
 import CourseBuilderArea from "./course-builder-area";
 import CourseCertificate from "./course-certificate";
@@ -9,84 +9,101 @@ import CourseInstructor from "./course-instructor";
 import CoursePrerequisites from "./course-prerequisites";
 import { publishCourseAction } from "@/actions/course-actions";
 
-const listData = [
-    "Configure a opção de Preço do Curso ou defina-o como gratuito.",
-    "O tamanho padrão para a miniatura (thumbnail) do curso é 700x430 pixels.",
-    "A seção de Vídeo controla o vídeo de apresentação (pitch) do curso.",
-    "O Construtor de Cursos é onde você cria e organiza toda a estrutura do conteúdo.",
-    "Adicione Tópicos no Construtor para criar aulas em vídeo, quizzes e tarefas.",
-];
-
 type IProps = {
     courseToEdit?: any; 
 }
 
 export default function CreateNewCourseArea({ courseToEdit }: IProps) {
+    const courseId = courseToEdit?.id || "";
+    const [isPending, startTransition] = useTransition();
+
+    // A-3: Estado centralizado para a Grade Curricular (Aba 5)
+    const [curriculumData, setCurriculumData] = useState(courseToEdit?.modules || []);
+
+    useEffect(() => {
+        if (courseToEdit?.modules) {
+            setCurriculumData(courseToEdit.modules);
+        }
+    }, [courseToEdit]);
+
+    // A-1: Função de submissão vitoriosa
+    const handleFormSubmit = async (formData: FormData) => {
+        // Garante que os dados da grade entrem no envelope de envio
+        formData.append("curriculum", JSON.stringify(curriculumData));
+
+        startTransition(async () => {
+            try {
+                await publishCourseAction(formData);
+            } catch (err) {
+                console.error("Erro técnico na Action:", err);
+            }
+        });
+    };
+
     return (
         <main className="tp-dashboard-body-bg p-relative">
             <div className="tpd-dashboard-wrap-bg" style={{ backgroundImage: "url(/assets/img/dashboard/bg/dashboard-bg-shape-1.jpg)" }}>
+                
+                {/* O Formulário mestre recuperado da versão funcional */}
+                <form action={handleFormSubmit} id="course-publish-form">
+                    <input type="hidden" name="courseId" value={courseId} />
+                    
+                    {/* Backup do dado para o servidor para garantir persistência da grade */}
+                    <input type="hidden" name="curriculum" value={JSON.stringify(curriculumData)} />
 
-                <section className="tpd-new-course-area pt-80 pb-120">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-8">
-                                <div className="tpd-new-course-wrap">
-                                    <div className="tpd-new-course-box">
-
-                                        {/* FORMULÁRIO MESTRE */}
-                                        <form action={publishCourseAction} id="master-course-form">
+                    <section className="tpd-new-course-area pb-120 pt-80">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-lg-8">
+                                    <div className="tpd-new-course-wrap">
+                                        <div className="tpd-new-course-box">
                                             
-                                            {/* ID DO CURSO: Fundamental para a Action saber quem atualizar */}
-                                            <input type="hidden" name="courseId" value={courseToEdit?.id || ""} />
-
                                             <div className="accordion" id="accordionPanelsStayOpenExample">
-
-                                                {/* PONTE 1: Informações e Vídeo */}
+                                                {/* A-2: Todas as abas agora recebem os dados para deixarem de ser mockups */}
                                                 <CourseInfoArea courseToEdit={courseToEdit} />
+                                                
+                                                <CourseBuilderArea 
+                                                    courseToEdit={courseToEdit} 
+                                                    onCurriculumChange={(data: any) => setCurriculumData(data)} 
+                                                />
 
-                                                {/* 🚀 PONTE 2 (O ERRO PROVÁVEL ESTAVA AQUI): 
-                                                    O construtor precisa receber o courseToEdit para ler os módulos! */}
-                                                <CourseBuilderArea courseToEdit={courseToEdit} />
-
-                                                <CourseInstructor />
-                                                <CourseAttachment />
-                                                <CourseAdditionalInfo />
-                                                <CoursePrerequisites />
-                                                <CourseCertificate />
-
+                                                <CourseInstructor courseToEdit={courseToEdit} />
+                                                <CourseAttachment courseToEdit={courseToEdit} />
+                                                <CoursePrerequisites courseToEdit={courseToEdit} />
+                                                <CourseCertificate courseToEdit={courseToEdit} />
                                             </div>
 
-                                            {/* BOTÃO MESTRE */}
-                                            <div className="mt-40 text-center">
-                                                <button type="submit" className="tp-btn-13 w-100" style={{ height: '60px', fontSize: '18px' }}>
-                                                    Salvar e Atualizar Curso Completo
+                                            {/* Botão de Salvamento funcional integrado ao layout */}
+                                            <div className="mt-50 p-4 rounded-3 d-flex justify-content-between align-items-center" style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
+                                                <div>
+                                                    <h5 className="mb-1" style={{ fontWeight: '700' }}>Finalizar Configurações</h5>
+                                                    <p className="m-0 text-muted" style={{ fontSize: '13px' }}>
+                                                        Sincronizando todas as abas com o banco de dados.
+                                                    </p>
+                                                </div>
+                                                
+                                                <button 
+                                                    type="submit" 
+                                                    disabled={isPending}
+                                                    className="btn btn-primary px-5" 
+                                                    style={{ 
+                                                        height: '55px', fontSize: '16px', fontWeight: '700',
+                                                        backgroundColor: isPending ? '#94A3B8' : '#4F46E5',
+                                                        borderRadius: '10px', border: 'none', color: 'white'
+                                                    }}
+                                                >
+                                                    <i className={`fa-regular ${isPending ? 'fa-spinner fa-spin' : 'fa-cloud-arrow-up'} mr-10`}></i>
+                                                    {isPending ? "Salvando..." : "Salvar e Atualizar"}
                                                 </button>
-                                                <p className="mt-15" style={{ fontSize: '13px', color: '#64748B' }}>
-                                                    Use este botão para garantir que todos os dados do formulário sejam gravados no banco.
-                                                </p>
                                             </div>
 
-                                        </form>
-
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-4">
-                                <div className="tpd-course-enroll-list">
-                                    <h2 className="tp-dashboard-title">Dicas para Publicação</h2>
-                                    <ul>
-                                        {listData.map((tip, index) => (
-                                            <li key={index}>
-                                                <span>{index + 1}. </span>
-                                                {tip}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                </form>
             </div>
         </main>
     )
